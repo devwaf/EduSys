@@ -25,7 +25,7 @@ const { prop } = defineProps({
           {{ item.message }}
           <div class="class">{{ item.message }}</div>
           <div class="time">{{ item.creationTime }}</div>
-          <div class="correct">批改</div>
+          <div class="correct"> {{item.state}} </div>
           <div class="number">{{ item.count }}</div>
         </li>
        
