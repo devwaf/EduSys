@@ -1,0 +1,30 @@
+{
+  "name": "bq-admin-template",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.4",
+    "axios": "^0.27.2",
+    "element-plus": "^2.2.2",
+    "pdfjs-dist": "^2.14.305",
+    "pinia": "^2.0.14",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.38",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "esbuild-windows-64": "^0.14.42",
+    "sass": "^1.52.1",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9",
+    "vite-plugin-html": "^3.2.0",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue-tsc": "0.35.0"
+  }
+}

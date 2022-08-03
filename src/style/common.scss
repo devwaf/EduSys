@@ -1,0 +1,230 @@
+/*格式化样式*/
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+input {
+  border: 0;
+}
+input:focus {
+  outline: none;
+}
+// body,html{
+//   width: 100%;
+//   height: 100%;
+// }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset,
+img,
+button {
+  border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+ol,
+ul {
+  list-style: none;
+}
+caption,
+th {
+  text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+q:before,
+q:after {
+  content: "";
+}
+abbr,
+acronym {
+  border: 0;
+}
+
+.container {
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+/***********通用基本类2************/
+
+* {
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+  font-family: Arial, Verdana, Tahoma, "黑体", Helvetica, sans-serif;
+  line-height: 150%;
+}
+
+//==========设置body的基本样式===========
+
+body {
+  font-size: 14px;
+  text-align: center;
+  // color: #000000;
+  background-color: #e1e8e7;
+
+  background-repeat: repeat-x;
+}
+
+table {
+  border-collapse: collapse;
+}
+td {
+  padding: 3px;
+}
+
+//===========处理IE浏览器图片的默认border============
+img {
+  border: none;
+}
+input {
+  padding: 1px;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+//==========内容盒子设置基本样式=========
+.main-box {
+  margin-right: auto;
+  margin-left: auto;
+  width: 960px;
+  clear: both;
+  zoom: 1;
+  overflow: hidden;
+  background-color: #cccccc;
+}
+
+//===========单行超出隐藏（用省略号）==========
+
+/*单行溢出，超出部分显示...或者截取。前提必须有宽度*/
+
+.text-overflow-hidden {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+//===========多行超出隐藏（省略号）=============
+
+/*因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端；*/
+
+.text-overflow-hidden {
+  display: -webkit-box; /* 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 */
+  -webkit-orient: vertical; /*必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: bleak-word; /*word-wrap 属性允许长单词或 URL 地址换行到下一行。*/
+  -webkit-line-clamp: 3; /*用来限制在一个块元素显示的文本的行数。*/
+}
+
+//跨浏览器兼容的方案
+
+.text-overflow-hidden {
+  line-height: 1.2em;
+  height: 3.6em; /*超出n行省略号表示，那height必须为line-height的n倍*/
+  position: relative;
+  overflow: hidden;
+}
+
+/*用省略号背景图代表*/
+
+.text-overflow-hidden:after {
+  content: "···"; /*中文和英文这里的省略号有区别*/
+  font-weight: bold; /*超出n行省略号表示，那height必须为line-height的n倍*/
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  padding: 0 20px;
+}
+
+/*======万能Float清除浮动1======*/
+
+.clear:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clear {
+  display: inline-block;
+} /* for IE/Mac */
+
+/*======万能Float清除浮动2======*/
+
+.overflow-hidden {
+  overflow: hidden;
+} /*控制背景溢出*/
+.equal-height {
+  margin-bottom: -32800px;
+  padding-bottom: 32800px;
+} /*控制高度足够小*/
+
+/*======万能Float清除浮动3======*/
+
+.clear {
+  height: 0px;
+  clear: both;
+  font-size: 0px;
+  line-height: 0px;
+  zoom: 1;
+}
+
+/*css定义超链接四个状态也有顺序的。*/
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: #1f376d;
+}
+a:hover,
+a:active {
+  text-decoration: underline;
+  color: #bd0a01;
+  border: none;
+}
