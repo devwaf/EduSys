@@ -32,7 +32,7 @@ let taskFormData = reactive({
 let typeId = ref("")
 
 const publishedBtn = () => {
-	router.push({ name: "PublishedTask" })
+	router.push({ name: "Publishedtask" })
 }
 const courseChange = async (val: any) => {
 	taskFormData.type = ""

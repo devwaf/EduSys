@@ -20,26 +20,26 @@ export const showMenuByIsTeacher = () => {
 			"Home2",
 			"Course",
 			"Administration",
-			"CourseManagement",
+			"Coursemanagement",
 			"Outline",
-			"AddOutline",
-			"OutlineManagement",
-			"CourseDesign",
-			"OutlineConfig",
-			"CourseDesignConfig",
-			"CorrectionReplyForm",
-			"CDFormCenter",
-			// "CDPrint",
+			"Addoutline",
+			"Outlinemanagement",
+			"Coursedesign",
+			"Outlineconfig",
+			"Coursedesignconfig",
+			"Correctionreplyform",
+			"Cdformcenter",
+			// "Cdprint",
 			"Examination",
-			"ReleaseTask",
-			"PublishedTask",
-			"TaskCorrect",
-			"ETFormCenter",
-			// "ETPrint",
-			"GraduationDesign"
+			"Releasetask",
+			"Publishedtask",
+			"Taskcorrect",
+			"Etformcenter",
+			// "Etprint",
+			"Graduationdesign"
 		]
 	} else {
-		data = ["Home", "CurriculumDesign", "Curriculum", "Fill", "Graduation"]
+		data = ["Home", "Curriculumdesign", "Curriculum", "Fill", "Graduation"]
 	}
 	return data
 }
