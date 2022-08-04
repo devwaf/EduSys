@@ -56,7 +56,9 @@ defineExpose({ open, complete });
     </div>
     <div class="main">
       <div class="addClass" @click="addClass">
-        <i class="iconfont icon-tianxieicon"></i> <span>添加</span>
+        
+        <svg-icon  icon="add" class="add-icon"/>
+        <span>添加</span>
       </div>
       <div class="content">
         <div class="title">
@@ -102,9 +104,12 @@ defineExpose({ open, complete });
                 <div
                   class="del"
                   @click="del(item.id)"
-                  style="width: 60px; color: #EE5F66"
+                  style="width: 60px; color: #ee5f66"
                 >
-                  <i class="iconfont icon-tianxieicon"></i> <span>删除</span>
+                  <svg-icon icon="del" class="del-icon" />
+                
+                  
+                   <span>删除</span>
                 </div>
               </div>
             </li>
@@ -146,7 +151,15 @@ defineExpose({ open, complete });
     padding: 10px 15px;
     width: 100%;
     .addClass {
+      display: flex;
+      align-items: center;
       margin-bottom: 10px;
+      color:#646464;
+      .add-icon{
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+      }
     }
     .content {
       box-sizing: border-box;
@@ -195,8 +208,15 @@ defineExpose({ open, complete });
             margin-right: 10px;
           }
         }
-
+        .del-icon {
+          margin-right: 8px;
+          width: 16px;
+          height: 16px;
+        }
         .del {
+          display: flex;
+          align-items: center;
+
           cursor: pointer;
         }
       }
@@ -222,7 +242,7 @@ defineExpose({ open, complete });
     }
     input {
       text-align: center;
-      border: 1px solid #D8D8D8;
+      border: 1px solid #d8d8d8;
     }
   }
 }
