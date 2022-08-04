@@ -90,7 +90,9 @@ const del = (row: any) => {
       color: #2ebba3;
     }
     .del {
-      color: #ee5f66;
+      font-weight: 500;
+      font-size: 16px;
+      color: #EE5F66;
     }
     .sep {
       width: 20%;

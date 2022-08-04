@@ -137,6 +137,8 @@ const del = (id: any) => {
       color: #2ebba3;
     }
     .del {
+      font-size: 16px;
+      font-weight: 500;
       color: #ee5f66;
     }
     .sep {

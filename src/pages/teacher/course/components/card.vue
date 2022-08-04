@@ -102,7 +102,7 @@ defineExpose({ open, complete });
                 <div
                   class="del"
                   @click="del(item.id)"
-                  style="width: 60px; color: red"
+                  style="width: 60px; color: #EE5F66"
                 >
                   <i class="iconfont icon-tianxieicon"></i> <span>删除</span>
                 </div>
