@@ -5,6 +5,8 @@ import { ArrowDown } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
 import { useAccount } from "@/store/account.ts";
 import type { FormInstance } from "element-plus";
+import { log } from "console";
+import { el } from "element-plus/lib/locale";
 const account = useAccount();
 
 let router = useRouter();
@@ -18,6 +20,21 @@ const ruleFormRef = ref<FormInstance>();
 const register = () => {
   router.push({ name: "Register" });
 };
+
+const  hide=ref(true)
+const type=ref('')
+// 密码框
+const   hideHandler=()=>{
+hide.value=!hide.value
+console.log(hide.value,999999);
+// if(hide.value){
+//   console.log();
+  
+//   type.value=='password'
+// }else{
+//    type.value=='text'
+// }
+}
 const rules = reactive({
   phoneNum: [{ required: true, message: "请填写工号", trigger: "blur" }],
   identity: [
@@ -35,7 +52,7 @@ const rules = reactive({
     },
   ],
 });
-
+// 登录
 const loginHandler = () => {
   if (ruleFormRef.value == null) return;
   ruleFormRef.value.validate(async (valid) => {
@@ -124,9 +141,13 @@ loginkeyupHandler();
             <el-input
               v-model="form.password"
               placeholder="请输入您的密码"
-              show-password
+            class="password"
+            :type="hide?'password':'text'"
               @keyup.enter="loginkeyupHandler"
             />
+            <svg-icon @click="hideHandler" class="password-icon"  icon="exhibit" v-show="!hide"/>
+            
+            <svg-icon  @click="hideHandler" class="password-icon"  icon="hide" v-show="hide"/>
           </el-form-item>
           <el-form-item>
             <el-button style="margin-top: 30px" @click="loginHandler"
@@ -159,7 +180,6 @@ loginkeyupHandler();
   }
   .right {
     width: 664px;
- 
 
     background-color: #2ebba3;
     h1 {
@@ -171,11 +191,10 @@ loginkeyupHandler();
       color: #116052;
     }
     .login-box {
-     
       margin: 60px auto;
       width: 260px;
       height: 300px;
-     
+
       :deep(.el-form) {
         color: #606266;
         .el-radio__inner {
@@ -184,6 +203,15 @@ loginkeyupHandler();
           background: #ffffff;
           opacity: 0.4;
           border: 1px solid #116052;
+        }
+
+        .el-input--suffix {
+          .el-input__wrapper {
+        
+            .el-input__inner {
+              background-color: transparent !important;
+            }
+          }
         }
         .el-radio__inner::after {
           width: 10px;
@@ -194,15 +222,14 @@ loginkeyupHandler();
         .el-input__inner {
           width: 320px;
           background-color: transparent;
-        
         }
-      
+
         .el-radio__label {
           font-weight: 500;
           color: #116052;
           font-size: 20px;
         }
-       
+
         .el-form-item__label {
           width: 100px;
           line-height: 39px;
@@ -231,7 +258,16 @@ loginkeyupHandler();
         .el-form-item__content {
           min-width: 320px;
         }
+.password{
+  position: relative;
 
+}
+  .password-icon{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 20px;
+  }
         .el-button {
           width: 340px;
           height: 46px;
@@ -242,7 +278,7 @@ loginkeyupHandler();
           color: #116052;
         }
         .el-button:hover {
-          background: #44ffdf;
+        background: #44FFDF;
           opacity: 0.7;
         }
         .el-button:not(.is-text, .is-link, .el-button--text) {

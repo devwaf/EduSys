@@ -167,7 +167,7 @@ const releaseBtn = () => {
 		background: #479fec;
 		border-radius: 2px 2px 2px 2px;
 		text-align: center;
-		font-size: 16px;
+		font-size: 14px;
 		color: #fff;
 		cursor: pointer;
 	}

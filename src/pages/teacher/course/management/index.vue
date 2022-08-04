@@ -281,9 +281,9 @@ watch(
 .release {
   position: absolute;
   bottom: -50px;
-  // right: -0px;
   color: #fff;
   padding: 10px 30px;
+  font-size: 14px;
   background-color: #2ebba3;
 }
 .major {
@@ -297,6 +297,7 @@ watch(
     width: 100px;
     height: 35px;
     color: #fff;
+    font-size: 14px;
     text-align: center;
     background: #479fec;
   }

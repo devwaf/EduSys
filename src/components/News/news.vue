@@ -31,20 +31,7 @@ const { prop } = defineProps({
        
       </ul>
     </div>
-    <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-      <el-tab-pane label="作业" name="first">
-        
-      </el-tab-pane> -->
-    <!-- <el-tab-pane label="笔试/机试" name="second">
-        <div class="task">
-          <ul>
-            <li v-for="(item, index) in  prop.values" :key="index" @click="router.push(item.router)">
-              {{ item.message }}
-            </li>
-          </ul>
-        </div>
-      </el-tab-pane> -->
-    <!-- </el-tabs> -->
+    
     <div class="data">共{{ prop.values.length }}条通知</div>
   </div>
 </template>

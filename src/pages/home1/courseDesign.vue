@@ -268,11 +268,13 @@ const getSummaries = (param: SummaryMethodProps) => {
     justify-content: space-between;
     margin-right: 50px;
     margin-left: 10px;
+    font-size: 16px;
     > button {
       margin-left: 20px;
       width: 104px;
       height: 40px;
       background: #479fec;
+      font-size: 14px;
       color: #fff;
       border-radius: 2px 2px 2px 2px;
       opacity: 1;

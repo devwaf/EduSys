@@ -9,3 +9,9 @@
     display: block block;
     clear: both;
 }
+:deep(.el-button){
+    font-size: 14px;
+}
+button{
+    font-size: 14px;
+}
