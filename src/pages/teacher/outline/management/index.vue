@@ -26,7 +26,7 @@ const courseDesignOptions = [
 const editOutline = (row: any) => {
   console.log(row);
   router.push({
-    name: "AddOutline",
+    name: "Addoutline",
     params: { id: row },
   });
 };
@@ -35,7 +35,7 @@ const editOutline = (row: any) => {
 const editCourseDesign = (row: any) => {
   console.log(row);
   router.push({
-    name: "OutlineConfig",
+    name: "Outlineconfig",
     params: { id: row },
   });
 };

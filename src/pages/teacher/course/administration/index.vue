@@ -30,7 +30,7 @@ const Options1 = [
 const edit = (row: any) => {
   console.log(row);
   router.push({
-    name: "CourseManagement",
+    name: "Coursemanagement",
     params: { id: row },
   });
   coursemanagement.getId(row);
@@ -40,7 +40,7 @@ const edit = (row: any) => {
 const curriculumListEdit = (row: any) => {
   console.log(row);
   router.push({
-    name: "CourseDesignConfig",
+    name: "Coursedesignconfig",
     params: { id: row },
   });
   //  router.push(
