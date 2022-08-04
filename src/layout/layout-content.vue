@@ -26,7 +26,7 @@ const whiteList: Array<string | symbol> = [
 	"Examination",
 	"ReleaseTask",
 	"PublishedTask",
-	// "TaskCorrect",
+	"TaskCorrect",
 	"ETFormCenter",
 	"ETPrint",
 	"GraduationDesign"
