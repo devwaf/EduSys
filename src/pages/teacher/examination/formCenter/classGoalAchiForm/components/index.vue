@@ -288,16 +288,16 @@ const goPrint = () => {}
 				width: 100%;
 			}
 			:deep(.textarea) {
-				font-size: 16px;
-				.el-textarea__inner {
-					width: 100%;
-					height: 50px;
-					background: #ffffff;
-					border-radius: 0;
-				}
+				font-size: 14px;
 			}
 		}
 	}
+}
+:deep(.el-textarea__inner) {
+	width: 100%;
+	height: 50px;
+	background: #ffffff;
+	border-radius: 0;
 }
 .formCoreBtn {
 	margin: 20px;

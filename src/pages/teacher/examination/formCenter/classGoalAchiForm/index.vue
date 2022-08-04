@@ -78,7 +78,6 @@ const semesterChange = (val: string) => {
 let activeName = ref("0")
 const handleClick = pane => {
 	queryIDForm.value.classId = courseClassList.value[pane.props.name].value
-	
 }
 </script>
 <template>
@@ -114,9 +113,15 @@ const handleClick = pane => {
 <style lang="scss" scoped>
 #classGoalAchi {
 	:deep(.el-form-item__label) {
-		height: 42px;
-		line-height: 42px;
+		height: 36px;
+		line-height: 36px;
 		font-size: 16px;
+	}
+	:deep(.el-input__wrapper) {
+		height: 34px;
+		margin: 0;
+		border-radius: 0;
+		font-size: 14px;
 	}
 	.title {
 		width: 100%;

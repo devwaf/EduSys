@@ -58,7 +58,15 @@ const typeChange = (val: any) => {
 			</el-form-item>
 		</el-form>
 
-		<CustomTable class="table" :data="allHomework" border align="center" style="width: 80%" max-height="750px">
+		<CustomTable
+			class="table"
+			:data="allHomework"
+			border
+			align="center"
+			style="width: 80%"
+			max-height="750px"
+			stripe
+		>
 			<template #default>
 				<el-table-column label="作业名称" align="center">
 					<template #default="scope">
@@ -105,20 +113,26 @@ const typeChange = (val: any) => {
 			height: 36px;
 		}
 		.el-form-item__label {
-			height: 34px;
-			line-height: 34px;
+			height: 36px;
+			line-height: 36px;
 			padding: 0;
 			font-size: 14px;
 		}
 		.el-input__wrapper {
-			height: 32px;
+			height: 34px;
 			margin: 0;
 			padding-right: 17px;
+			border-radius: 0;
 			font-size: 14px;
 		}
 	}
 	:deep(.el-table) {
 		margin-left: 30px;
+		.el-table__header {
+			th {
+				background: #f9f9f9;
+			}
+		}
 		tr {
 			height: 50px;
 			.cell {

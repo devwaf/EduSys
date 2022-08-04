@@ -434,18 +434,20 @@ const goPrint = () => {
 			.el-form-item {
 				margin-top: 15px;
 			}
-			.el-input__wrapper {
-				margin: 0;
-				border-radius: 0px;
-			}
 			.el-radio__label {
 				font-size: 16px;
 				line-height: 36px;
 			}
 			.el-form-item__label {
-				font-size: 16px;
-				height: 38px;
-				line-height: 38px;
+				height: 36px;
+				line-height: 36px;
+				font-size: 14px;
+			}
+			.el-input__wrapper {
+				height: 34px;
+				margin: 0;
+				border-radius: 0;
+				font-size: 14px;
 			}
 			.el-radio__inner {
 				width: 16px;
@@ -461,7 +463,6 @@ const goPrint = () => {
 			}
 			.el-input {
 				.el-input__inner {
-					height: 36px;
 					font-size: 16px;
 				}
 			}
