@@ -111,7 +111,8 @@ const curriculumChange = (val: any) => {
 }
 .homework {
 	float: right;
-	width: 650px;
+	width: 800px;
+	// margin-right: 20px;
 }
 .fill-box {
 	margin-right: 50px;

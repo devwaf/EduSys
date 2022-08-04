@@ -43,8 +43,8 @@ const handleClick = (tab: TabsPaneContext) => {
 </script>
 
 <template>
-	<el-scrollbar height="750px">
-		<el-tabs v-model="activeName" type="card" class="tabs" @tab-click="handleClick">
+	<el-tabs v-model="activeName" type="card" class="tabs" @tab-click="handleClick">
+		<el-scrollbar height="720px">
 			<el-tab-pane label="已提交的作业" name="false">
 				<div v-for="(item, index) in stuAllHomeworkHistory" :key="index" class="box">
 					<span class="name">{{ item.homeworkName }}</span>
@@ -71,8 +71,8 @@ const handleClick = (tab: TabsPaneContext) => {
 					</table>
 				</div>
 			</el-tab-pane>
-		</el-tabs>
-	</el-scrollbar>
+		</el-scrollbar>
+	</el-tabs>
 </template>
 
 <style lang="scss" scoped>
@@ -121,7 +121,7 @@ const handleClick = (tab: TabsPaneContext) => {
 .table {
 	table {
 		box-sizing: border-box;
-		width: 100%;
+		width: 98%;
 		border-color: #d8d8d8;
 		color: #646464;
 		td {
