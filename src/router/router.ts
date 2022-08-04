@@ -44,32 +44,32 @@ const routes: RouteRecordRaw[] = [
 	getLayoutTem(pages.Home2),
 	getLayoutTem(pages.Administration),
 	getLayoutTem(pages.Course),
-	getLayoutTem(pages.CourseManagement),
+	getLayoutTem(pages.Coursemanagement),
 
 	getLayoutTem(pages.Outline),
-	getLayoutTem(pages.OutlineManagement),
-	getLayoutTem(pages.AddOutline),
+	getLayoutTem(pages.Outlinemanagement),
+	getLayoutTem(pages.Addoutline),
 
-	getLayoutTem(pages.CourseDesign),
-	getLayoutTem(pages.CourseDesignConfig),
-	getLayoutTem(pages.OutlineConfig),
-	getLayoutTem(pages.CorrectionReplyForm),
-	getLayoutTem(pages.CDFormCenter),
-	// getLayoutTem(pages.CDPrint),
+	getLayoutTem(pages.Coursedesign),
+	getLayoutTem(pages.Coursedesignconfig),
+	getLayoutTem(pages.Outlineconfig),
+	getLayoutTem(pages.Correctionreplyform),
+	getLayoutTem(pages.Cdformcenter),
+	// getLayoutTem(pages.Cdprint),
 
 	getLayoutTem(pages.Examination),
-	getLayoutTem(pages.ReleaseTask),
-	getLayoutTem(pages.PublishedTask),
+	getLayoutTem(pages.Releasetask),
+	getLayoutTem(pages.Publishedtask),
 
-	getLayoutTem(pages.TaskCorrect),
-	getLayoutTem(pages.ETFormCenter),
-	// getLayoutTem(pages.ETPrint),
+	getLayoutTem(pages.Taskcorrect),
+	getLayoutTem(pages.Etformcenter),
+	// getLayoutTem(pages.Etprint),
 
-	getLayoutTem(pages.GraduationDesign),
+	getLayoutTem(pages.Graduationdesign),
 
 	getLayoutTem(pages.Home),
 	getLayoutTem(pages.Graduation),
-	getLayoutTem(pages.CurriculumDesign),
+	getLayoutTem(pages.Curriculumdesign),
 	getLayoutTem(pages.Curriculum),
 	getLayoutTem(pages.Fill)
 ]
@@ -91,7 +91,6 @@ router.beforeEach(async (to, from, next) => {
 		next({ name: "Login" })
 		return
 	}
-	console.log(menus, "menus路由")
 	if (menus.length == 0) {
 		menus = showMenuByIsTeacher()
 	}

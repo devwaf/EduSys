@@ -7,11 +7,11 @@ defineProps<{ data: Array<string> }>();
 
 const routerPush = (path: string) => {
   path = path[0].toUpperCase() + path.substr(1);
-  console.log(path, "11111111111111");
+  // console.log(path, "11111111111111");
 
-  if (path == "Coursedesign") {
-    path = "CourseDesign";
-  }
+  // if (path == "Coursedesign") {
+  //   path = "CourseDesign";
+  // }
   if (path == "Outline") return;
   if (path == "Coursedesign") return;
   if (path == "Course") return;
