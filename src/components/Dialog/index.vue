@@ -3,9 +3,9 @@ import { ref } from "vue";
 import { ElMessageBox } from "element-plus";
 
 const dialogVisible = ref(false);
-
+const yy=ref('40%')
 import { defineProps } from "vue";
-const { prop, column } = defineProps({
+const { prop, column,isEdit,width} = defineProps({
   isEdit: {
     type: Boolean,
     require: true,
@@ -14,7 +14,12 @@ const { prop, column } = defineProps({
     type: String,
     require: true,
   },
+  width:{
+     type: String,
+    require: true,
+  }
 });
+yy.value=width
 const handleClose = (done: () => void) => {
    done();
 
@@ -26,7 +31,7 @@ const handleClose = (done: () => void) => {
     <el-dialog
       v-model="isEdit"
       :title="column"
-      width="40%"
+      :width="yy"
       :before-close="handleClose"
     >
       <div class="dialog-main">

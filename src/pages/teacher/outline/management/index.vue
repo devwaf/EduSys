@@ -3,11 +3,14 @@ import CustomTable from "@/components/customTable/customTable.vue";
 import { reactive } from "vue";
 import { service } from "../../../../api/service";
 import { usePageOutlinemanagement } from "../../../../store/teacher/outlinemanagement";
+import {usePageOutline} from  '../../../../store/teacher/outline/outline'
+import {usePageStoreOutLineConfig} from '../../../../store/teacher/outLineConfig'
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 let router = useRouter();
 const outlineManagement = usePageOutlinemanagement();
-
+const _usePageOutline=usePageOutline()
+const _usePageStoreOutLineConfig=usePageStoreOutLineConfig()
 const { Outlinemanagementlist, courseDesignList } =
   storeToRefs(outlineManagement);
 
@@ -24,7 +27,8 @@ const courseDesignOptions = [
 ];
 // 课程修改
 const editOutline = (row: any) => {
-  console.log(row);
+  // console.log(row,'啦啦啦啦啦');
+  _usePageOutline.getID(row)
   router.push({
     name: "Addoutline",
     params: { id: row },
@@ -33,19 +37,20 @@ const editOutline = (row: any) => {
 
 // 课设大纲修改
 const editCourseDesign = (row: any) => {
-  console.log(row);
+  console.log(row,'啦啦啦啦啦');
+   _usePageStoreOutLineConfig.getID(row)
   router.push({
     name: "Outlineconfig",
     params: { id: row },
   });
 };
-const del = (row: any) => {
+const del = (row: any) => { 
   console.log(row);
 };
-const to = () => {
-  const res = service({ path: "/app/Outline/GetAllCourseOutline" });
-  console.log(res, "ererer");
-};
+// const to = () => {
+//   const res = service({ path: "/app/Outline/GetAllCourseOutline" });
+//   console.log(res, "ererer");
+// };
 const delOutline = (id: String) => {
   outlineManagement.DeleteCourse(id);
   console.log(id, "大纲id");

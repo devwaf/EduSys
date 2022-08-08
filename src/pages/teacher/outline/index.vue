@@ -6,7 +6,7 @@ import Requirement from "@/pages/teacher/courseDesign/outlineConfig/components/r
 import { ref, reactive, toRefs, onMounted, watch } from "vue";
 import { usePageOutline } from "../../../store/teacher/outline/outline";
 import { storeToRefs } from "pinia";
-
+import { useRouter, useRoute } from "vue-router";
 const _Alloutline = usePageOutline();
 const {
   outlineName,
@@ -19,16 +19,38 @@ const {
   quantity,
   examination,
 } = storeToRefs(_Alloutline);
+let router = useRouter();
+console.log(router.currentRoute.value.path, "000000000000000");
+
 // 获取全部毕业要求
-_Alloutline.GetAllGraduationRequirement();
-_Alloutline.leavePage();
+// _Alloutline.GetAllGraduationRequirement();
+_Alloutline.GetOutline();
+
+// .currentRoute.value.path
 // 添加大纲
 const AddOutline = () => {
   _Alloutline.getAddOutline();
 };
 // 获取大纲
-_Alloutline.GetOutline();
-
+const disabled = ref(false);
+const reduceHandler = (value: any) => {
+  // console.log(value, "ooooo");
+  if (value.times == 0) {
+    disabled.value = true;
+    return;
+  }
+  value.times = value.times - 1;
+  if (value.name !== "" && value.name !== null) {
+    _Alloutline.UpdateScoreWeight(value);
+  }
+};
+const addHandler = (value: any) => {
+  value.times = value.times + 1;
+  console.log(value, "ooooo");
+  if (value.name !== "" && value.name !== null) {
+    _Alloutline.UpdateScoreWeight(value);
+  }
+};
 // 添加权重
 const addWeight = () => {
   if (outlineId.value == undefined) {
@@ -117,6 +139,14 @@ const completeHandler = () => {
   }
 };
 
+// 监听当前路由变化
+watch(
+  () => router.currentRoute.value,
+  () => {
+    console.log(router.currentRoute.value.path, "路由变化了");
+    _Alloutline.leavePage(router.currentRoute.value.path);
+  }
+);
 // // 合计
 interface SummaryMethodProps {
   columns: Object[];
@@ -180,7 +210,8 @@ const getSummaries = (param: SummaryMethodProps) => {
       />
     </div>
     <div class="tableBox">
-      <h3 class="title">1.课程成绩组成比例</h3>
+      <div class="title">1.课程成绩组成比例</div>
+
       <div class="weight-mian">
         <div class="explain">成绩权重：</div>
         <table class="explain-table">
@@ -209,13 +240,27 @@ const getSummaries = (param: SummaryMethodProps) => {
               </td>
             </tr>
             <tr>
-              <td>
-                <el-input-number
-                  v-model="item.times"
-                  :min="0"                
-                   
-                  @change="explainHandler(item)"
-                />
+              <td class="input-number-td">               
+                <div class="input-number">
+                  <button
+                    class="button-icon"
+                    @click.prevent="reduceHandler(item)"
+                    :disabled="disabled"
+                  >
+                    <svg-icon icon="xia" class="svg-icon"></svg-icon>
+                  </button>
+                  <input
+                    type="text"
+                    name="text"
+                    v-model="item.times"
+                    onkeyup="this.value=this.value.replace(/\D/g,'')"
+                    class="input-number-input"
+                  />
+                  <button class="button-icon" @click.prevent="addHandler(item)">
+                    <svg-icon icon="shang" class="svg-icon"></svg-icon>
+                  </button>
+                </div>
+
                 &nbsp;<span>次</span>
               </td>
             </tr>
@@ -239,7 +284,8 @@ const getSummaries = (param: SummaryMethodProps) => {
     </div>
 
     <div class="tableBox">
-      <h3 class="title">2.课程目标达成考核方式及成绩评定对照表</h3>
+      <div class="title">2.课程目标达成考核方式及成绩评定对照表</div>
+
       <div class="contrast-table">
         <CustomTable
           id="table2"
@@ -260,7 +306,7 @@ const getSummaries = (param: SummaryMethodProps) => {
           <el-table-column label="课程目标内容" align="center">
             <template #default="scope">
               <el-input
-               type="textarea"
+                type="textarea"
                 :autosize="{ minRows: 1, maxRows: 10 }"
                 v-model="scope.row.content"
                 @change="reqChange(scope.row)"
@@ -308,16 +354,16 @@ const getSummaries = (param: SummaryMethodProps) => {
     </div>
 
     <div class="tableBox">
-      <h3 class="title">3.平时成绩权重配置</h3>
+      <div class="title">3.平时成绩权重配置</div>
 
       <div class="collocation-table">
         <CustomTable
           class="table3"
           :data="weightDate"
           border
-           :summary-method="getSummaries"
-            show-summary
-          style="width: 80%"
+          :summary-method="getSummaries"
+          show-summary
+          style="width: 85%"
         >
           <template #default>
             <el-table-column label="权重">
@@ -382,12 +428,11 @@ const getSummaries = (param: SummaryMethodProps) => {
       </div>
     </div>
     <div class="tableBox subtopic">
-      <h3 class="title">4.考试配置</h3>
-
+      <div class="title">4.考试配置</div>
       <div class="subtopic-top">
         <div>
           <span>课程名称： </span>
-          <div  class="text"> {{outlineName}} </div>
+          <div class="text">{{ outlineName }}</div>
           <!-- <el-input
             class="text"
             v-model=""
@@ -396,15 +441,15 @@ const getSummaries = (param: SummaryMethodProps) => {
         </div>
         <div>
           <span>试题数量： </span>
-          <div class="text"> {{quantity}} </div>
+          <div class="text">{{ quantity }}</div>
           <!-- <el-input class="text" v-model="quantity" :disabled="true"></el-input> -->
-         &nbsp;&nbsp; <span>题</span>
+          &nbsp;&nbsp; <span>题</span>
         </div>
         <div>
           <span>总分： </span>
-          <div  class="text"> {{score}} </div>
+          <div class="text">{{ score }}</div>
           <!-- <el-input class="text" v-model="score" :disabled="true"></el-input> -->
-           &nbsp;&nbsp; <span>分</span>
+          &nbsp;&nbsp; <span>分</span>
         </div>
       </div>
 
@@ -559,7 +604,7 @@ const getSummaries = (param: SummaryMethodProps) => {
   :deep(.el-table th.el-table__cell > .cell) {
     color: #646464 !important;
   }
-  :deep(.el-input-number){
+  :deep(.el-input-number) {
     width: 120px;
   }
   // 大纲名称
@@ -582,49 +627,97 @@ const getSummaries = (param: SummaryMethodProps) => {
     }
   }
   .tableBox {
-    width: 100%;
-    margin-top: 10px;
-    padding: 20px;
+    width: 90%;
+    margin-top: 40px;
   }
 
   .title {
+    margin-bottom: 30px;
     font-size: 18px;
     font-weight: 500;
-    line-height: 56px;
+    line-height: 36px;
+    background: #f5f5f5;
+    padding-left: 10px;
+    border-left: 6px solid #646464;
   }
   // 权重
   .weight-mian {
     display: flex;
     height: 230px;
     align-items: center;
+
     .explain-table {
       box-sizing: border-box;
-
-      height: 150px;
+      height: 230px;
+      // background-color: pink;
+      :deep(.el-input__wrapper) {
+        margin: 10px 10px;
+      }
       :deep(.el-input__inner) {
+        height: 30px;
         text-align: center;
       }
       :deep(.el-input) {
-        width: 100%;
+        width: 90%;
+        // height: 30px;
       }
       th {
         text-align: center;
         td {
-          border: 1px solid #ebeef5;
-          border-right: 0;
-          width: 150px;
-          height: 50px;
           text-align: center;
           line-height: 50px;
           font-size: 16px;
           font-weight: normal;
           font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+          box-sizing: border-box;
           color: #646464;
+          border: 1px solid #ebeef5;
+          border-right: 0;
           input {
             text-align: center;
           }
+
           .delWeight {
+            height: 20px;
+            margin: 6px 0;
+            text-align: center;
             border: 0;
+          }
+        }
+        tr {
+          text-align: center;
+          .input-number-td {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 0;
+            border-bottom: 0;
+            .input-number {
+              margin: 10px 0;
+              display: flex;
+              width: 120px;
+              height: 30px;
+              box-sizing: border-box;
+              .input-number-input {
+                width: 50px;
+                height: 30px;
+                border-top: 1px solid #e2e2e2;
+                border-bottom: 1px solid #e2e2e2;
+              }
+
+              .button-icon {
+                width: 35px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                background: #f1f1f1;
+                .svg-icon {
+                  width: 14px;
+                  height: 14px;
+                  margin-top: 7px;
+                }
+              }
+            }
           }
         }
       }
@@ -637,7 +730,7 @@ const getSummaries = (param: SummaryMethodProps) => {
       line-height: 229px;
       color: #2ebba3;
       cursor: pointer;
-     
+
       border: 1px solid #ebeef5;
     }
     .addTable1Data:hover {
@@ -647,12 +740,11 @@ const getSummaries = (param: SummaryMethodProps) => {
 
   // 课程目标
   .contrast-table {
-    width: 80%;
+    width: 85%;
   }
   .addTarget {
     color: #2ebba3;
-    border:0;
-
+    border: 0;
   }
 
   // 权重配置
@@ -697,13 +789,13 @@ const getSummaries = (param: SummaryMethodProps) => {
         line-height: 25px;
         color: #646464;
         text-align: center;
-        border:1px  solid #D9D9D9;
+        border: 1px solid #d9d9d9;
       }
     }
   }
 
   .subtopic-tableBox {
-    width: 93%;
+    width: 85%;
 
     :deep(.el-input__wrapper) {
       margin: 0 20px;
@@ -763,7 +855,7 @@ const getSummaries = (param: SummaryMethodProps) => {
     text-align: center;
     background-color: transparent;
   }
-  .addContrast{
+  .addContrast {
     width: 100%;
     height: 50px;
     line-height: 50px;

@@ -22,7 +22,7 @@ const { prop } = defineProps({
           :key="index"
           @click="router.push(item.router)"
         >
-          {{ item.message }}
+          
           <div class="class">{{ item.message }}</div>
           <div class="time">{{ item.creationTime }}</div>
           <div class="correct"> {{item.state}} </div>

@@ -4,7 +4,7 @@ import { defineStore } from "pinia"
 import { service } from "../api/service"
 import { ElMessage } from "element-plus"
 
-export const usePageOutline1 = defineStore("outline", {
+export const usePageOut= defineStore("outline", {
 	state: () => {
 		return {
 			// outlinedata: {

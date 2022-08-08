@@ -2,6 +2,10 @@ import { defineStore } from "pinia"
 import { service } from "@/api/service"
 
 import { ElMessage, ElMessageBox } from 'element-plus'
+
+import { usePageCoursemanagement } from '../../../store/teacher/course/coursemanagement'
+import {usePageCurriculumInstall} from '../../../store/teacher/courseDesign/coursedesignconfig'
+
 export const usePageCard = defineStore("card", {
 	state: () => {
 		return {
@@ -39,6 +43,37 @@ export const usePageCard = defineStore("card", {
 				})
 
 			})
+			if(this.name=='课程'){
+				let _usePageCoursemanagement = usePageCoursemanagement()
+				if (_usePageCoursemanagement.curriculumFormData) {
+					_usePageCoursemanagement.curriculumFormData.classIds.forEach(i => {
+						this.classList.forEach(item => {
+							if (i == item.id) {
+	
+	
+								item.checked = true
+								console.log(item.checked, 'yyyyyy');
+	
+							}
+						})
+					})
+				}
+			}
+			if(this.name=='课设'){
+				let _usePageCurriculumInstall = usePageCurriculumInstall()
+				if (_usePageCurriculumInstall.curriculumInstallFormData) {
+					_usePageCurriculumInstall.curriculumInstallFormData.classIds.forEach(i => {
+						this.classList.forEach(item => {
+							if (i == item.id) {	
+								item.checked = true
+								console.log(item.checked, 'yyyyyy');
+	
+							}
+						})
+					})
+				}
+			}
+			
 
 		},
 		// 添加班级
@@ -104,7 +139,7 @@ export const usePageCard = defineStore("card", {
 							name: item.name
 						})
 					} else {
-					
+
 						this.curriculumSelectedList.push({
 							id: item.id,
 							schoolYear: item.schoolYear,

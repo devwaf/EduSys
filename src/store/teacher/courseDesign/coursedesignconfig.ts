@@ -146,22 +146,23 @@ export const usePageCurriculumInstall = defineStore("curriculumInstall", {
             console.log(router, 999999);
             if (router !== "/coursedesign/coursedesignconfig") {
                 // resetForm()
-                this.curriculumInstallFormData = {
-                    classIds: [],
-                    name: "",
-                    type: "",
-                    teacherId: localStorage.getItem('userId'),
-                    outlineId: "",
-                    supervisor: '',
-                    outlineName: '',
-                    semester: "",
-                    credit: null,
-                    classDuration: null,
-                    textDuration: null,
-                    department: "",
-                    kind: "课设"
-                }
+                // this.curriculumInstallFormData = {
+                //     classIds: [],
+                //     name: "",
+                //     type: "",
+                //     teacherId: localStorage.getItem('userId'),
+                //     outlineId: "",
+                //     supervisor: '',
+                //     outlineName: '',
+                //     semester: "",
+                //     credit: null,
+                //     classDuration: null,
+                //     textDuration: null,
+                //     department: "",
+                //     kind: "课设"
+                // }
                 this.selectedList = []
+                this.id = ''
                 const card = usePageCard()
                 card.selectedList = []
             }

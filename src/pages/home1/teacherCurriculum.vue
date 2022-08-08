@@ -204,7 +204,9 @@ const getSummaries = (param: SummaryMethodProps) => {
               </el-table-column>
               <el-table-column label="课程内容" align="center">
                 <template #default="scope">
-                  {{ scope.row.content }}
+                  <span class="text-left">
+                    {{ scope.row.content }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="支撑毕业要求" align="center">
@@ -488,7 +490,10 @@ const getSummaries = (param: SummaryMethodProps) => {
     }
   }
 }
-
+.text-left{
+  display: inline-block;
+  text-align: left
+}
 .subtopic-main {
   width: 100%;
   height: 100%;

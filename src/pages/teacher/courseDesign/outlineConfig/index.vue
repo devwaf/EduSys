@@ -20,8 +20,10 @@ let subItemList = reactive(subItem);
 let percentage = ref("%");
 let reachTabel = reactive(reach);
 let reachTableOptions = reachTable;
+const  yy=ref('900px')
 const addTarget = () => {
   column.value = "毕业要求表";
+
   dialogVisible.value = !dialogVisible.value;
 };
 const outLineConfig = usePageStoreOutLineConfig();
@@ -36,30 +38,14 @@ const {
   assessmentList,
   forbidden,
 } = storeToRefs(outLineConfig);
-outLineConfig.GetAllGraduationRequirement();
+
 let router = useRouter();
 let route = useRoute();
-let id = route.params.id;
-const modify = () => {
-  if (id !== undefined) {
-    console.log(id, "是否存在");
 
-    outLineConfig.GetOutline(id);
-    // outLineConfig.GetHasAchievementTarget(id);
-    // outLineConfig.GetAllScoreAchievement(id);
-    // outLineConfig.GetAllDesignObjective(id);
-  }
-};
-const getModify = modify();
 
 // 新建大纲
 const changeName = () => {
-  //   console.log(id);
-  //   if(id!==undefined){
-  // outLineConfig.UpdateOutline(id)
-  //   }else{
-  //  ;
-  //   }
+
   outLineConfig.getAddOutline();
 };
 
@@ -209,9 +195,10 @@ watch(
       />
     </div>
     <div class="box">
-      <p style="margin-botton: 20px">1.课设成绩组成比例</p>
+      <div class="title">1.课设成绩组成比例</div>
+      <!-- <p style="margin-botton: 20px">1.课设成绩组成比例</p> -->
 
-      <div class="achievement-subItem" style="width: 80%">
+      <div class="achievement-subItem" style="width: 96%">
         <span style="line-height: 200px; width: 100px"> 分项成绩表：</span>
         <div class="subItem">
           <CustomTable :data="subentryList" border style="width: 100%">
@@ -293,7 +280,8 @@ watch(
       </div>
     </div>
     <div class="box assessment-box">
-      <p>2.课设目标达成考核方式及成绩评定对照表</p>
+      <div class="title">2.课设目标达成考核方式及成绩评定对照表</div>
+      <!-- <p>2.课设目标达成考核方式及成绩评定对照表</p> -->
       <div class="achievement">
         <CustomTable
           :data="contrastList"
@@ -448,11 +436,11 @@ watch(
     <div class="box">
       <button @click="inspect" class="complete">确认</button>
     </div>
-    <Dialog :isEdit="dialogVisible" :column="column">
+    <Dialog :isEdit="dialogVisible" :column="column" :width="yy">
       <template #dialog>
         <Requirement></Requirement>
       </template>
-      <template #footer>
+      <!-- <template #footer>
         <el-button
           @click="dialogVisible = false"
           style="border: 1px solid #2ebba3; color: #2ebba3"
@@ -464,7 +452,7 @@ watch(
           style="background-color: #2ebba3; color: #fff"
           >确认</el-button
         >
-      </template>
+      </template> -->
     </Dialog>
   </div>
 </template>
@@ -500,12 +488,19 @@ watch(
 }
 .box {
   padding: 20px;
-  margin: 30px 60px 70px 0;
+  width: 95%;
   text-align: right;
-  p {
-    font-size: 20px;
+  // background-color: pink;
+  .title {
+    font-size: 18px;
+    font-weight: 500;
     color: #646464;
+    line-height: 36px;
+    background: #f5f5f5;
+    padding-left: 10px;
+    border-left: 6px solid #646464;
     margin-bottom: 30px;
+    margin-top: 30px;
   }
   .addAssessment {
     width: 100%;
@@ -518,12 +513,17 @@ watch(
   }
   .achievement-subItem {
     display: flex;
+    align-items: center;
     margin-top: 20px;
     width: 90%;
+    // background-color: pink;
     .report,
     .defence {
       display: flex;
       width: 100%;
+    }
+    .subItem{
+      flex: 1;
     }
     .report-left {
       padding: 10px;
@@ -562,9 +562,14 @@ li:last-child {
   text-align: center;
   line-height: 40px;
 }
-// .assessment-box{
+.assessment-box{
 
-// }
+.achievement{
+  width: 96%;
+// background-color: skyblue;
+  // background-color: #fff;
+}
+}
 .subItem {
   width: 80%;
   :deep(.el-table) {

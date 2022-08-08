@@ -1,8 +1,8 @@
 import { service } from "../../../api/service"
 import { defineStore } from "pinia"
-import { useRouter, useRoute } from "vue-router";
-import { ElMessage } from "element-plus"
 
+import { ElMessage } from "element-plus"
+import { useRouter, useRoute } from "vue-router";
 export const usePageOutline = defineStore("outline", {
     state: () => {
         return {
@@ -15,6 +15,7 @@ export const usePageOutline = defineStore("outline", {
             weightDate: [], 	//权重配置
             quantity: '',//试题数量
             examination: [], //考试配置
+            num: ''
         }
     },
     actions: {
@@ -58,26 +59,39 @@ export const usePageOutline = defineStore("outline", {
 
                 this.outlineId = res.result.id
                 // 创建完成获取初始权重数据
-                this.GetAllScoreWeight(this.outlineId)
+                this.GetAllScoreWeight(this.outlineId) 
+                this.GetAllGraduationRequirement()
             }
 
         },
+
+
+        getID(id: string) {
+            this.outlineId = id
+            console.log(this.outlineId, 'id');
+            this.GetOutline()
+        },
         // 获取大纲
         async GetOutline() {
-            let route = useRoute();
-            this.outlineId = route.params.id;
+            console.log(111111111);
             console.log(this.outlineId, 'id的值');
+            // console.log(this.num,'后');
+
             if (this.outlineId) {
                 const res = await service({
                     path: "/api/services/app/Outline/GetOutline",
                     query: { id: this.outlineId }
                 })
                 this.outlineName = res.result.name
+                this.GetAllGraduationRequirement()
                 this.GetAllScoreWeight()
                 this.GetAllCourseObjective()
                 this.GetAllSwDetail()
                 this.GetAllTestQuestion()
             }
+            this.num = this.outlineId
+            // console.log(this.num,'前');
+
         },
         // 添加按钮
         addition() {
@@ -99,6 +113,14 @@ export const usePageOutline = defineStore("outline", {
         },
         // 添加权重
         async AddScoreWeight() {
+
+            if(this.formationTable.length==5){
+                ElMessage({
+                    message: "已添加至上限",
+                    type: "warning"
+                })
+                return
+            }
             const res = await service({
                 path: "/api/services/app/ScoreWeight/AddScoreWeight",
                 data: { outlineId: this.outlineId },
@@ -345,10 +367,11 @@ export const usePageOutline = defineStore("outline", {
             })
 
         },
-        leavePage() {
-            let router = useRouter()
-            console.log(router.currentRoute.value.path, '当前路由');
-            if (router.currentRoute.value.path == "/outline/addoutline") {
+        leavePage(router: any) {
+
+            if (router !== "/outline/addoutline") {
+                console.log(11111111111111111111);
+
                 this.outlineName = ''
                 this.outlineId = ""
                 this.formationTable = []

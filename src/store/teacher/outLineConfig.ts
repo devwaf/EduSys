@@ -41,6 +41,7 @@ export const usePageStoreOutLineConfig = defineStore("outLineConfig", {
 					method: "post"
 				})
 				this.outlineId = res.result.id
+				this.GetAllGraduationRequirement()
 			} else {
 				// 修改大纲
 				const res = await service({
@@ -60,8 +61,16 @@ export const usePageStoreOutLineConfig = defineStore("outLineConfig", {
 		},
 		// 获取课设名称
 		// 获取大纲
+		getID(id: string) {
+            this.outlineId = id
+            console.log(this.outlineId, 'id');
+            this.GetOutline(this.outlineId)
+        },
+
 		async GetOutline(id: any) {
 			this.outlineId = id
+			console.log(this.outlineId,'id');
+			
 			const res = await service({
 				path: "/api/services/app/Outline/GetOutline",
 				query: { id: id }
@@ -75,6 +84,7 @@ export const usePageStoreOutLineConfig = defineStore("outLineConfig", {
 				this.GetAllScoreAchievement(id)
 				this.GetHasAchievementTarget(id)
 				this.GetAllDesignObjective(id);
+				this.GetAllGraduationRequirement()
 			}
 
 		},
@@ -290,7 +300,7 @@ export const usePageStoreOutLineConfig = defineStore("outLineConfig", {
 		},
 		// 获取对照表
 		async GetAllDesignObjective(val: any) {
-			this.GetHasAchievementTarget(this.outlineId)
+			// this.GetHasAchievementTarget(this.outlineId)
 
 			const res = await service({
 				path: "/api/services/app/DesignObjective/GetAllDesignObjective",

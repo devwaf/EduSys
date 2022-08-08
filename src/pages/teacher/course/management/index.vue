@@ -18,7 +18,7 @@ const ruleFormRef = ref();
 
 let router = useRouter();
 let classSelect = reactive([]);
-let courseDesignrules = {};
+// let courseDesignrules = {};
 const cardId = ref();
 //添加班级弹窗显示
 const addClass = () => {
@@ -117,6 +117,9 @@ const delClassHandler = (val: any) => {
 watch(
   () => router.currentRoute.value,
   () => {
+    if (router.currentRoute.value.path !== "/course/coursemanagement") {
+      ruleFormRef.value.resetFields();
+    }
     coursemanagement.leavePage(router.currentRoute.value.path);
     // console.log(router.currentRoute.value.path,"路由变化了");
   }
@@ -132,13 +135,20 @@ watch(
       class="courseDesignForm"
     >
       <el-form-item label="课程名称：" prop="name">
-        <el-input v-model="curriculumFormData.name" placeholder="请输入"></el-input>
+        <el-input
+          v-model="curriculumFormData.name"
+          placeholder="请输入"
+        ></el-input>
       </el-form-item>
       <el-form-item label="课程类型：" prop="type">
-        <el-input v-model="curriculumFormData.type" placeholder="请输入"> </el-input>
+        <el-input v-model="curriculumFormData.type" placeholder="请输入">
+        </el-input>
       </el-form-item>
       <el-form-item label="课程负责人：" prop="supervisor">
-        <el-input v-model="curriculumFormData.supervisor" placeholder="请输入"></el-input>
+        <el-input
+          v-model="curriculumFormData.supervisor"
+          placeholder="请输入"
+        ></el-input>
       </el-form-item>
       <el-form-item label="选择大纲：" prop="outlineId">
         <el-select
@@ -203,7 +213,7 @@ watch(
           v-model="curriculumFormData.credit"
           :min="0"
         ></el-input-number>
-         &nbsp;<span>学分</span>
+        &nbsp;<span>学分</span>
       </el-form-item>
       <el-form-item
         label="课程总学时："
@@ -214,7 +224,7 @@ watch(
           v-model="curriculumFormData.classDuration"
           :min="0"
         ></el-input-number>
-      &nbsp;<span>周</span>
+        &nbsp;<span>周</span>
       </el-form-item>
       <el-form-item
         label="实验总学时："
@@ -226,7 +236,7 @@ watch(
           :min="0"
         ></el-input-number>
 
-         &nbsp; <span>周</span>
+        &nbsp; <span>周</span>
       </el-form-item>
       <div>
         <el-button class="release" @click.prevent="release">发布</el-button>
@@ -248,7 +258,7 @@ watch(
   width: 100%;
   height: 92vh;
   overflow: auto;
-  background-color: #fff; 
+  background-color: #fff;
   position: relative;
 }
 .card {
@@ -264,7 +274,6 @@ watch(
   display: flex;
   flex-wrap: wrap;
   margin: 70px auto;
-
 }
 
 :deep(.el-form-item) {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, reactive,watch } from "vue";
+import { ref, reactive, watch } from "vue";
 import Card from "../../course/components/card.vue";
 import { service } from "../../../../api/service";
 import CustomSelect from "@/components/customSelect/customSelect.vue";
@@ -10,14 +10,14 @@ import { storeToRefs } from "pinia";
 const card = usePageCard();
 const { selectedList } = storeToRefs(card);
 const _usePageCurriculumInstall = usePageCurriculumInstall();
-const { outlineSelect, curriculumInstallFormData,semesterList } = storeToRefs(
+const { outlineSelect, curriculumInstallFormData, semesterList } = storeToRefs(
   _usePageCurriculumInstall
 );
 
 // 获取所有课设大纲
 _usePageCurriculumInstall.GetAllDesignSelect();
 // 获取所有课设学期
-_usePageCurriculumInstall.GetTerm()
+_usePageCurriculumInstall.GetTerm();
 const ruleFormRef = ref();
 let router = useRouter();
 
@@ -25,8 +25,8 @@ const cardId = ref();
 // //添加班级弹窗显示
 const addClass = () => {
   // 暂时
-  let num="课设"
-card.getyyy(num)
+  let num = "课设";
+  card.getyyy(num);
   cardId.value.open();
 };
 
@@ -36,21 +36,21 @@ const rules = reactive({
   name: [
     {
       required: true,
-      message: "请填写课设名称",
+      message: "请填写课程名称",
       trigger: "change",
     },
   ],
   type: [
     {
       required: true,
-      message: "请填写课设类型",
+      message: "请填写课程类型",
       trigger: "change",
     },
   ],
   supervisor: [
     {
       required: true,
-      message: "请填写课设负责人",
+      message: "请填写课程负责人",
       trigger: "change",
     },
   ],
@@ -71,14 +71,14 @@ const rules = reactive({
   credit: [
     {
       required: true,
-      message: "请填写课设学分",
+      message: "请填写课程学分",
       trigger: "change",
     },
   ],
   classDuration: [
     {
       required: true,
-      message: "请填写课设总学时",
+      message: "请填写课程总学时",
       trigger: "change",
     },
   ],
@@ -90,10 +90,10 @@ const rules = reactive({
     },
   ],
 });
-const change=(val:any)=>{
-  console.log(val,'123435355546');
-   _usePageCurriculumInstall.getOutlineName(val)
-}
+const change = (val: any) => {
+  console.log(val, "123435355546");
+  _usePageCurriculumInstall.getOutlineName(val);
+};
 
 // 开课学期
 // const semesterList=reactive([
@@ -111,26 +111,33 @@ const change=(val:any)=>{
 // ])
 // 发布
 const release = () => {
+  console.log(11111111111111111);
+  
   _usePageCurriculumInstall.getClass();
-  ruleFormRef.value.validate(async (valid) => {
+  ruleFormRef.value.validate( (valid) => {
     if (valid) {
       console.log("验证通过");
       _usePageCurriculumInstall.AddCourse();
     } else {
       console.log("error submit!");
+      // console.log();
+      
     }
   });
 };
 // 删除选中班级
 const delClassHandler = (val: any) => {
-  let  n= "课设"
-  card.getDelClassHandler(val,n);
+  let n = "课设";
+  card.getDelClassHandler(val, n);
 };
 // 监听当前路由变化
-watch(() => router.currentRoute.value,() => {
-     _usePageCurriculumInstall.leavePage(router.currentRoute.value.path)
-   
-     
+watch(
+  () => router.currentRoute.value,
+  () => {
+    if(router.currentRoute.value.path!=="/coursedesign/outlineconfig"){
+     ruleFormRef.value.resetFields();
+    }
+    _usePageCurriculumInstall.leavePage(router.currentRoute.value.path);
   }
 );
 </script>
@@ -145,13 +152,22 @@ watch(() => router.currentRoute.value,() => {
         class="courseDesignForm"
       >
         <el-form-item label="课设名称：" prop="name">
-          <el-input v-model="curriculumInstallFormData.name" placeholder="请输入"></el-input>
+          <el-input
+            v-model="curriculumInstallFormData.name"
+            placeholder="请输入"
+          ></el-input>
         </el-form-item>
         <el-form-item label="课设类型：" prop="type">
-          <el-input v-model="curriculumInstallFormData.type" placeholder="请输入"></el-input>
+          <el-input
+            v-model="curriculumInstallFormData.type"
+            placeholder="请输入"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="课设负责人：" prop="teacherId">
-          <el-input v-model="curriculumInstallFormData.supervisor" placeholder="请输入"></el-input>
+        <el-form-item label="课设负责人：" prop="supervisor">
+          <el-input
+            v-model="curriculumInstallFormData.supervisor"
+            placeholder="请输入"
+          ></el-input>
         </el-form-item>
         <el-form-item label="选择大纲：" prop="outlineId">
           <el-select
@@ -189,13 +205,21 @@ watch(() => router.currentRoute.value,() => {
                 :key="index"
               >
                 <div>{{ item.schoolYear }}{{ item.major }}{{ item.name }}</div>
-                <svg class="icon del-icon" aria-hidden="true"  @click="delClassHandler(item.id)">
+                <svg
+                  class="icon del-icon"
+                  aria-hidden="true"
+                  @click="delClassHandler(item.id)"
+                >
                   <use xlink:href="#icon-shanchu" style="color: red" />
                 </svg>
               </li>
 
               <li>
-                <button type="button" @click.prevent="addClass" class="choice-button">
+                <button
+                  type="button"
+                  @click.prevent="addClass"
+                  class="choice-button"
+                >
                   新建/选择
                 </button>
               </li>
@@ -207,9 +231,8 @@ watch(() => router.currentRoute.value,() => {
           <el-input-number
             v-model="curriculumInstallFormData.credit"
             :min="0"
-            
           ></el-input-number>
-           &nbsp;<span>学分</span>
+          &nbsp;<span>学分</span>
         </el-form-item>
         <el-form-item
           label="课设总学时："
@@ -219,9 +242,8 @@ watch(() => router.currentRoute.value,() => {
           <el-input-number
             v-model="curriculumInstallFormData.classDuration"
             :min="0"
-            
           ></el-input-number>
-           &nbsp;<span>周</span>
+          &nbsp;<span>周</span>
         </el-form-item>
         <el-form-item
           label="实验总学时："
@@ -231,9 +253,8 @@ watch(() => router.currentRoute.value,() => {
           <el-input-number
             v-model="curriculumInstallFormData.textDuration"
             :min="0"
-            
           ></el-input-number>
-           &nbsp; <span>周</span>
+          &nbsp; <span>周</span>
         </el-form-item>
         <div>
           <el-button class="release" @click.prevent="release">发布</el-button>
@@ -268,7 +289,7 @@ watch(() => router.currentRoute.value,() => {
 }
 :deep(.el-form) {
   position: relative;
- margin: 70px auto;
+  margin: 70px auto;
   width: 1065px;
   display: flex;
   flex-wrap: wrap;
@@ -295,7 +316,6 @@ watch(() => router.currentRoute.value,() => {
     margin-left: 10px;
   }
 }
-  
 
 :deep(.el-form-item) {
   width: 350px;
