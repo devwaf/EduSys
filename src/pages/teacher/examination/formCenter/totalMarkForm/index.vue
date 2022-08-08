@@ -216,9 +216,15 @@ const goPrint = () => {
 		line-height: 66px;
 	}
 	:deep(.el-form-item__label) {
-		height: 42px;
-		line-height: 42px;
-		font-size: 16px;
+		height: 36px;
+		line-height: 36px;
+		font-size: 14px;
+	}
+	:deep(.el-input__wrapper) {
+		height: 34px;
+		margin: 0;
+		border-radius: 0;
+		font-size: 14px;
 	}
 	:deep(.el-table) {
 		width: 98%;

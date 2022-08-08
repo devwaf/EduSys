@@ -277,6 +277,12 @@ const recurrence = (scope: any) => {
 :deep(.el-table) {
 	font-size: 16px;
 	color: #646464;
+	td{
+		height: 50px;
+	}
+	.cell {
+		font-size: 14px;
+	}
 	.el-table__header {
 		th {
 			background: #f9f9f9;
