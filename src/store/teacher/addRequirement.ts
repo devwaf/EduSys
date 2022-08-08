@@ -7,18 +7,8 @@ export const usePageRequirement = defineStore("requirement", {
 	state: () => {
 		return {
 			graduationList: [], //添加毕业要求
-			addGraduationList:
-			{
-				id: "",
-				require: '',
-				target: [
-					// {
-					// 	graduationRequireId: '',
-					// 	name: "",
-					// 	content: ""
-					// }
-				]
-			}
+			addGraduationList: {}
+
 			,
 			isInut: false,
 			title: "",
@@ -26,7 +16,9 @@ export const usePageRequirement = defineStore("requirement", {
 			requirementList: [],
 			list: [],
 			id: '',
-			tabsId: ""
+			tabsId: "",
+			headline: '',
+			number: ''
 		}
 	},
 	actions: {
@@ -43,29 +35,54 @@ export const usePageRequirement = defineStore("requirement", {
 			});
 			this.tabsId = this.requirementList[0].id
 			let num = "毕业要求"
+			// this.number = this.requirementList.length + 1
 			this.title = `${num}${this.requirementList.length + 1}`
+
 			this.graduationList = this.requirementList[0]
+
+			this.addGraduationList = {
+				id: "",
+				require: '',
+				target: [
+
+				]
+			}
 			console.log(this.requirementList, this.title, 9999999)
 		},
 		// 添加毕业指标
-		AddTarget() {
+		AddTarget(val: any) {
+			console.log(val, 'pppppp');
 
-			if (this.addGraduationList.require !== '') {
+			if (this.addGraduationList.require == '') {
 				ElMessage({
 					type: 'warning',
 					message: '先填写毕业要求'
 				})
 				return
 			}
-			let num = '指标'
-			console.log(this.addGraduationList.target, '99999999999999');
+			if (val) {
+				let num = this.addGraduationList.name.slice(4)
+				console.log(num, '00000');
+
+				this.headline = `${'指标'}${num}${'.'}${this.addGraduationList.target.length
+					+ 1}`
+				console.log(this.addGraduationList.target, '99999999999999');
+				
+			}else{
+				this.headline = `${'指标'}${this.requirementList.length + 1}${'.'}${this.addGraduationList.target.length
+					+ 1}`
+			}
+
 			this.addGraduationList.target.push(
 				{
 					graduationRequireId: '',
-					name: `${num}${this.addGraduationList.target.length
-						+ 1}`,
+					name: this.headline,
 					content: ""
 				})
+			// console.log(this.addGraduationList.name,'9999999999999');
+
+			// let num = '指标'
+
 
 
 
@@ -83,7 +100,7 @@ export const usePageRequirement = defineStore("requirement", {
 				}
 			})
 			if (res.result.result) {
-				this.GetAllGraduationRequirement()
+				// this.GetAllGraduationRequirement()
 				let _usePageOutline = usePageOutline()
 				_usePageOutline.GetAllGraduationRequirement()
 			}
@@ -110,7 +127,7 @@ export const usePageRequirement = defineStore("requirement", {
 					data: item
 				})
 			})
-
+			this.GetAllGraduationRequirement()
 
 		},
 		// 修改

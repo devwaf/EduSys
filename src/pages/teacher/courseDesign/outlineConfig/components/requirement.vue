@@ -19,7 +19,9 @@ const {
   requirementList,
   list,
   showTitleList,
-  tabsId
+  tabsId,
+  headline,
+  number
 } = storeToRefs(requirement);
 // const text = ref(`${"毕业要求"}${requirementList.value.length}`);
 // text.value = `${"毕业要求"}${requirementList.value.length}`;
@@ -135,14 +137,14 @@ const detailsRequirement = (index: string, item: string) => {
 // 新增要求
 const requireHanlder = () => {
   if (!show.value) {
-    requirement.AddGraduationRequirement(addGraduationList.value);
+    requirement.AddGraduationRequirement();
   }
 };
 
 // 新增指标
 const addSubtopic = (id: any) => {
   console.log(id, "888888");
-  requirement.AddTarget();
+  requirement.AddTarget(show.value);
 };
 // 添加or修改
 const addRequirement = () => {
@@ -210,7 +212,7 @@ const delRequirement = () => {
           v-for="(i, index) in addGraduationList.target"
           :key="index"
         >
-          <div class="title-content">123 ：</div>
+          <div class="title-content">{{i.name}}：</div>
           <div>
             <el-input
               class="content-input"
@@ -317,7 +319,7 @@ const delRequirement = () => {
         // margin-left: 20px;
       }
       .title-text {
-        margin-left: 40%;
+        margin-left: 45%;
         // text-align: left;
       }
     }
