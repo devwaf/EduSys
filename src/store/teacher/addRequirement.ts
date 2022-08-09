@@ -172,7 +172,7 @@ export const usePageRequirement = defineStore("requirement", {
 
 
 
-			if (value.target !== []) {
+			if (value.target.length !== 0 ) {
 				let resList = val.target.filter(item => !value.target.some(ele => ele.content == item.content))
 				console.log(resList, '99999999');
 

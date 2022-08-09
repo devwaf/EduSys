@@ -432,7 +432,7 @@ const resetRequirement = () => {
             width: 100px;
             line-height: 46px;
             text-align: center;
-            background: #d8d8d8;
+            background: #f2f2f4;
 
             border-right: 1px solid #707070;
           }
