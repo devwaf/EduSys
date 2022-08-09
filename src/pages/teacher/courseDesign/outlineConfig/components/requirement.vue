@@ -17,7 +17,7 @@ const {
   headline,
   number,
 } = storeToRefs(requirement);
-
+// requirement.GetAllGraduationRequirement()
 const show = ref(false);
 const ii = reactive({});
 const detailsRequirement = (index: string, item: string) => {
@@ -254,7 +254,7 @@ const delRequirement = () => {
       .title-content {
         width: 80px;
         color: #646464;
-        text-align: center;
+        // text-align: center;
       }
       .content-input {
         height: 36px;
@@ -315,7 +315,7 @@ const delRequirement = () => {
       margin: 0;
 
       .el-input__inner {
-        text-align: left;
+        text-align: left !important;
       }
     }
     .add-requirement-main::-webkit-scrollbar {

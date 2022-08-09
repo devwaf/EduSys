@@ -5,10 +5,12 @@ import Dialog from "@/components/Dialog/index.vue";
 import Requirement from "@/pages/teacher/courseDesign/outlineConfig/components/requirement.vue";
 import { ref, reactive, toRefs, onMounted, watch } from "vue";
 import { usePageOutline } from "../../../store/teacher/outline/outline";
+import { usePageRequirement } from "../../../store/teacher/addRequirement.ts";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 const _Alloutline = usePageOutline();
+const _requirement = usePageRequirement();
 const {
   outlineName,
   targetList,
@@ -76,6 +78,7 @@ let column = ref("");
 let dialogVisible = ref(false);
 const addTarget = () => {
   column.value = "毕业要求表";
+   _requirement.GetAllGraduationRequirement();
   dialogVisible.value = !dialogVisible.value;
 };
 
@@ -228,7 +231,7 @@ const getSummaries = (param: SummaryMethodProps) => {
       <template #dialog>
         <Requirement></Requirement>
       </template>
-      <template #footer>
+      <!-- <template #footer>
         <el-button
           @click="dialogVisible = false"
           style="border: 1px solid #2ebba3; color: #2ebba3"
@@ -240,7 +243,7 @@ const getSummaries = (param: SummaryMethodProps) => {
           style="background-color: #2ebba3"
           >确认</el-button
         >
-      </template>
+      </template> -->
     </Dialog>
 
     <div class="outlineName">

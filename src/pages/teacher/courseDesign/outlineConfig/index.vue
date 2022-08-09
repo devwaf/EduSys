@@ -21,10 +21,10 @@ let subItemList = reactive(subItem);
 let percentage = ref("%");
 let reachTabel = reactive(reach);
 let reachTableOptions = reachTable;
-const  yy=ref('900px')
+const yy = ref("900px");
 const addTarget = () => {
   column.value = "毕业要求表";
- _requirement.GetAllGraduationRequirement();
+  _requirement.GetAllGraduationRequirement();
   dialogVisible.value = !dialogVisible.value;
 };
 const outLineConfig = usePageStoreOutLineConfig();
@@ -43,10 +43,8 @@ const {
 let router = useRouter();
 let route = useRoute();
 
-
 // 新建大纲
 const changeName = () => {
-
   outLineConfig.getAddOutline();
 };
 
@@ -523,7 +521,7 @@ watch(
       display: flex;
       width: 100%;
     }
-    .subItem{
+    .subItem {
       flex: 1;
     }
     .report-left {
@@ -563,13 +561,12 @@ li:last-child {
   text-align: center;
   line-height: 40px;
 }
-.assessment-box{
-
-.achievement{
-  width: 96%;
-// background-color: skyblue;
-  // background-color: #fff;
-}
+.assessment-box {
+  .achievement {
+    width: 96%;
+    // background-color: skyblue;
+    // background-color: #fff;
+  }
 }
 .subItem {
   width: 80%;
