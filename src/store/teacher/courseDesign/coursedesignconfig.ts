@@ -14,7 +14,7 @@ export const usePageCurriculumInstall = defineStore("curriculumInstall", {
                 teacherId: localStorage.getItem('userId'),
                 outlineId: "",
                 supervisor: '',
-                outlineName: '',
+               
                 semester: "",
                 credit: null,
                 classDuration: null,
@@ -99,13 +99,13 @@ export const usePageCurriculumInstall = defineStore("curriculumInstall", {
             })
         },
 
-        getOutlineName(id: any) {
-            this.outlineSelect.forEach(item => {
-                if (item.value == id) {
-                    this.curriculumInstallFormData.outlineName = item.label
-                }
-            })
-        },
+        // getOutlineName(id: any) {
+        //     this.outlineSelect.forEach(item => {
+        //         if (item.value == id) {
+        //             this.curriculumInstallFormData.outlineName = item.label
+        //         }
+        //     })
+        // },
 
         // 发布
         async AddCourse() {

@@ -16,9 +16,10 @@ const {
   tabsId,
   headline,
   number,
+  show,
 } = storeToRefs(requirement);
 // requirement.GetAllGraduationRequirement()
-const show = ref(false);
+// const show = ref(false);
 const ii = reactive({});
 const detailsRequirement = (index: string, item: string) => {
   // 高亮
@@ -90,32 +91,39 @@ const detailsRequirement = (index: string, item: string) => {
 };
 
 // 新增要求
-const requireHanlder = () => {
-  if (!show.value) {
-    requirement.AddGraduationRequirement(addGraduationList.value);
-  }
-};
+// const requireHanlder = () => {
+//   if (!show.value) {
+//     requirement.AddGraduationRequirement(addGraduationList.value);
+//   }
+// };
 
 // 新增指标
 const addSubtopic = (id: any) => {
   console.log(id, "888888");
-  requirement.AddTarget(show.value);
+  if (!show.value) {
+    requirement.AddGraduationRequirement(addGraduationList.value);
+     
+  }
+  if(addGraduationList.value.id){
+ requirement.AddTarget(show.value);
+  }
+
+
 };
 // 添加or修改
 const addRequirement = () => {
-  if (show) {
+  if (show.value) {
     console.log(111111);
 
     requirement.UpdateGraduationRequirement(
       addGraduationList.value,
       graduationList.value
     );
- show.value = false;
+    show.value = false;
   } else {
     requirement.GetAddRequirement();
   }
   requirement.GetAllGraduationRequirement();
-
 };
 
 // 编辑要求
@@ -136,7 +144,12 @@ const delRequirement = () => {
     addGraduationList.value,
     showTitleList
   );
-  show.value = false;
+  // show.value = false;
+};
+
+// 重置
+const resetRequirement = () => {
+ requirement.GetResetRequirement()
 };
 </script>
 
@@ -161,7 +174,6 @@ const delRequirement = () => {
             <el-input
               class="content-input"
               placeholder="请输入内容"
-              @change="requireHanlder"
               v-model="addGraduationList.require"
             ></el-input>
           </div>
@@ -187,8 +199,17 @@ const delRequirement = () => {
           <el-button class="add-quota" @click="addSubtopic">添加指标</el-button>
         </div>
         <div>
-          <el-button class="del-requirement" @click="delRequirement"
+          <el-button
+            class="del-requirement"
+            @click="delRequirement"
+            v-show="show"
             >删除</el-button
+          >
+          <el-button
+            v-show="!show"
+            class="reset-requirement"
+            @click="resetRequirement"
+            >重置</el-button
           >
           <el-button class="increase" @click="addRequirement">添加</el-button>
         </div>
@@ -342,6 +363,11 @@ const delRequirement = () => {
       color: #ee5f66;
       border: 1px solid #ee5f66;
     }
+    .reset-requirement {
+      width: 68px;
+      color: #2ebba3;
+      border: 1px solid #2ebba3;
+    }
     .increase {
       width: 68px;
       color: #fff;
@@ -427,7 +453,6 @@ const delRequirement = () => {
     .requirement-list-content::-webkit-scrollbar {
       display: none !important;
     }
-     }
   }
-
+}
 </style>

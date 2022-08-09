@@ -90,10 +90,10 @@ const rules = reactive({
     },
   ],
 });
-const change = (val: any) => {
-  console.log(val, "123435355546");
-  _usePageCurriculumInstall.getOutlineName(val);
-};
+// const change = (val: any) => {
+//   console.log(val, "123435355546");
+//   // _usePageCurriculumInstall.getOutlineName(val);
+// };
 
 // 开课学期
 // const semesterList=reactive([
@@ -111,7 +111,8 @@ const change = (val: any) => {
 // ])
 // 发布
 const release = () => {
-  console.log(11111111111111111);
+  // console.log(11111111111111111);
+  console.log(curriculumInstallFormData.value,'099999');
   
   _usePageCurriculumInstall.getClass();
   ruleFormRef.value.validate( (valid) => {
@@ -173,7 +174,7 @@ watch(
           <el-select
             v-model="curriculumInstallFormData.outlineId"
             placeholder="请选择课设大纲"
-            @change="change"
+           
           >
             <el-option
               v-for="item in outlineSelect"

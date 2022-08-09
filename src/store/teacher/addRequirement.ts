@@ -18,7 +18,8 @@ export const usePageRequirement = defineStore("requirement", {
 			id: '',
 			tabsId: "",
 			headline: '',
-			number: ''
+			number: '',
+			show: false
 		}
 	},
 	actions: {
@@ -72,7 +73,7 @@ export const usePageRequirement = defineStore("requirement", {
 				this.headline = `${'指标'}${this.requirementList.length + 1}${'.'}${this.addGraduationList.target.length
 					+ 1}`
 			}
-
+			// this.AddGraduationRequirement(this.addGraduationList)
 			this.addGraduationList.target.push(
 				{
 					graduationRequireId: this.addGraduationList.id,
@@ -83,18 +84,29 @@ export const usePageRequirement = defineStore("requirement", {
 
 		// 添加毕业要求
 		async AddGraduationRequirement(value: any) {
-			const res = await service({
-				path: "/api/services/app/GraduationRequirement/AddGraduationRequirement",
-				method: "post",
-				data: {
-					name: this.title,
-					require: value.require
+			// let id = ''
+			if (value.id == '') {
+				const res = await service({
+					path: "/api/services/app/GraduationRequirement/AddGraduationRequirement",
+					method: "post",
+					data: {
+						name: this.title,
+						require: value.require
+					}
+				})
+				value.id = res.result.id
+				console.log(value, '00000');
+
+				if (res.result.result) {
+					this.AddTarget(this.show)
+					// this.GetAllGraduationRequirement()
+					let _usePageOutline = usePageOutline()
+					_usePageOutline.GetAllGraduationRequirement()
+
+
+
+
 				}
-			})
-			if (res.result.result) {
-				// this.GetAllGraduationRequirement()
-				let _usePageOutline = usePageOutline()
-				_usePageOutline.GetAllGraduationRequirement()
 			}
 
 
@@ -104,7 +116,17 @@ export const usePageRequirement = defineStore("requirement", {
 
 		//新增  
 		async GetAddRequirement() {
-
+			if (this.addGraduationList.id == '') {
+				const res = await service({
+					path: "/api/services/app/GraduationRequirement/AddGraduationRequirement",
+					method: "post",
+					data: {
+						name: this.title,
+						require: value.require
+					}
+				})
+				this.addGraduationList.id = res.result.id
+			}
 			let list = []
 			if (this.addGraduationList.target == []) return
 			this.addGraduationList.target.forEach(element => {
@@ -113,7 +135,7 @@ export const usePageRequirement = defineStore("requirement", {
 			});
 			console.log(list, '99999999999');
 			list.forEach(async (item) => {
-				item.graduationRequireId = this.id
+				item.graduationRequireId = this.addGraduationList.id
 				const data = await service({
 					path: "/api/services/app/Target/AddTarget",
 					method: "post",
@@ -203,6 +225,7 @@ export const usePageRequirement = defineStore("requirement", {
 						this.GetAllGraduationRequirement()
 						let _usePageOutline = usePageOutline()
 						_usePageOutline.GetAllGraduationRequirement()
+						this.show = false
 						ElMessage({
 							type: 'success',
 							message: '删除成功',
@@ -212,6 +235,7 @@ export const usePageRequirement = defineStore("requirement", {
 							type: 'warning',
 							message: res.result.message
 						})
+						this.show = true
 					}
 
 
@@ -221,11 +245,22 @@ export const usePageRequirement = defineStore("requirement", {
 						message: '取消删除',
 					})
 				})
-			// else{
 
-			// }
 		},
+		// 重置
+		async GetResetRequirement() {
+			console.log(this.addGraduationList.id, '000000yyyy');
+			const res = await service({
+				path: "/api/services/app/GraduationRequirement/DeleteGraduationRequirement",
+				method: "delete",
+				query: { id: this.addGraduationList.id }
+			})
 
+			this.addGraduationList.id = "";
+			this.addGraduationList.require = "";
+			this.addGraduationList.target = [];
+			this.GetAllGraduationRequirement()
+		}
 
 
 

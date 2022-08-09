@@ -13,7 +13,7 @@ export const usePageCoursemanagement = defineStore("coursemanagement", {
 				type: "",
 				teacherId: localStorage.getItem('userId'),
 				outlineId: "",
-				outlineName: '',
+				
 				semester: "",
 				supervisor: '',
 				credit: null,
@@ -91,13 +91,13 @@ export const usePageCoursemanagement = defineStore("coursemanagement", {
 			console.log(this.curriculumFormData.classIds, '9999999999');
 		},
 
-		getOutlineName(id: any) {
-			this.outlineSelect.forEach(item => {
-				if (item.value == id) {
-					this.curriculumFormData.outlineName = item.label
-				}
-			})
-		},
+		// getOutlineName(id: any) {
+		// 	this.outlineSelect.forEach(item => {
+		// 		if (item.value == id) {
+		// 			this.curriculumFormData.outlineName = item.label
+		// 		}
+		// 	})
+		// },
 		async AddCourse() {
 			if (this.id) {
 				console.log('修改');
