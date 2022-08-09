@@ -279,6 +279,7 @@ export const usePageOutline = defineStore("outline", {
                 outlineId: this.outlineId,
                 type: "",
                 score: 0,
+                courseObjectiveId:'',
                 question: []
             })
         },
@@ -292,7 +293,8 @@ export const usePageOutline = defineStore("outline", {
                     titleNum: val.titleNum,
                     outlineId: this.outlineId,
                     type: val.type,
-                    score: val.score
+                    score: val.score,
+                    courseObjectiveId:val.courseObjectiveId
                 }
             })
         },
@@ -346,13 +348,13 @@ export const usePageOutline = defineStore("outline", {
             })
             this.GetAllTestQuestion(this.outlineId)
             // 如果删除最后一个小题，则删除大题
-            this.examination.forEach((item) => {
-                if (item.id == row) {
-                    if (item.question.length == 1) {
-                        this.DeleteTestQuestion(row)
-                    }
-                }
-            });
+            // this.examination.forEach((item) => {
+            //     if (item.id == row) {
+            //         if (item.question.length == 1) {
+            //             this.DeleteTestQuestion(row)
+            //         }
+            //     }
+            // });
         },
         // 大纲是否完整
         async CheckOutline() {

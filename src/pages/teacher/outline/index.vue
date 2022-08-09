@@ -7,6 +7,7 @@ import { ref, reactive, toRefs, onMounted, watch } from "vue";
 import { usePageOutline } from "../../../store/teacher/outline/outline";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
+import { ElMessage } from "element-plus";
 const _Alloutline = usePageOutline();
 const {
   outlineName,
@@ -112,16 +113,57 @@ const addTopicHandler = () => {
 };
 // 大题修改
 const examinationHandler = (row: any) => {
-  if (row.titleNum == "" || row.type == "" || row.score == "") return;
+  if (
+    row.titleNum == "" ||
+    row.type == "" ||
+    row.score == "" ||
+    row.courseObjectiveId
+  )
+    return;
   _Alloutline.UpdateTestQuestion(row);
+};
+const edit = ref(false);
+const TestQuestion = (val: any) => {
+  console.log(val.courseObjectiveId);
+  if (val.courseObjectiveId) {
+    console.log(12345);
+    _Alloutline.UpdateTestQuestion(val);
+   
+  }
+  //  else{
+
+  //    console.log(122435456);
+
+  //  }
+
+  //  _Alloutline.UpdateTestQuestion(val);
+};
+// 删除大题
+const delTestQuestion = (id: string) => {
+  _Alloutline.DeleteTestQuestion(id);
 };
 
 // 添加小题
-const addSubtopicHandler = (id: any) => {
-  _Alloutline.getSubtopic(id);
+const addSubtopicHandler = (id: any,val:any) => {
+  console.log(edit.value,'sh;l;;;');
+  console.log(val);
+  
+  if (val.courseObjectiveId) {
+    ElMessage({
+      message: "大题选择课程后禁止添加小题",
+      type: "warning",
+    });
+    //  edit.value = true;
+  } else {
+    _Alloutline.getSubtopic(id);
+  }
 };
 // 修改小题
-const ChangeQuestion = (val: any) => {
+const ChangeQuestion = (val: any,index:any) => {
+  console.log(index,'000000');
+  val.titleNum=index+1
+  console.log(val,'000000');
+  
   if (val.courseObjectiveId == "" || val.score == 0 || val.titleNum == "")
     return;
   _Alloutline.UpdateQuestion(val);
@@ -240,7 +282,7 @@ const getSummaries = (param: SummaryMethodProps) => {
               </td>
             </tr>
             <tr>
-              <td class="input-number-td">               
+              <td class="input-number-td">
                 <div class="input-number">
                   <button
                     class="button-icon"
@@ -442,13 +484,11 @@ const getSummaries = (param: SummaryMethodProps) => {
         <div>
           <span>试题数量： </span>
           <div class="text">{{ quantity }}</div>
-          <!-- <el-input class="text" v-model="quantity" :disabled="true"></el-input> -->
           &nbsp;&nbsp; <span>题</span>
         </div>
         <div>
           <span>总分： </span>
           <div class="text">{{ score }}</div>
-          <!-- <el-input class="text" v-model="score" :disabled="true"></el-input> -->
           &nbsp;&nbsp; <span>分</span>
         </div>
       </div>
@@ -493,24 +533,26 @@ const getSummaries = (param: SummaryMethodProps) => {
                 <ul class="subtopic-main">
                   <li
                     class="subtopic-box"
-                    v-for="item in scope.row.question"
-                    :key="item"
+                    v-for="(item,index) in scope.row.question"
+                    :key="index"
                   >
-                    <el-input
-                      v-model="item.titleNum"
+                    <!-- <el-input
+                      v-model="index"
                       @change="ChangeQuestion(item)"
-                    />
+                    /> -->
+                      {{index+1}}
                   </li>
                   <li class="add-Subtopic">
                     <div>
-                      <button
+                      <el-button
                         class="addSubtopic"
-                        @click="addSubtopicHandler(scope.row.id)"
+                        @click="addSubtopicHandler(scope.row.id, scope.row)"
+                       
                       >
                         <el-icon style="margin-right: 5px"
                           ><CirclePlus /></el-icon
                         >增加
-                      </button>
+                      </el-button>
                     </div>
                   </li>
                 </ul>
@@ -522,31 +564,32 @@ const getSummaries = (param: SummaryMethodProps) => {
                 <ul class="subtopic-main">
                   <li
                     class="subtopic-box"
-                    v-for="item in scope.row.question"
-                    :key="item"
+                    v-for="(item,index) in scope.row.question"
+                    :key="index"
                   >
                     <el-input
                       v-model="item.score"
-                      @change="ChangeQuestion(item)"
+                      @change="ChangeQuestion(item,index)"
                     />
+                  
                   </li>
                   <li class="add-Subtopic"></li>
                 </ul>
               </template>
             </el-table-column>
-            <el-table-column label="课程目标" align="center">
+            <el-table-column label="课程目标" align="center" width="220px">
               <template #default="scope">
                 <ul class="subtopic-main">
                   <li
                     class="subtopic-box"
-                    v-for="item in scope.row.question"
-                    :key="item"
+                    v-for="(item,index) in scope.row.question"
+                    :key="index"
                   >
                     <el-select
                       v-model="item.courseObjectiveId"
                       class="m-2"
-                      placeholder="Select"
-                      @change="ChangeQuestion(item)"
+                      placeholder="请选择课程目标"
+                      @change="ChangeQuestion(item,index)"
                     >
                       <el-option
                         v-for="item in courseList"
@@ -556,11 +599,26 @@ const getSummaries = (param: SummaryMethodProps) => {
                       />
                     </el-select>
                   </li>
-                  <li class="add-Subtopic"></li>
+                  <li class="add-Subtopic">
+                    <el-select
+                      v-show="scope.row.question.length == 0"
+                      v-model="scope.row.courseObjectiveId"
+                      class="m-2"
+                      placeholder="请选择课程目标"
+                      @change="TestQuestion(scope.row)"
+                    >
+                      <el-option
+                        v-for="item in courseList"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      />
+                    </el-select>
+                  </li>
                 </ul>
               </template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center"  width="120px">
               <template #default="scope">
                 <ul class="subtopic-main">
                   <li
@@ -576,7 +634,18 @@ const getSummaries = (param: SummaryMethodProps) => {
                       <use xlink:href="#icon-shanchu" />
                     </svg>
                   </li>
-                  <li class="add-Subtopic"></li>
+                  <li class="add-Subtopic">
+                    <svg
+                      v-show="scope.row.question.length == 0"
+                      class="icon del-icon del-question"
+                      aria-hidden="true"
+                      @click="delTestQuestion(scope.row.id)"
+                    >
+                      <use xlink:href="#icon-shanchu" />
+                    </svg>
+                    <!-- -->
+                    <!-- {{scope.row.question.length}} -->
+                  </li>
                 </ul>
               </template>
             </el-table-column>
@@ -789,7 +858,8 @@ const getSummaries = (param: SummaryMethodProps) => {
         line-height: 25px;
         color: #646464;
         text-align: center;
-        border: 1px solid #d9d9d9;
+        border: 1px solid #e4e7ed;
+        background-color: #f5f7fa;
       }
     }
   }
@@ -818,6 +888,9 @@ const getSummaries = (param: SummaryMethodProps) => {
         text-align: center;
         // background: pink;
         border-bottom: 1px solid #ebeef5;
+        .del-question {
+          margin-top: 14px;
+        }
       }
       li:last-child {
         border: 0;
@@ -826,13 +899,17 @@ const getSummaries = (param: SummaryMethodProps) => {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 30px;
+        height: 40px;
+        // line-height: 50px;
+        //               .del-question {
+        //   // margin-top: 10px;
+        // }
         .addSubtopic {
           color: #2ebba3;
           font-size: 16px;
-          border: 0;
+          border: 1px  solid #2ebba3;
 
-          background-color: transparent;
+          // background-color: #f5f5f5;
         }
       }
     }
@@ -864,10 +941,6 @@ const getSummaries = (param: SummaryMethodProps) => {
     background-color: transparent;
     border: 1px solid #ebeef5;
     border-top: 0;
-  }
-
-  .del-question {
-    margin-top: 10px;
   }
 }
 </style>

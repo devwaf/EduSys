@@ -173,6 +173,15 @@ export const usePageCurriculum = defineStore("HomeCurriculum", {
 			this.examinationTable = res.result.testQuestions
 			// console.log(this.examinationTable, "11222445")
 			this.examinationForm.quantity = this.examinationTable.length
+			this.examinationTable.forEach(element => {
+				this.courseList.forEach(item=> {
+					if(element.courseObjectiveId==item.value){
+						element.courseObjectiveId=item.label
+					}
+				});
+				
+			});
+			
 		}
 	}
 })

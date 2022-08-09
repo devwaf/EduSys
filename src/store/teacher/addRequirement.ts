@@ -67,26 +67,18 @@ export const usePageRequirement = defineStore("requirement", {
 				this.headline = `${'指标'}${num}${'.'}${this.addGraduationList.target.length
 					+ 1}`
 				console.log(this.addGraduationList.target, '99999999999999');
-				
-			}else{
+
+			} else {
 				this.headline = `${'指标'}${this.requirementList.length + 1}${'.'}${this.addGraduationList.target.length
 					+ 1}`
 			}
 
 			this.addGraduationList.target.push(
 				{
-					graduationRequireId: '',
+					graduationRequireId: this.addGraduationList.id,
 					name: this.headline,
 					content: ""
 				})
-			// console.log(this.addGraduationList.name,'9999999999999');
-
-			// let num = '指标'
-
-
-
-
-
 		},
 
 		// 添加毕业要求
@@ -114,6 +106,7 @@ export const usePageRequirement = defineStore("requirement", {
 		async GetAddRequirement() {
 
 			let list = []
+			if (this.addGraduationList.target == []) return
 			this.addGraduationList.target.forEach(element => {
 				if (element.content == "") return
 				list.push(element)
@@ -127,13 +120,13 @@ export const usePageRequirement = defineStore("requirement", {
 					data: item
 				})
 			})
-			this.GetAllGraduationRequirement()
+
 
 		},
 		// 修改
 		async UpdateGraduationRequirement(val: any, value: any) {
+			console.log(val.require, value.require, '999999');
 			if (val.require !== value.require) {
-
 				const res = await service({
 					path: "/api/services/app/GraduationRequirement/UpdateGraduationRequirement",
 					method: "put",
@@ -143,28 +136,47 @@ export const usePageRequirement = defineStore("requirement", {
 						require: val.require
 					}
 				})
-
 				if (res.result.result) {
-					this.GetAllGraduationRequirement()
+					// this.GetAllGraduationRequirement()
 					let _usePageOutline = usePageOutline()
 					_usePageOutline.GetAllGraduationRequirement()
 				}
 			}
 
-			for (let index = 0; index < val.target.length; index++) {
-				if (val.target[index].content !== value.target[index].content) {
-					console.log(123);
-					const res = await service({
-						path: "/api/services/app/Target/UpdateTarget",
-						method: "put",
-						data: {
-							id: val.target[index].id,
-							graduationRequireId: val.id,
-							name: val.target[index].name,
-							content: val.target[index].content
-						}
-					})
-				}
+
+			console.log(val.target, 1111);
+			console.log(value.target, 2222);
+
+
+
+
+			if (value.target !== []) {
+				let resList = val.target.filter(item => !value.target.some(ele => ele.content == item.content))
+				console.log(resList, '99999999');
+
+
+				resList.forEach(async (element) => {
+					if (element.id !== undefined) {
+						const res = await service({
+							path: "/api/services/app/Target/UpdateTarget",
+							method: "put",
+							data: {
+								id: element.id,
+								graduationRequireId: val.id,
+								name: element.name,
+								content: element.content
+							}
+
+						})
+					} if (element.graduationRequireId !== undefined && element.content !== "") {
+						const data = await service({
+							path: "/api/services/app/Target/AddTarget",
+							method: "post",
+							data: element
+						})
+					}
+
+				})
 
 			}
 
@@ -236,98 +248,43 @@ export const usePageRequirement = defineStore("requirement", {
 
 
 
-		// 修改
-		// async UpdateGraduationRequirement(val: any) {
-
-		// },
-		// 删除毕业要求
-		// async DeleteGraduationRequirement(id: string) {
-		// 	ElMessageBox.confirm(
-		// 		'是否删除?',
-
-		// 		{
-		// 			confirmButtonText: '确认',
-		// 			cancelButtonText: '取消',
-		// 			type: 'warning',
-		// 		}
-		// 	)
-		// 		.then(async () => {
-		// 			const res = await service({
-		// 				path: "/api/services/app/GraduationRequirement/DeleteGraduationRequirement",
-		// 				method: "delete",
-		// 				query: { id: id }
-		// 			})
-
-		// 			if (res.result.result) {
-
-		// 				this.GetAllGraduationRequirement()
-		// 				let _usePageOutline = usePageOutline()
-		// 				_usePageOutline.GetAllGraduationRequirement()
-		// 				ElMessage({
-		// 					type: 'success',
-		// 					message: '删除成功',
-		// 				})
-		// 			} else {
-		// 				ElMessage({
-		// 					type: 'warning',
-		// 					message: res.result.message
-		// 				})
-		// 			}
-
-
-		// 		}).catch(() => {
-		// 			ElMessage({
-		// 				type: 'info',
-		// 				message: '取消删除',
-		// 			})
-		// 		})
-		// 	// else{
-
-		// 	// }
-		// },
-
-
-
-
-
-
 
 
 
 		// 修改添加指标
-		async UpdateTarget(vay: any, id: string) {
-			if (vay.content !== "" && vay.name !== "") {
-				const res = await service({
-					path: "/api/services/app/Target/UpdateTarget",
-					method: "put",
-					data: {
-						id: vay.id,
-						graduationRequireId: id,
-						name: vay.name,
-						content: vay.content
-					}
-				})
-				if (res.success) {
-					this.GetAllGraduationRequirement()
-					let _usePageOutline = usePageOutline()
-					_usePageOutline.GetAllGraduationRequirement()
-				}
-			}
+		// async UpdateTarget(vay: any, id: string) {
+		// 	if (vay.content !== "" && vay.name !== "") {
+		// 		const res = await service({
+		// 			path: "/api/services/app/Target/UpdateTarget",
+		// 			method: "put",
+		// 			data: {
+		// 				id: vay.id,
+		// 				graduationRequireId: id,
+		// 				name: vay.name,
+		// 				content: vay.content
+		// 			}
+		// 		})
+		// 		if (res.success) {
+		// 			this.GetAllGraduationRequirement()
+		// 			let _usePageOutline = usePageOutline()
+		// 			_usePageOutline.GetAllGraduationRequirement()
+		// 		}
+		// 	}
 
-		},
+		// },
 		// 删除
-		async DeleteTarget(id: any) {
-			const res = await service({
-				path: "/api/services/app/Target/DeleteTarget",
-				method: "delete",
-				query: { id: id }
-			})
-			if (res.success) {
-				this.GetAllGraduationRequirement()
-				let _usePageOutline = usePageOutline()
-				_usePageOutline.GetAllGraduationRequirement()
-			}
-		}
+		// async DeleteTarget(id: any) {
+		// 	const res = await service({
+		// 		path: "/api/services/app/Target/DeleteTarget",
+		// 		method: "delete",
+		// 		query: { id: id }
+		// 	})
+		// 	if (res.success) {
+		// 		this.GetAllGraduationRequirement()
+		// 		let _usePageOutline = usePageOutline()
+		// 		_usePageOutline.GetAllGraduationRequirement()
+		// 	}
+		// }
 
 
 	}

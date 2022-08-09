@@ -32,6 +32,7 @@ const handleClose = (done: () => void) => {
       v-model="isEdit"
       :title="column"
       :width="yy"
+      :style="color='#fff'"
       :before-close="handleClose"
     >
       <div class="dialog-main">
@@ -54,7 +55,11 @@ const handleClose = (done: () => void) => {
     padding: 10px;
     margin: 0;
     text-align: left;
+   
     background-color: #f5f5f5;
+  }
+  .el-dialog__title{
+ color: #2ebba4;
   }
   .el-dialog__body {
     padding: 20px;
@@ -64,7 +69,8 @@ const handleClose = (done: () => void) => {
   }
   .el-dialog__close {
     margin-right: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 20px;
   }
   // .dialog-footer {
   // :deep(.el-button:hover) {

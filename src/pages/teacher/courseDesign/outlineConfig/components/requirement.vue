@@ -1,15 +1,9 @@
 <script lang="ts" setup>
-import { ref, reactive, defineProps } from "vue";
+import { ref, reactive, defineProps, watch } from "vue";
 
 import { usePageRequirement } from "../../../../../store/teacher/addRequirement.ts";
 import { storeToRefs } from "pinia";
-import { el } from "element-plus/lib/locale";
 
-// const exhibit = ref(true);
-// const subtopic = (id: any) => {
-//   exhibit.value = id;
-// };
-// requirementList
 const requirement = usePageRequirement();
 const {
   graduationList,
@@ -21,55 +15,23 @@ const {
   showTitleList,
   tabsId,
   headline,
-  number
+  number,
 } = storeToRefs(requirement);
-// const text = ref(`${"毕业要求"}${requirementList.value.length}`);
-// text.value = `${"毕业要求"}${requirementList.value.length}`;
-// const contentChange = (val: any, id: string) => {
-//   console.log(val, id, "7777777");
-//   requirement.UpdateTarget(val, id);
-// };
-requirement.GetAllGraduationRequirement();
-// // 新增毕业要求
-// const addGraduation = () => {
-//   requirement.AddGraduationRequirement();
-//   // requirement.GetAllGraduationRequirement();
-// };
-// // 修改
-// const UpdateRequirement = (val: any) => {
-//   requirement.UpdateGraduationRequirement(val);
-// };
 
-// // 删除指标
-// const delTarget = (id: any) => {
-//   console.log(id, "8888888");
-//   requirement.DeleteTarget(id);
-// };
-// // 删除毕业要求
-// const delRequirement = (id: string) => {
-//   requirement.DeleteGraduationRequirement(id);
-// };
-
-// const showTitleList = list.value;
-// const tabsId = ref(0);
 const show = ref(false);
 const ii = reactive({});
 const detailsRequirement = (index: string, item: string) => {
   // 高亮
   tabsId.value = item.id;
   console.log(index);
-
   // 要求详情
   let _tmp = JSON.stringify(item);
   console.log(item, "指标");
-
   graduationList.value = JSON.parse(_tmp);
-
   // 编辑
   addGraduationList.value = item;
   title.value = `${"编辑"}${item.name}`;
   // 标题
-  // title.value = item.name;
   console.log(addGraduationList.value, "6666666666");
   // 编辑or添加
   show.value = true;
@@ -80,14 +42,12 @@ const detailsRequirement = (index: string, item: string) => {
       return false;
     } else {
       let vid = showTitleList.value[0].id;
-
-      // tabsId.value = tabsId.value + 1;
       requirementList.value.forEach((v, i) => {
         if (vid == v.id) {
           //删除最后一个tabs
           showTitleList.value.splice(6, 1);
           showTitleList.value.unshift(requirementList.value[i - 1]);
-          // console.log(showTitleList, "8888888888888");
+
           tabsId.value = showTitleList.value[0].id;
           // // 要求详情
           console.log(i - 1, v, "3rrrr");
@@ -95,12 +55,9 @@ const detailsRequirement = (index: string, item: string) => {
           let _tmp = JSON.stringify(requirementList.value[i - 1]);
           graduationList.value = JSON.parse(_tmp);
           console.log(graduationList.value, "yttrer");
-
           // // 编辑
           addGraduationList.value = requirementList.value[i - 1];
           title.value = `${"编辑"}${requirementList.value[i - 1].name}`;
-          // title.value = requirementList.value[i - 1].name;
-          // console.log(index, item, "99997777tttt");
         }
       });
     }
@@ -118,7 +75,6 @@ const detailsRequirement = (index: string, item: string) => {
         if (vid == v.id) {
           showTitleList.value.splice(0, 1);
           showTitleList.value.push(requirementList.value[i + 1]);
-          // tabsId.value = tabsId.value - 1;
           tabsId.value = showTitleList.value[6].id;
 
           let _tmp = JSON.stringify(requirementList.value[i + 1]);
@@ -127,7 +83,6 @@ const detailsRequirement = (index: string, item: string) => {
           // // 编辑
           addGraduationList.value = requirementList.value[i + 1];
           title.value = `${"编辑"}${requirementList.value[i + 1].name}`;
-          // title.value = requirementList.value[i + 1].name;
         }
       });
     }
@@ -137,7 +92,7 @@ const detailsRequirement = (index: string, item: string) => {
 // 新增要求
 const requireHanlder = () => {
   if (!show.value) {
-    requirement.AddGraduationRequirement();
+    requirement.AddGraduationRequirement(addGraduationList.value);
   }
 };
 
@@ -148,15 +103,19 @@ const addSubtopic = (id: any) => {
 };
 // 添加or修改
 const addRequirement = () => {
-  if (show.value) {
+  if (show) {
+    console.log(111111);
+
     requirement.UpdateGraduationRequirement(
       addGraduationList.value,
       graduationList.value
     );
-    requirement.GetAllGraduationRequirement();
+ show.value = false;
   } else {
     requirement.GetAddRequirement();
   }
+  requirement.GetAllGraduationRequirement();
+
 };
 
 // 编辑要求
@@ -167,16 +126,17 @@ const returnHandler = () => {
   addGraduationList.value.id = "";
   addGraduationList.value.require = "";
   addGraduationList.value.target = [];
-  title.value = `${"毕业要求"}${requirementList.value.length+1}`;
+  title.value = `${"毕业要求"}${requirementList.value.length + 1}`;
   // title.value = text.value;
 };
 // 删除
 const delRequirement = () => {
-  console.log();
+  // console.log();
   requirement.DeleteGraduationRequirement(
     addGraduationList.value,
     showTitleList
   );
+  show.value = false;
 };
 </script>
 
@@ -212,7 +172,7 @@ const delRequirement = () => {
           v-for="(i, index) in addGraduationList.target"
           :key="index"
         >
-          <div class="title-content">{{i.name}}：</div>
+          <div class="title-content">{{ i.name }}：</div>
           <div>
             <el-input
               class="content-input"
@@ -319,7 +279,7 @@ const delRequirement = () => {
         // margin-left: 20px;
       }
       .title-text {
-        margin-left: 45%;
+        margin-left: 42%;
         // text-align: left;
       }
     }
@@ -379,8 +339,8 @@ const delRequirement = () => {
     .del-requirement {
       width: 68px;
       // color: #2ebba3;
-      color:#EE5F66 ;
-      border: 1px  solid  #EE5F66 ;
+      color: #ee5f66;
+      border: 1px solid #ee5f66;
     }
     .increase {
       width: 68px;
@@ -467,108 +427,7 @@ const delRequirement = () => {
     .requirement-list-content::-webkit-scrollbar {
       display: none !important;
     }
-    // }
+     }
   }
-  // ul {
-  //   width: 100%;
-  //   height: 100%;
-  //   li {
-  //     margin-bottom: 2px;
-  //   }
-  //   .del-icon {
-  //     width: 24px;
-  //     height: 24px;
-  //   }
-  //   .top {
-  //     display: flex;
-  //     justify-content: space-between;
-  //     align-items: center;
-  //     width: 96%;
-  //     height: 20px;
-  //     line-height: 40px;
-  //     padding: 10px;
-  //     border: 1px solid #000;
-  //     // :deep(.el-input__wrapper) {
-  //     //   box-shadow: 0 0 0 0 ;
-  //     // }
-  //     :deep(.el-input__wrapper.is-focus) {
-  //       box-shadow: 0 0 0 1px #2ebba3;
-  //     }
-  //     .icon-box {
-  //       width: 50px;
-  //       height: 30px;
-  //       line-height: 40px;
-  //       text-align: center;
-  //       // background-color: skyblue;
-  //     }
-  //     .icon {
-  //       width: 16px;
-  //       height: 16px;
-  //     }
-  //   }
 
-  //        .del-requirement {
-  //      display: flex;
-  //      justify-content: space-between;
-  //      align-items: center;
-
-  //      // .icon {
-  //      //   width: 20px;
-  //      //   height: 20px;
-  //      // }
-  //    }
-  // .subtopic {
-  //     display: flex;
-  //     justify-content: space-between;
-  //     padding: 10px;
-  //     //   width: 100%;
-  //     //   height: 50px;
-  //     background-color: #f7f4f8;
-
-  //     .text {
-  //       width: 70px;
-  //       // line-height: 40px;
-  //       text-align: center;
-  //       margin-right: 10px;
-  //       background-color: #fff;
-  //       // background-color: transparent;
-  //     }
-  //     .textdiv {
-  //       // flex: 1;
-  //       width: 90%;
-  //       min-height: 24px !important;
-  //       border-radius: 5px;
-  //       padding: 5px 10px;
-  //       background-color: #fff;
-  //       border: 1px solid #000;
-  //     }
-  //     .del{
-  //       text-align: center;
-  //       padding-top: 5px;
-  //       width: 50px;
-  //       // background-color: pink;
-  //     }
-  //   }
-  //   button {
-  //     // padding: 5px 20px;
-  //     width: 150px;
-  //     // height: 40px;
-  //     text-align: center;
-  //     color: #2ebba3;
-  //     background-color: transparent;
-  //     border: 1px solid #2ebba3;
-  //   }
-  //   .addGraduation {
-  //     display: flex;
-
-  //     height: 40px;
-  //     // width: 300px;
-  //     input {
-  //       // margin-left: 5px;
-  //       border: 1px solid #2ebba3;
-  //       border-left: 0;
-  //     }
-  //   }
-  // }
-}
 </style>

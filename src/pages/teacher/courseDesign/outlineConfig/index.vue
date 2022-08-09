@@ -8,10 +8,11 @@ import { ref, reactive, watch } from "vue";
 import Dialog from "../../../../components/Dialog/index.vue";
 import Requirement from "./components/requirement.vue";
 import { usePageStoreOutLineConfig } from "../../../../store/teacher/outLineConfig";
+import { usePageRequirement } from "../../../../store/teacher/addRequirement.ts";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 import { AnySrvRecord } from "dns";
-
+const _requirement = usePageRequirement();
 let dialogVisible = ref(false);
 let column = ref("");
 const score = ref("分");
@@ -23,7 +24,7 @@ let reachTableOptions = reachTable;
 const  yy=ref('900px')
 const addTarget = () => {
   column.value = "毕业要求表";
-
+ _requirement.GetAllGraduationRequirement();
   dialogVisible.value = !dialogVisible.value;
 };
 const outLineConfig = usePageStoreOutLineConfig();

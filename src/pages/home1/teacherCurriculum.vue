@@ -330,11 +330,12 @@ const getSummaries = (param: SummaryMethodProps) => {
                   <template #default="scope">
                     <ul
                       class="tab-container-main"
-                      v-for="item in scope.row.question"
-                      :key="item"
+                      v-for="(item,index) in scope.row.question"
+                      :key="index"
                     >
                       <li class="examination-box">
-                        {{ item.titleNum }}
+                        {{index+1}}
+                        <!-- {{ item.titleNum }} -->
                       </li>
                     </ul>
                   </template>
@@ -363,6 +364,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                         {{ item.courseObjectiveName }}
                       </li>
                     </ul>
+                    <span v-show="scope.row.courseObjectiveId">{{scope.row.courseObjectiveId}}  </span>
                   </template>
                 </el-table-column>
               </template>
