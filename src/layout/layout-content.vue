@@ -6,30 +6,30 @@ import AsiderMenu from "./asider.vue"
 import Breadcrumb from "../components/Breadcrumb/index.vue"
 const whiteList: Array<string | symbol> = [
 	"Home",
-	"CurriculumDesign",
+	"Curriculumdesign",
 	"Curriculum",
 	"Fill",
 	"Graduation",
 	"Home2",
 	"Course",
 	"Administration",
-	"CourseManagement",
+	"Coursemanagement",
 	"Outline",
-	"AddOutline",
-	"OutlineManagement",
-	"CourseDesign",
-	"OutlineConfig",
-	"CourseDesignConfig",
-	"CorrectionReplyForm",
-	"CDFormCenter",
-	"CDPrint",
+	"Addoutline",
+	"Outlinemanagement",
+	"Coursedesign",
+	"Outlineconfig",
+	"Coursedesignconfig",
+	"Correctionreplyform",
+	"Cdformcenter",
+	// "Cdprint",
 	"Examination",
-	"ReleaseTask",
-	"PublishedTask",
-	"TaskCorrect",
-	"ETFormCenter",
-	"ETPrint",
-	"GraduationDesign"
+	"Releasetask",
+	"Publishedtask",
+	"Taskcorrect",
+	// "Etformcenter",
+	// "Etprint",
+	"Graduationdesign"
 ]
 const currentRoute = useRoute()
 const crumbList = ref([])
@@ -59,7 +59,12 @@ const crumbcance = ({ path, name }) => {
 		if (routePages[p]) crumbData.value.push(routePages[p])
 	})
 	if (crumbData.value.length == 1) {
-		if (crumbData.value[0].path == "home" || crumbData.value[0].path == "curriculum" || crumbData.value[0].path == "coursedesign" || crumbData.value[0].path == "examination") {
+		if (
+			crumbData.value[0].path == "home" ||
+			crumbData.value[0].path == "curriculum" ||
+			crumbData.value[0].path == "coursedesign" ||
+			crumbData.value[0].path == "examination"
+		) {
 			crumbData.value = []
 		}
 	}
