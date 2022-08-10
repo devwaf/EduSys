@@ -109,10 +109,10 @@ const scoreWeightListChange = (val: any) => {
 	queryIDForm.type = scoreWeightList.value[val].value
 	teacherHomework.getAllStuHomeworkDetail(queryIDForm)
 }
-// onBeforeRouteLeave((to, from) => {
-// 	activeName.value = ""
-// 	scoreWeightList.value = []
-// })
+onBeforeRouteLeave((to, from) => {
+	activeName.value = ""
+	scoreWeightList.value = []
+})
 </script>
 <template>
 	<div id="taskCorrect">

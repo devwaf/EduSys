@@ -68,14 +68,14 @@ const delOutline = (id: String) => {
       style="width: 740px"
     >
       <template #default>
-        <el-table-column label="是否完整">
+        <el-table-column label="是否完整" width="130px">
           <template #default="scope">
             <span v-if="scope.row.isComplete">是</span>
             <span v-else>否</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="140px">
+        <el-table-column label="操作" width="150px">
           <template #default="scope">
             <div class="operation">
               <span class="edit" @click="editOutline(scope.row.id)">修改</span>
@@ -94,14 +94,14 @@ const delOutline = (id: String) => {
       style="width: 740px"
     >
       <template #default>
-        <el-table-column label="是否完整">
+        <el-table-column label="是否完整" width="130px">
           <template #default="scope">
             <span v-if="scope.row.isComplete">是</span>
             <span v-else>否</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="140px">
+        <el-table-column label="操作" width="150px">
           <template #default="scope">
             <div class="operation">
               <span class="edit" @click="editCourseDesign(scope.row.id)"
@@ -141,6 +141,8 @@ const delOutline = (id: String) => {
   .operation {
     display: flex;
     justify-content: space-between;
+    padding: 0 10px;
+    box-sizing: border-box;
     span {
       text-align: center;
     }

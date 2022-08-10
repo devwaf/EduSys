@@ -314,6 +314,7 @@ const too = (path: any) => {
 .asider-menu::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+  display: none;
 }
 .asider-menu::-webkit-scrollbar-track {
   background-color: transparent;

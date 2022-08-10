@@ -5,7 +5,6 @@ import { ArrowDown } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
 import { useAccount } from "@/store/account.ts";
 import type { FormInstance } from "element-plus";
-
 const account = useAccount();
 
 let router = useRouter();

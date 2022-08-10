@@ -45,7 +45,7 @@ const handleClick = (tab: TabsPaneContext) => {
 <template>
 	<el-tabs v-model="activeName" type="card" class="tabs" @tab-click="handleClick">
 		<el-scrollbar height="720px">
-			<el-tab-pane label="已提交的作业" name="false">
+			<el-tab-pane label="待批改的作业" name="false">
 				<div v-for="(item, index) in stuAllHomeworkHistory" :key="index" class="box">
 					<span class="name">{{ item.homeworkName }}</span>
 				</div>
