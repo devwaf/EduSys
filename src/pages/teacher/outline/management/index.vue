@@ -75,7 +75,7 @@ const delOutline = (id: String) => {
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="180px">
+        <el-table-column label="操作" width="150px">
           <template #default="scope">
             <div class="operation">
               <span class="edit" @click="editOutline(scope.row.id)">修改</span>
@@ -101,7 +101,7 @@ const delOutline = (id: String) => {
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="180px">
+        <el-table-column label="操作" width="150px">
           <template #default="scope">
             <div class="operation">
               <span class="edit" @click="editCourseDesign(scope.row.id)"
@@ -141,6 +141,8 @@ const delOutline = (id: String) => {
   .operation {
     display: flex;
     justify-content: space-between;
+    padding: 0 10px;
+    box-sizing: border-box;
     span {
       text-align: center;
     }
