@@ -5,6 +5,7 @@ import { ref, reactive } from "vue";
 import { useAddStu } from "@/store/teacher/addStu.ts";
 import { useNotice } from "../store/notice";
 import News from "../components/News/news.vue";
+// import  SideList from  '../pages/components/sideList.vue'
 import { storeToRefs } from "pinia";
 const addStu = useAddStu();
 const router = useRouter();
@@ -115,7 +116,8 @@ const newsButton = () => {
               />&nbsp;&nbsp;消息</el-button
             >
           </template>
-          <News :prop="sideLiST"></News>
+          <News ></News>
+   
         </el-popover>
       </div>
       <div class="importStu" v-if="isTea">

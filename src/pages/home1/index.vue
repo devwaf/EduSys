@@ -52,6 +52,7 @@ watch(
   }
   .el-tabs__item {
     width: 100px;
+    font-size: 16px;
     // color: #2ebba3;
     text-align: center;
     &:hover {

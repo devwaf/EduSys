@@ -31,7 +31,7 @@ const handleClose = (done: () => void) => {
     <el-dialog
       v-model="isEdit"
       :title="column"
-      :width="yy"
+      :width="width"
       :style="color='#fff'"
       :before-close="handleClose"
     >

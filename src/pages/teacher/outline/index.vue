@@ -54,9 +54,19 @@ const addHandler = (value: any) => {
     _Alloutline.UpdateScoreWeight(value);
   }
 };
+const getAddHandler=(value: any)=>{
+   if (value.name !== "" && value.name !== null) {
+    _Alloutline.UpdateScoreWeight(value);
+  }
+  //  _Alloutline.UpdateScoreWeight(value);
+}
 // 添加权重
 const addWeight = () => {
-  if (outlineId.value == undefined) {
+  if (
+    outlineId.value == undefined ||
+    outlineId.value == "" ||
+    outlineId.value == null
+  ) {
     _Alloutline.addition();
   } else {
     _Alloutline.AddScoreWeight();
@@ -78,23 +88,45 @@ let column = ref("");
 let dialogVisible = ref(false);
 const addTarget = () => {
   column.value = "毕业要求表";
-   _requirement.GetAllGraduationRequirement();
+  _requirement.GetAllGraduationRequirement();
   dialogVisible.value = !dialogVisible.value;
 };
 
 // 添加对照表
 const addContrastHandler = () => {
-  if (outlineId.value == undefined) {
+  if (
+    outlineId.value == undefined ||
+    outlineId.value == "" ||
+    outlineId.value == null
+  ) {
     _Alloutline.addition();
   } else {
     _Alloutline.getAddContrast();
   }
 };
 // 修改对照表
+// let requirementId=''
+const cascader = ref(null);
 const reqChange = (val: any) => {
-  if (val.content == "" || val.name == "" || val.graduationRequirementId == "")
-    return;
-  _Alloutline.UpdateCourseObjective(val);
+  //
+  // console.log();
+
+  // let num =JSON.stringify(cascader.value.getCheckedNodes()[0]);
+  // console.log(num.data, "0000000");
+let  num=cascader.value.getCheckedNodes()[0]
+  // console.log(num.label!==undefined, "9999");
+
+  // if(num.label!==undefined){
+  // val.degreeSupport=num.label
+  // }
+  console.log(cascader.value.getCheckedNodes()[0], "pppppp");
+
+  console.log(val.graduationRequirementId, "毕业要求的值");
+      if (val.content == "" || val.name == "" || val.graduationRequirementId == ""){
+   return;
+      }else{
+    _Alloutline.UpdateCourseObjective(val, num);
+      }
 };
 // 删除课程目标
 const delTarget = (id: string) => {
@@ -108,7 +140,11 @@ const ChangeCourse = (val: any) => {
 const score = ref("100");
 // 添加大题
 const addTopicHandler = () => {
-  if (outlineId.value == undefined) {
+  if (
+    outlineId.value == undefined ||
+    outlineId.value == "" ||
+    outlineId.value == null
+  ) {
     _Alloutline.addition();
   } else {
     _Alloutline.getTopic();
@@ -131,7 +167,7 @@ const TestQuestion = (val: any) => {
   if (val.courseObjectiveId) {
     console.log(12345);
     _Alloutline.UpdateTestQuestion(val);
-   
+    edit.value = true;
   }
   //  else{
 
@@ -147,26 +183,23 @@ const delTestQuestion = (id: string) => {
 };
 
 // 添加小题
-const addSubtopicHandler = (id: any,val:any) => {
-  console.log(edit.value,'sh;l;;;');
+const addSubtopicHandler = (id: any, val: any) => {
+  console.log(edit.value, "sh;l;;;");
   console.log(val);
-  
-  if (val.courseObjectiveId) {
-    ElMessage({
-      message: "大题选择课程后禁止添加小题",
-      type: "warning",
-    });
-    //  edit.value = true;
-  } else {
-    _Alloutline.getSubtopic(id);
-  }
+
+  // if (val.courseObjectiveId) {
+  //   ElMessage({
+  //     message: "大题选择课程后禁止添加小题",
+  //     type: "warning",
+  //   });
+  //   //  edit.value = true;
+  // } else {
+
+  // }
+  _Alloutline.getSubtopic(id);
 };
 // 修改小题
-const ChangeQuestion = (val: any,index:any) => {
-  console.log(index,'000000');
-  val.titleNum=index+1
-  console.log(val,'000000');
-  
+const ChangeQuestion = (val: any, index: any) => {
   if (val.courseObjectiveId == "" || val.score == 0 || val.titleNum == "")
     return;
   _Alloutline.UpdateQuestion(val);
@@ -215,7 +248,7 @@ const getSummaries = (param: SummaryMethodProps) => {
         console.log(item, 7777777777);
         item.forEach((prev) => {
           console.log(prev.swDetailPower, "666666666666666");
-          num += parseInt(prev.swDetailPower);
+          num += prev.swDetailPower;
           console.log(num);
           sums[index] = num;
         });
@@ -299,6 +332,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                     name="text"
                     v-model="item.times"
                     onkeyup="this.value=this.value.replace(/\D/g,'')"
+                    @change="getAddHandler(item)"
                     class="input-number-input"
                   />
                   <button class="button-icon" @click.prevent="addHandler(item)">
@@ -367,7 +401,21 @@ const getSummaries = (param: SummaryMethodProps) => {
               </el-button>
             </template>
             <template #default="scope">
-              <el-select
+              <el-cascader
+                :options="targetList"
+                @change="reqChange(scope.row)"
+                clearable
+                ref="cascader"
+                filterable
+                :show-all-levels="false"
+                :props="{
+                  emitPath: false,
+
+                  checkStrictly: true,
+                }"
+                v-model="scope.row.graduationRequirementId"
+              />
+              <!-- <el-select
                 v-model="scope.row.graduationRequirementId"
                 class="m-2"
                 placeholder="Select"
@@ -379,7 +427,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                   :label="item.label"
                   :value="item.value"
                 />
-              </el-select>
+              </el-select> -->
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="80px">
@@ -455,6 +503,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                       v-model="item.courseObjectiveId"
                       class="m-2"
                       placeholder="Select"
+                      clearable
                       @change="ChangeCourse(item)"
                     >
                       <el-option
@@ -536,21 +585,25 @@ const getSummaries = (param: SummaryMethodProps) => {
                 <ul class="subtopic-main">
                   <li
                     class="subtopic-box"
-                    v-for="(item,index) in scope.row.question"
+                    v-for="(item, index) in scope.row.question"
                     :key="index"
                   >
-                    <!-- <el-input
-                      v-model="index"
+                    <el-input
+                      v-model="item.titleNum"
                       @change="ChangeQuestion(item)"
-                    /> -->
-                      {{index+1}}
+                    />
+                    <!-- {{index+1}} -->
                   </li>
                   <li class="add-Subtopic">
                     <div>
                       <el-button
-                        class="addSubtopic"
                         @click="addSubtopicHandler(scope.row.id, scope.row)"
-                       
+                        :disabled="edit"
+                        :class="
+                          scope.row.courseObjectiveId
+                            ? 'disabledSubtopic'
+                            : 'addSubtopic'
+                        "
                       >
                         <el-icon style="margin-right: 5px"
                           ><CirclePlus /></el-icon
@@ -567,14 +620,13 @@ const getSummaries = (param: SummaryMethodProps) => {
                 <ul class="subtopic-main">
                   <li
                     class="subtopic-box"
-                    v-for="(item,index) in scope.row.question"
+                    v-for="(item, index) in scope.row.question"
                     :key="index"
                   >
                     <el-input
                       v-model="item.score"
-                      @change="ChangeQuestion(item,index)"
+                      @change="ChangeQuestion(item, index)"
                     />
-                  
                   </li>
                   <li class="add-Subtopic"></li>
                 </ul>
@@ -585,14 +637,15 @@ const getSummaries = (param: SummaryMethodProps) => {
                 <ul class="subtopic-main">
                   <li
                     class="subtopic-box"
-                    v-for="(item,index) in scope.row.question"
+                    v-for="(item, index) in scope.row.question"
                     :key="index"
                   >
                     <el-select
                       v-model="item.courseObjectiveId"
                       class="m-2"
                       placeholder="请选择课程目标"
-                      @change="ChangeQuestion(item,index)"
+                       clearable
+                      @change="ChangeQuestion(item, index)"
                     >
                       <el-option
                         v-for="item in courseList"
@@ -607,6 +660,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                       v-show="scope.row.question.length == 0"
                       v-model="scope.row.courseObjectiveId"
                       class="m-2"
+                      clearable
                       placeholder="请选择课程目标"
                       @change="TestQuestion(scope.row)"
                     >
@@ -621,7 +675,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                 </ul>
               </template>
             </el-table-column>
-            <el-table-column label="操作" align="center"  width="120px">
+            <el-table-column label="操作" align="center" width="120px">
               <template #default="scope">
                 <ul class="subtopic-main">
                   <li
@@ -910,9 +964,14 @@ const getSummaries = (param: SummaryMethodProps) => {
         .addSubtopic {
           color: #2ebba3;
           font-size: 16px;
-          border: 1px  solid #2ebba3;
+          border: 1px solid #2ebba3;
 
           // background-color: #f5f5f5;
+        }
+        .disabledSubtopic {
+          font-size: 16px;
+          color: #2ebba3;
+          background-color: #f5f5f5;
         }
       }
     }

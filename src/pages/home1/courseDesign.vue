@@ -63,9 +63,9 @@ const informationOptions = [
   { label: "课设大纲", prop: "outlineName" },
   { label: "学分", prop: "credit" },
   { label: "总学时", prop: "classDuration" },
-  { label: "作业次数", prop: "frequency" },
+  { label: "作业次数", prop: "homeWorkCount" },
   { label: "试验次数", prop: "textDuration" },
-  { label: "试题数量", prop: "questions" },
+  { label: "试题数量", prop: "questionCount" },
 ];
 
 // // 合计
@@ -112,35 +112,35 @@ const getSummaries = (param: SummaryMethodProps) => {
             :value="item.value"
           />
         </el-select>
-        <el-button
+        <button
           type="primary"
           size="small"
           class="button"
-          @click="router.push('/coursedesign/coursedesignconfig')"
-          >新建课设</el-button
+          @click.prevent="router.push('/coursedesign/coursedesignconfig')"
+          >新建课设</button
         >
       </div>
       <div>
         <span>课设大纲：</span>
         <span>{{ outlineName }}</span>
-        <el-button
+        <button
           type="primary"
           size="small"
           class="button"
-          @click="router.push('/coursedesign/outlineconfig')"
-          >新建大纲</el-button
+          @click.prevent="router.push('/coursedesign/outlineconfig')"
+          >新建大纲</button
         >
       </div>
       <div>
         <span>开课学期：</span>
         <span>{{ courseName }}</span>
 
-        <el-button
+        <button
           size="small"
           type="primary"
           class="button button-box"
-          @click="examineHandler"
-          >查看</el-button
+          @click.prevent="examineHandler"
+          >查看</button
         >
       </div>
     </div>
@@ -273,6 +273,8 @@ const getSummaries = (param: SummaryMethodProps) => {
       margin-left: 20px;
       width: 104px;
       height: 40px;
+      line-height: 42px;
+      text-align: center;
       background: #479fec;
       font-size: 14px;
       color: #fff;

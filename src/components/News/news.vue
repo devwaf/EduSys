@@ -1,15 +1,101 @@
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
+import { reactive,onMounted, ref } from "vue";
+import {ElMessageBox} from 'element-plus'
 import { useRouter } from "vue-router";
+import SignalRAspNetCoreHelper from '../../utils/SignalRAspNetCoreHelper'
+import {useNotice} from '../../store/notice'
+
+// import { defineProps } from "vue";
+// const { prop } = defineProps({
+//   prop: {
+//     type: Array,
+//     require: true,
+//   },
+// });
+
 const router = useRouter();
 const activeName = ref("first");
-import { defineProps } from "vue";
-const { prop } = defineProps({
-  prop: {
-    type: Array,
-    require: true,
-  },
-});
+const _useNotice = useNotice()
+let notices = ref([])
+let userId = localStorage.getItem("userId")
+let isTeacher = localStorage.getItem("isTeacher") == '1'
+
+let connect,connectNum = 0
+const connectSocket = ()=>{
+  // 初始化
+  SignalRAspNetCoreHelper.initSignalR()
+  abp.event.on("abp.notifications.received", (userNotification) =>{
+    let flag = notices.value.some(s=>s.id == userNotification.notification.id)
+    if(!flag){
+      let data = {
+        message:userNotification.notification.data.properties.Message
+      }
+      if(isTeacher){
+        const getCount = (message)=>{
+          let num = 0
+          notices.value.forEach((item,index)=>{
+            if(item.message == message){
+              num+=item.count
+              notices.splice(index,1)
+            }
+          })
+          return num
+        }
+        data.count = getCount(data.message)
+      }else{
+        data.noticeId = userNotification.notification.id
+      }
+      notices.value.unshift(data)
+    }
+  })
+
+  // connect.error((err)=>{
+  //   console.error(err.toString());
+  // })
+
+  // 断开连接后尝试重新连接 
+  // connect.disconnected(()=>{
+  //   if(connectNum > 3) return
+  //   connectSocket()
+  //   connectNum++
+  // })
+}
+const getNotices = ()=>{
+  const call = (res)=>{
+    notices.value = res.result
+  }
+  if(isTeacher){
+    _useNotice.getTeacherNotice(userId).then(call)
+  }else{
+    _useNotice.getAllNotice(userId).then(call)
+  }
+  
+}
+
+const removeNotice = (item)=>{
+  ElMessageBox.confirm("确定删除此消息么!",{
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(()=>{
+    const call = ()=>{
+      getNotices()
+    }
+    if(isTeacher){
+      let message = ""
+      _useNotice.deleteTeacherNotice(userId,item.message).then(call)
+    }else{
+      _useNotice.deleteNotice(item.noticeId,userId).then(call)
+    }
+    
+  }).catch(err=>{})
+}
+
+onMounted(()=>{
+  connectSocket()
+  getNotices()
+})
+
 </script>
 
 <template>
@@ -18,7 +104,7 @@ const { prop } = defineProps({
     <div class="task">
       <ul>
         <li
-          v-for="(item, index) in prop.values"
+          v-for="(item, index) in notices"
           :key="index"
           @click="router.push(item.router)"
         >
@@ -28,11 +114,11 @@ const { prop } = defineProps({
           <div class="correct"> {{item.state}} </div>
           <div class="number">{{ item.count }}</div>
         </li>
-       
+       <!-- <li>{{notices}}</li> -->
       </ul>
     </div>
     
-    <div class="data">共{{ prop.values.length }}条通知</div>
+    <div class="data">共{{ notices.length }}条通知</div>
   </div>
 </template>
 
@@ -64,6 +150,7 @@ const { prop } = defineProps({
         padding: 0 20px;
         color: #646464;
         height: 42px;
+        // height: 300px;
         line-height: 42px;
         border-top: 1px solid #f5f5f5;
         div {

@@ -35,9 +35,9 @@ const curriculumOptions = [
   { label: "课程大纲", prop: "outlineName" },
   { label: "学分", prop: "credit" },
   { label: "总学时", prop: "classDuration" },
-  { label: "作业次数", prop: "frequency" },
+  { label: "作业次数", prop: "homeWorkCount" },
   { label: "试验次数", prop: "textDuration" },
-  { label: "试题数量", prop: "questions" },
+  { label: "试题数量", prop: "questionCount" },
 ];
 const show = ref(true);
 const valData = ref("");
@@ -103,7 +103,7 @@ const getSummaries = (param: SummaryMethodProps) => {
         console.log(item, 7777777777);
         item.forEach((prev) => {
           console.log(prev.swDetailPower, "666666666666666");
-          num += parseInt(prev.swDetailPower);
+          num += prev.swDetailPower;
           console.log(num);
           sums[index] = num;
         });
@@ -131,35 +131,38 @@ const getSummaries = (param: SummaryMethodProps) => {
             :value="item.value"
           />
         </el-select>
-        <el-button
+        <button
           type="primary"
           size="small"
           class="button"
           @click="router.push('/course/coursemanagement')"
-          >新建课程</el-button
         >
+          新建课程
+        </button>
       </div>
       <div>
         <span>课程大纲：</span>
         <span> {{ outlineName }} </span>
-        <el-button
+        <button
           type="primary"
           size="small"
           class="button"
           @click="router.push('/outline/addoutline')"
-          >新建大纲</el-button
         >
+          新建大纲
+        </button>
       </div>
       <div>
         <span>开课学期：</span>
         <span> {{ courseName }} </span>
-        <el-button
+        <button
           size="small"
           type="primary"
           class="button button-box"
           @click="examineHanlder"
-          >查看</el-button
         >
+          查看
+        </button>
       </div>
     </div>
 
@@ -330,11 +333,11 @@ const getSummaries = (param: SummaryMethodProps) => {
                   <template #default="scope">
                     <ul
                       class="tab-container-main"
-                      v-for="(item,index) in scope.row.question"
+                      v-for="(item, index) in scope.row.question"
                       :key="index"
                     >
                       <li class="examination-box">
-                        {{index+1}}
+                        {{ index + 1 }}
                         <!-- {{ item.titleNum }} -->
                       </li>
                     </ul>
@@ -364,7 +367,9 @@ const getSummaries = (param: SummaryMethodProps) => {
                         {{ item.courseObjectiveName }}
                       </li>
                     </ul>
-                    <span v-show="scope.row.courseObjectiveId">{{scope.row.courseObjectiveId}}  </span>
+                    <span v-show="scope.row.courseObjectiveId"
+                      >{{ scope.row.courseObjectiveId }}
+                    </span>
                   </template>
                 </el-table-column>
               </template>
@@ -391,19 +396,25 @@ const getSummaries = (param: SummaryMethodProps) => {
       margin-right: 50px;
       margin-left: 10px;
       font-size: 16px;
+      :deep(.el-button) {
+        border-radius: 0 !important;
+      }
       > button {
         margin-left: 20px;
         width: 104px;
         height: 40px;
+        line-height: 42px;
         font-size: 14px;
+        text-align: center;
         background: #479fec;
         color: #fff;
-        border-radius: 2px 2px 2px 2px;
+        // border-radius: 2px 2px 2px 2px;
         opacity: 1;
       }
       .button-box {
         width: 72px;
         height: 40px;
+       
         background: #2ebba3;
       }
       > span {
@@ -492,9 +503,9 @@ const getSummaries = (param: SummaryMethodProps) => {
     }
   }
 }
-.text-left{
+.text-left {
   display: inline-block;
-  text-align: left
+  text-align: left;
 }
 .subtopic-main {
   width: 100%;

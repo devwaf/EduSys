@@ -21,7 +21,7 @@ let subItemList = reactive(subItem);
 let percentage = ref("%");
 let reachTabel = reactive(reach);
 let reachTableOptions = reachTable;
-const yy = ref("900px");
+const yy = ref("800px");
 const addTarget = () => {
   column.value = "毕业要求表";
   _requirement.GetAllGraduationRequirement();
@@ -395,6 +395,7 @@ watch(
                           <button
                             class="addReviewButton"
                             @click="addSubscript(item.id, scope.row.id)"
+                            
                           >
                             添加
                           </button>

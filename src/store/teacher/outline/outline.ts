@@ -23,12 +23,33 @@ export const usePageOutline = defineStore("outline", {
         async GetAllGraduationRequirement() {
             const res = await service({ path: "/api/services/app/GraduationRequirement/GetAllGraduationRequirement" })
             this.targetList = []
+            // this.targetList= res.result
             res.result.forEach(item => {
                 this.targetList.push({
                     label: item.name,
-                    value: item.id
+                    value: item.id,
+                    children: []
                 })
+             
+
             })
+
+            for (let index = 0; index < res.result.length; index++) {
+              
+                for (let i = 0; i < res.result[index].target.length; i++) {
+                  
+
+
+                    console.log();
+
+                    this.targetList[index].children.push({
+                        label: res.result[index].target[i].content,
+                        value: res.result[index].target[i].id,
+                    })
+                }
+
+
+            }
         },
         // 大纲
         async getAddOutline() {
@@ -59,7 +80,7 @@ export const usePageOutline = defineStore("outline", {
 
                 this.outlineId = res.result.id
                 // 创建完成获取初始权重数据
-                this.GetAllScoreWeight(this.outlineId) 
+                this.GetAllScoreWeight(this.outlineId)
                 this.GetAllGraduationRequirement()
             }
 
@@ -114,7 +135,7 @@ export const usePageOutline = defineStore("outline", {
         // 添加权重
         async AddScoreWeight() {
 
-            if(this.formationTable.length==5){
+            if (this.formationTable.length == 5) {
                 ElMessage({
                     message: "已添加至上限",
                     type: "warning"
@@ -204,10 +225,22 @@ export const usePageOutline = defineStore("outline", {
         },
 
         // 修改课程目标
-        async UpdateCourseObjective(val: any) {
+        async UpdateCourseObjective(val: any,num:any) {
+        //    val.degreeSupport= num.label
+           console.log(val.degreeSupport,'iiiiii');
+           
+        //    let  nun=JSON.parse(num)
+           console.log(num.label,'000000');
+           val.degreeSupport= num.label
             const res = await service({
                 path: "/api/services/app/CourseObjective/UpdateCourseObjective",
-                data: val,
+                data: {
+                    id: val.id,
+                    content: val.content,
+                    graduationRequirementId: val.graduationRequirementId,
+                    name: val.name,
+                    degreeSupport: val.degreeSupport||'',
+                },
                 method: "put"
             })
             this.GetAllCourseObjective(this.outlineId)
@@ -263,7 +296,7 @@ export const usePageOutline = defineStore("outline", {
                 query: { outlineId: this.outlineId }
             })
             this.examination = res.result.testQuestions
-            this.quantity = this.examination.length
+            this.quantity = res.result.count
         },
         // 添加题
         async getTopic() {
@@ -272,14 +305,14 @@ export const usePageOutline = defineStore("outline", {
                 method: "post",
                 query: { outlineId: this.outlineId }
             })
-
+            let title = `${'第'}${'（'}${this.examination.length + 1}${'）'}${'大题'}`
             this.examination.push({
                 id: res.result.id,
-                titleNum: "",
+                titleNum: title,
                 outlineId: this.outlineId,
                 type: "",
-                score: 0,
-                courseObjectiveId:'',
+                score:null,
+                courseObjectiveId: '',
                 question: []
             })
         },
@@ -294,7 +327,7 @@ export const usePageOutline = defineStore("outline", {
                     outlineId: this.outlineId,
                     type: val.type,
                     score: val.score,
-                    courseObjectiveId:val.courseObjectiveId
+                    courseObjectiveId: val.courseObjectiveId
                 }
             })
         },
@@ -319,20 +352,36 @@ export const usePageOutline = defineStore("outline", {
                 },
                 method: "post"
             })
-            this.examination.forEach(item => {
-                if (item.id == id) {
-                    item.question.push({
+            for (let index = 0; index < this.examination.length; index++) {
+                if (this.examination[index].id == id) {
+                    let num = `${index + 1}${'.'}${this.examination[index].question.length + 1}`
+                    this.examination[index].question.push({
                         id: res.result.id,
                         testQuestionId: id,
-                        titleNum: 0,
-                        score: 0,
+                        titleNum: num,
+                        score:null,
                         courseObjectiveId: ""
                     })
                 }
-            })
+
+            }
+            // this.examination.forEach(item => {
+            //     if (item.id == id) {
+            //         let  num =
+            //         item.question.push({
+            //             id: res.result.id,
+            //             testQuestionId: id,
+            //             titleNum: 0,
+            //             score: 0,
+            //             courseObjectiveId: ""
+            //         })
+            //     }
+            // })
         },
         // 修改小题
         async UpdateQuestion(val: any) {
+            console.log(val, '999999');
+
             const res = await service({
                 path: "/api/services/app/Question/UpdateQuestion",
                 data: val,

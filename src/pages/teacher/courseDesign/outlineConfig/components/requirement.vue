@@ -102,13 +102,10 @@ const addSubtopic = (id: any) => {
   console.log(id, "888888");
   if (!show.value) {
     requirement.AddGraduationRequirement(addGraduationList.value);
-     
   }
-  if(addGraduationList.value.id){
- requirement.AddTarget(show.value);
+  if (addGraduationList.value.id) {
+    requirement.AddTarget(show.value);
   }
-
-
 };
 // 添加or修改
 const addRequirement = () => {
@@ -149,7 +146,7 @@ const delRequirement = () => {
 
 // 重置
 const resetRequirement = () => {
- requirement.GetResetRequirement()
+  requirement.GetResetRequirement();
 };
 </script>
 
@@ -280,7 +277,7 @@ const resetRequirement = () => {
       .content-input {
         height: 36px;
         // width: 100%;
-        width: 720px;
+        width: 745px;
       }
     }
     .title {
@@ -328,7 +325,7 @@ const resetRequirement = () => {
         .content-input {
           height: 36px;
           // width: 100%;
-          width: 720px;
+          width: 745px;
         }
       }
     }
@@ -377,6 +374,7 @@ const resetRequirement = () => {
   .requirement-list {
     margin-top: 30px;
     padding: 20px;
+    padding-left: 50px;
     width: 100%;
     height: 285px;
     box-sizing: border-box;
