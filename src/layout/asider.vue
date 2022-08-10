@@ -226,6 +226,7 @@ const too = (path: any) => {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        cursor: pointer;
       }
       .isActive {
         color: #2ebba3;
@@ -236,6 +237,7 @@ const too = (path: any) => {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
       .label-text {
         flex: 1;
         height: 56px;
