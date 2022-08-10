@@ -666,7 +666,7 @@ const getSummaries = (param: SummaryMethodProps) => {
 <style lang="scss" scoped>
 #outline {
   padding: 20px 30px 100px 30px;
-  height: 88vh;
+  height: 90vh;
   overflow-y: auto;
   background-color: #fff;
   color: #646464;

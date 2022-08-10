@@ -38,7 +38,7 @@ watch(
 <style lang="scss" scoped>
 .container-main {
   padding: 20px;
-  height: 88vh;
+  height: 90vh;
   overflow: auto;
   background-color: #fff;
   :deep(.el-tabs__nav) {

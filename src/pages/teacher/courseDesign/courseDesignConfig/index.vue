@@ -279,7 +279,8 @@ watch(
   position: relative;
   padding: 40px;
   // width: 100%;
-  min-height: 83vh;
+  // min-height: 83vh;
+  height: 90vh;
   background-color: #fff;
 }
 .card {

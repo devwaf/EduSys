@@ -35,24 +35,18 @@ export const usePageRequirement = defineStore("requirement", {
 				}
 			});
 			this.tabsId = this.requirementList[0].id
-			let num = "毕业要求"
-			// this.number = this.requirementList.length + 1
-			this.title = `${num}${this.requirementList.length + 1}`
-
+			this.title = `${'毕业要求'}${this.requirementList.length + 1}`
 			this.graduationList = this.requirementList[0]
-
 			this.addGraduationList = {
 				id: "",
 				require: '',
-				target: [
-
-				]
+				target: []
 			}
-			console.log(this.requirementList, this.title, 9999999)
+			// console.log(this.requirementList, this.title, 9999999)
 		},
 		// 添加毕业指标
 		AddTarget(val: any) {
-			console.log(val, 'pppppp');
+			// console.log(val, 'pppppp');
 
 			if (this.addGraduationList.require == '') {
 				ElMessage({
@@ -62,12 +56,12 @@ export const usePageRequirement = defineStore("requirement", {
 				return
 			}
 			if (val) {
-				let num = this.addGraduationList.name.slice(4)
-				console.log(num, '00000');
+				// let num = this.addGraduationList.name.slice(4)
+				// console.log(num, '00000');
 
-				this.headline = `${'指标'}${num}${'.'}${this.addGraduationList.target.length
+				this.headline = `${'指标'}${this.addGraduationList.name.slice(4)}${'.'}${this.addGraduationList.target.length
 					+ 1}`
-				console.log(this.addGraduationList.target, '99999999999999');
+				// console.log(this.addGraduationList.target, '9999 9999999999');
 
 			} else {
 				this.headline = `${'指标'}${this.requirementList.length + 1}${'.'}${this.addGraduationList.target.length
@@ -95,7 +89,7 @@ export const usePageRequirement = defineStore("requirement", {
 					}
 				})
 				value.id = res.result.id
-				console.log(value, '00000');
+				// console.log(value, '00000');
 
 				if (res.result.result) {
 					this.AddTarget(this.show)
@@ -172,7 +166,7 @@ export const usePageRequirement = defineStore("requirement", {
 
 
 
-			if (value.target.length !== 0 ) {
+			if (value.target.length !== 0) {
 				let resList = val.target.filter(item => !value.target.some(ele => ele.content == item.content))
 				console.log(resList, '99999999');
 
