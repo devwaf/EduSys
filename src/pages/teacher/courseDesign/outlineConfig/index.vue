@@ -21,7 +21,7 @@ let subItemList = reactive(subItem);
 let percentage = ref("%");
 let reachTabel = reactive(reach);
 let reachTableOptions = reachTable;
-const yy = ref("800px");
+const yy = ref("950px");
 const addTarget = () => {
   column.value = "毕业要求表";
   _requirement.GetAllGraduationRequirement();

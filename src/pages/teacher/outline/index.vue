@@ -54,12 +54,12 @@ const addHandler = (value: any) => {
     _Alloutline.UpdateScoreWeight(value);
   }
 };
-const getAddHandler=(value: any)=>{
-   if (value.name !== "" && value.name !== null) {
+const getAddHandler = (value: any) => {
+  if (value.name !== "" && value.name !== null) {
     _Alloutline.UpdateScoreWeight(value);
   }
   //  _Alloutline.UpdateScoreWeight(value);
-}
+};
 // 添加权重
 const addWeight = () => {
   if (
@@ -113,20 +113,24 @@ const reqChange = (val: any) => {
 
   // let num =JSON.stringify(cascader.value.getCheckedNodes()[0]);
   // console.log(num.data, "0000000");
-let  num=cascader.value.getCheckedNodes()[0]
+  // let num = cascader.value.getCheckedNodes()[0];
   // console.log(num.label!==undefined, "9999");
 
   // if(num.label!==undefined){
   // val.degreeSupport=num.label
   // }
-  console.log(cascader.value.getCheckedNodes()[0], "pppppp");
+  // console.log(cascader.value.getCheckedNodes()[0], "pppppp");
 
   console.log(val.graduationRequirementId, "毕业要求的值");
-      if (val.content == "" || val.name == "" || val.graduationRequirementId == ""){
-   return;
-      }else{
-    _Alloutline.UpdateCourseObjective(val, num);
-      }
+  if (
+    val.content == "" ||
+    val.name == "" ||
+    val.graduationRequirementId == ""
+  ) {
+    return;
+  } else {
+    _Alloutline.UpdateCourseObjective(val);
+  }
 };
 // 删除课程目标
 const delTarget = (id: string) => {
@@ -164,18 +168,11 @@ const examinationHandler = (row: any) => {
 const edit = ref(false);
 const TestQuestion = (val: any) => {
   console.log(val.courseObjectiveId);
-  if (val.courseObjectiveId) {
-    console.log(12345);
+  // if (val.courseObjectiveId) {
+  //   console.log(12345);
     _Alloutline.UpdateTestQuestion(val);
-    edit.value = true;
-  }
-  //  else{
-
-  //    console.log(122435456);
-
-  //  }
-
-  //  _Alloutline.UpdateTestQuestion(val);
+    // edit.value = true;
+  // }
 };
 // 删除大题
 const delTestQuestion = (id: string) => {
@@ -187,15 +184,7 @@ const addSubtopicHandler = (id: any, val: any) => {
   console.log(edit.value, "sh;l;;;");
   console.log(val);
 
-  // if (val.courseObjectiveId) {
-  //   ElMessage({
-  //     message: "大题选择课程后禁止添加小题",
-  //     type: "warning",
-  //   });
-  //   //  edit.value = true;
-  // } else {
 
-  // }
   _Alloutline.getSubtopic(id);
 };
 // 修改小题
@@ -250,13 +239,16 @@ const getSummaries = (param: SummaryMethodProps) => {
           console.log(prev.swDetailPower, "666666666666666");
           num += prev.swDetailPower;
           console.log(num);
-          sums[index] = num;
+          sums[index] = Math.round(num);
         });
       });
     }
   });
   return sums;
 };
+// const setInterval=()=>{
+
+// }
 </script>
 <template>
   <div id="outline">
@@ -264,19 +256,7 @@ const getSummaries = (param: SummaryMethodProps) => {
       <template #dialog>
         <Requirement></Requirement>
       </template>
-      <!-- <template #footer>
-        <el-button
-          @click="dialogVisible = false"
-          style="border: 1px solid #2ebba3; color: #2ebba3"
-          >取消</el-button
-        >
-        <el-button
-          type="primary"
-          @click="dialogVisible = false"
-          style="background-color: #2ebba3"
-          >确认</el-button
-        >
-      </template> -->
+      
     </Dialog>
 
     <div class="outlineName">
@@ -403,31 +383,29 @@ const getSummaries = (param: SummaryMethodProps) => {
             <template #default="scope">
               <el-cascader
                 :options="targetList"
-                @change="reqChange(scope.row)"
-                clearable
-                ref="cascader"
-                filterable
                 :show-all-levels="false"
+                v-model="scope.row.graduationRequirementId"
                 :props="{
-                  emitPath: false,
-
                   checkStrictly: true,
+                  emitPath: false,
+                 
                 }"
-                v-model="scope.row.graduationRequirementId"
-              />
-              <!-- <el-select
-                v-model="scope.row.graduationRequirementId"
-                class="m-2"
-                placeholder="Select"
+                clearable
                 @change="reqChange(scope.row)"
               >
-                <el-option
-                  v-for="item in targetList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select> -->
+                <template #default="{ data }">
+                  <el-tooltip
+                    :disabled="data.label.length < 12"
+                    class="item"
+                    effect="dark"
+                    :content="data.label"
+                    placement="top"
+                  >
+                    <span @click="setInterval">{{ data.label }}</span>
+                  </el-tooltip>
+                </template>
+              </el-cascader>
+             
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="80px">
@@ -644,7 +622,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                       v-model="item.courseObjectiveId"
                       class="m-2"
                       placeholder="请选择课程目标"
-                       clearable
+                      clearable
                       @change="ChangeQuestion(item, index)"
                     >
                       <el-option
@@ -733,6 +711,7 @@ const getSummaries = (param: SummaryMethodProps) => {
   :deep(.el-input-number) {
     width: 120px;
   }
+  
   // 大纲名称
   .outlineName {
     display: flex;
@@ -1005,4 +984,27 @@ const getSummaries = (param: SummaryMethodProps) => {
     border-top: 0;
   }
 }
+</style>
+<style  lang="scss">
+.el-cascader-node {
+  max-width: 360px;
+}
+
+
+.el-cascader-node__label {
+  max-width: 300px;
+  //  position: absolute;
+}
+// .el-cascader-panel .el-radio__input {
+//   visibility: hidden;
+// }
+// .el-cascader-panel .el-cascader-node__postfix {
+//   top: 10px;
+// }
+// .item {
+//   background-color: pink;
+// }
+// .el-poper.is-dark {
+//   background-color: pink;
+// }
 </style>

@@ -30,14 +30,14 @@ export const usePageOutline = defineStore("outline", {
                     value: item.id,
                     children: []
                 })
-             
+
 
             })
 
             for (let index = 0; index < res.result.length; index++) {
-              
+
                 for (let i = 0; i < res.result[index].target.length; i++) {
-                  
+
 
 
                     console.log();
@@ -225,13 +225,13 @@ export const usePageOutline = defineStore("outline", {
         },
 
         // 修改课程目标
-        async UpdateCourseObjective(val: any,num:any) {
-        //    val.degreeSupport= num.label
-           console.log(val.degreeSupport,'iiiiii');
-           
-        //    let  nun=JSON.parse(num)
-           console.log(num.label,'000000');
-           val.degreeSupport= num.label
+        async UpdateCourseObjective(val: any) {
+            //    val.degreeSupport= num.label
+            console.log(val.degreeSupport, 'iiiiii');
+
+            //    let  nun=JSON.parse(num)
+            // console.log(num.label, '000000');
+            // val.degreeSupport = num.label
             const res = await service({
                 path: "/api/services/app/CourseObjective/UpdateCourseObjective",
                 data: {
@@ -239,7 +239,7 @@ export const usePageOutline = defineStore("outline", {
                     content: val.content,
                     graduationRequirementId: val.graduationRequirementId,
                     name: val.name,
-                    degreeSupport: val.degreeSupport||'',
+                    degreeSupport: val.degreeSupport || '',
                 },
                 method: "put"
             })
@@ -305,17 +305,38 @@ export const usePageOutline = defineStore("outline", {
                 method: "post",
                 query: { outlineId: this.outlineId }
             })
-            let title = `${'第'}${'（'}${this.examination.length + 1}${'）'}${'大题'}`
+
+            let num = this.examination.length + 1
+            this.toChinese(num)
+            let title = `${'第'}${this.toChinese(num)}${'大题'}`
             this.examination.push({
                 id: res.result.id,
                 titleNum: title,
                 outlineId: this.outlineId,
                 type: "",
-                score:null,
+                score: null,
                 courseObjectiveId: '',
                 question: []
             })
         },
+
+
+        toChinese(num: any) {
+            var upperCaseNumber = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '百', '千', '万', '亿'];
+            var length = String(num).length;
+            if (length == 1) {
+                return upperCaseNumber[num];
+            } else if (length == 2) {
+                if (num == 10) {
+                    return upperCaseNumber[num];
+                } else if (num > 10 && num < 20) {
+                    return '十' + upperCaseNumber[String(num).charAt(1)];
+                } else {
+                    return upperCaseNumber[String(num).charAt(0)] + '十' + upperCaseNumber[String(num).charAt(1)].replace('零', '');
+                }
+            }
+        },
+
         // 修改大题
         async UpdateTestQuestion(val: any) {
             const res = await service({
@@ -352,31 +373,31 @@ export const usePageOutline = defineStore("outline", {
                 },
                 method: "post"
             })
-            for (let index = 0; index < this.examination.length; index++) {
-                if (this.examination[index].id == id) {
-                    let num = `${index + 1}${'.'}${this.examination[index].question.length + 1}`
-                    this.examination[index].question.push({
-                        id: res.result.id,
-                        testQuestionId: id,
-                        titleNum: num,
-                        score:null,
-                        courseObjectiveId: ""
-                    })
+            console.log(res.result.result);
+            
+            if(!res.result.result){
+                ElMessage({
+                    message: res.result.message,
+                    type: "success"
+                })
+            }else{
+               
+                for (let index = 0; index < this.examination.length; index++) {
+                    if (this.examination[index].id == id) {
+                        let num = `${index + 1}${'.'}${this.examination[index].question.length + 1}`
+                        this.examination[index].question.push({
+                            id: res.result.id,
+                            testQuestionId: id,
+                            titleNum: num,
+                            score: null,
+                            courseObjectiveId: ""
+                        })
+                    }
+    
                 }
-
             }
-            // this.examination.forEach(item => {
-            //     if (item.id == id) {
-            //         let  num =
-            //         item.question.push({
-            //             id: res.result.id,
-            //             testQuestionId: id,
-            //             titleNum: 0,
-            //             score: 0,
-            //             courseObjectiveId: ""
-            //         })
-            //     }
-            // })
+           
+          
         },
         // 修改小题
         async UpdateQuestion(val: any) {

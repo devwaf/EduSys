@@ -105,7 +105,7 @@ const getSummaries = (param: SummaryMethodProps) => {
           console.log(prev.swDetailPower, "666666666666666");
           num += prev.swDetailPower;
           console.log(num);
-          sums[index] = num;
+          sums[index] = Math.round(num);
         });
       });
     }
