@@ -3,14 +3,14 @@ import CustomTable from "@/components/customTable/customTable.vue";
 import { reactive } from "vue";
 import { service } from "../../../../api/service";
 import { usePageOutlinemanagement } from "../../../../store/teacher/outlinemanagement";
-import {usePageOutline} from  '../../../../store/teacher/outline/outline'
-import {usePageStoreOutLineConfig} from '../../../../store/teacher/outLineConfig'
+import { usePageOutline } from "../../../../store/teacher/outline/outline";
+import { usePageStoreOutLineConfig } from "../../../../store/teacher/outLineConfig";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 let router = useRouter();
 const outlineManagement = usePageOutlinemanagement();
-const _usePageOutline=usePageOutline()
-const _usePageStoreOutLineConfig=usePageStoreOutLineConfig()
+const _usePageOutline = usePageOutline();
+const _usePageStoreOutLineConfig = usePageStoreOutLineConfig();
 const { Outlinemanagementlist, courseDesignList } =
   storeToRefs(outlineManagement);
 
@@ -28,7 +28,7 @@ const courseDesignOptions = [
 // 课程修改
 const editOutline = (row: any) => {
   // console.log(row,'啦啦啦啦啦');
-  _usePageOutline.getID(row)
+  _usePageOutline.getID(row);
   router.push({
     name: "Addoutline",
     params: { id: row },
@@ -37,14 +37,14 @@ const editOutline = (row: any) => {
 
 // 课设大纲修改
 const editCourseDesign = (row: any) => {
-  console.log(row,'啦啦啦啦啦');
-   _usePageStoreOutLineConfig.getID(row)
+  console.log(row, "啦啦啦啦啦");
+  _usePageStoreOutLineConfig.getID(row);
   router.push({
     name: "Outlineconfig",
     params: { id: row },
   });
 };
-const del = (row: any) => { 
+const del = (row: any) => {
   console.log(row);
 };
 // const to = () => {
@@ -133,9 +133,7 @@ const delOutline = (id: String) => {
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     color: #646464;
     overflow: hidden; /*内容超出后隐藏*/
-
     text-overflow: ellipsis; /* 超出内容显示为省略号 */
-
     white-space: nowrap; /* 文本不进行换行 */
   }
   .operation {

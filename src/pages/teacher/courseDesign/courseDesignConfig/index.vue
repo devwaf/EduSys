@@ -112,17 +112,16 @@ const rules = reactive({
 // 发布
 const release = () => {
   // console.log(11111111111111111);
-  console.log(curriculumInstallFormData.value,'099999');
-  
+  console.log(curriculumInstallFormData.value, "099999");
+
   _usePageCurriculumInstall.getClass();
-  ruleFormRef.value.validate( (valid) => {
+  ruleFormRef.value.validate((valid) => {
     if (valid) {
       console.log("验证通过");
       _usePageCurriculumInstall.AddCourse();
     } else {
       console.log("error submit!");
       // console.log();
-      
     }
   });
 };
@@ -135,8 +134,8 @@ const delClassHandler = (val: any) => {
 watch(
   () => router.currentRoute.value,
   () => {
-    if(router.currentRoute.value.path!=="/coursedesign/outlineconfig"){
-     ruleFormRef.value.resetFields();
+    if (router.currentRoute.value.path !== "/coursedesign/outlineconfig") {
+      ruleFormRef.value.resetFields();
     }
     _usePageCurriculumInstall.leavePage(router.currentRoute.value.path);
   }
@@ -174,7 +173,6 @@ watch(
           <el-select
             v-model="curriculumInstallFormData.outlineId"
             placeholder="请选择课设大纲"
-           
           >
             <el-option
               v-for="item in outlineSelect"
@@ -205,7 +203,7 @@ watch(
                 v-for="(item, index) in selectedList"
                 :key="index"
               >
-                <div>{{ item.schoolYear }}{{ item.major }}{{ item.name }}</div>
+                <div class="major-class-box-li">{{ item.schoolYear }}{{ item.major }}{{ item.name }}</div>
                 <svg
                   class="icon del-icon"
                   aria-hidden="true"
@@ -310,6 +308,8 @@ watch(
     align-items: center;
     padding: 5px 10px;
     background-color: #f3f3f3;
+   
+
   }
   .icon {
     width: 24px;
@@ -359,6 +359,13 @@ watch(
     text-align: center;
     // height: 30px;
     background-color: #f3f3f3;
+        .major-class-box-li{
+ overflow: hidden; /*内容超出后隐藏*/
+
+    text-overflow: ellipsis; /* 超出内容显示为省略号 */
+
+    white-space: nowrap; /* 文本不进行换行 */
+    }
     .del-icon {
       margin-left: 10px;
 

@@ -79,7 +79,7 @@ const lowerHandler = () => {
     // }
   }
 };
-const detailsRequirement = (index: string, item: string) => {
+const detailsRequirement = (index: string, item: any) => {
   // 高亮
   tabsId.value = item.id;
   console.log(index);

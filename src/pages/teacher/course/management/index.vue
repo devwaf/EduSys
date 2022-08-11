@@ -185,7 +185,7 @@ watch(
               v-for="(item, index) in curriculumSelectedList"
               :key="index"
             >
-              <div>{{ item.schoolYear }}{{ item.major }}{{ item.name }}</div>
+              <div class="major-class-box-li">{{ item.schoolYear }}{{ item.major }}{{ item.name }}</div>
               <svg
                 class="icon del-icon"
                 aria-hidden="true"
@@ -320,6 +320,13 @@ watch(
     text-align: center;
     // height: 30px;
     background-color: #f3f3f3;
+            .major-class-box-li{
+ overflow: hidden; /*内容超出后隐藏*/
+
+    text-overflow: ellipsis; /* 超出内容显示为省略号 */
+
+    white-space: nowrap; /* 文本不进行换行 */
+    }
     .del-icon {
       margin-left: 10px;
 
