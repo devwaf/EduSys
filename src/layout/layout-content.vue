@@ -77,12 +77,15 @@ const crumbcance = ({ path, name }) => {
 		<div class="layout-main-content float-left">
 			<div class="main-content">
 				<Breadcrumb :data="crumbData" v-if="crumbData.length" />
-				<router-view v-if="aliveFlag"></router-view>
-				<router-view v-else v-slot="{ Component }">
+				<keep-alive :exclude="whiteList">
+					<router-view></router-view>
+				</keep-alive>
+				<!-- <router-view></router-view> -->
+				<!-- <router-view v-else v-slot="{ Component }">
 					<keep-alive>
 						<component :is="Component" />
 					</keep-alive>
-				</router-view>
+				</router-view> -->
 			</div>
 		</div>
 	</div>
