@@ -3,6 +3,7 @@ import App from "./App.vue"
 import ElementPlus from "element-plus"
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import "element-plus/dist/index.css"
+import './assets/css/element.scss'
 import "./style/common.scss"
 import "./assets/icon-font/iconfont.css"
 import "./assets/icon-font/iconfont.js"
