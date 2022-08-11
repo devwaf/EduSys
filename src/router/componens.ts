@@ -2,7 +2,7 @@ import Login from "../pages/login/index.vue"
 import Register from "../pages/register/index.vue"
 
 // 学生
-import Home from "../pages/home/index.vue"
+// import Home from "../pages/home/index.vue"
 import Curriculumdesign from "../pages/CurriculumDesign/index.vue"
 import Curriculum from "../pages/curriculum/index.vue"
 import Fill from "../pages/curriculum/fill/index.vue"
@@ -45,7 +45,7 @@ const Components = {
 	Register,
 
 	// 学生
-	Home,
+	// Home,
 	Graduation,
 	Curriculumdesign,
 	Curriculum,

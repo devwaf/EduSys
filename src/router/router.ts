@@ -20,7 +20,7 @@ const getLayoutTem = (route: any): RouteRecordRaw => {
 	if (isTeachers == "1") {
 		redirectPath = "home2"
 	} else if (isTeachers == "0") {
-		redirectPath = "home"
+		redirectPath = "curriculumdesign"
 	}
 	return {
 		path: "/",
@@ -67,7 +67,7 @@ const routes: RouteRecordRaw[] = [
 
 	getLayoutTem(pages.Graduationdesign),
 
-	getLayoutTem(pages.Home),
+	// getLayoutTem(pages.Home),
 	getLayoutTem(pages.Graduation),
 	getLayoutTem(pages.Curriculumdesign),
 	getLayoutTem(pages.Curriculum),

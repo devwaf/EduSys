@@ -39,7 +39,12 @@ export const showMenuByIsTeacher = () => {
 			"Graduationdesign"
 		]
 	} else {
-		data = ["Home", "Curriculumdesign", "Curriculum", "Fill", "Graduation"]
+		data = [
+			// "Home", 
+			"Curriculumdesign", 
+			"Curriculum", 
+			"Fill", 
+			"Graduation"]
 	}
 	return data
 }

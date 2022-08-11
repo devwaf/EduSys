@@ -127,7 +127,7 @@ const pages: pageIFace = {
 		icon: "#icon-bishi-jishi-icon"
 	}),
 	Graduationdesign: addPage("Graduationdesign", { title: "毕业设计", icon: "#icon-biyeshejiicon" }),
-	Home: addPage("Home", { title: "首页", icon: "#icon-shouyeicon" }),
+	// Home: addPage("Home", { title: "首页", icon: "#icon-shouyeicon" }),
 	Curriculumdesign: addPage("Curriculumdesign", { title: "课设", icon: "#icon-keshe-icon" }),
 	Curriculum: addPage("", { title: "课程" }, false),
 	Fill: addPage("Fill", { title: "上传作业", icon: "updata" }, true, {
