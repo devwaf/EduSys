@@ -17,10 +17,68 @@ const {
   headline,
   number,
   show,
+  cut,
 } = storeToRefs(requirement);
 // requirement.GetAllGraduationRequirement()
 // const show = ref(false);
 const ii = reactive({});
+
+// 上一个
+const upperHandler = (index: string, item: string) => {
+  //  if (index == "0") {
+  if (requirementList.value[0].id == showTitleList.value[0].id) {
+    return false;
+  } else {
+    let vid = showTitleList.value[0].id;
+    requirementList.value.forEach((v, i) => {
+      if (vid == v.id) {
+        //删除最后一个tabs
+        showTitleList.value.splice(6, 1);
+        showTitleList.value.unshift(requirementList.value[i - 1]);
+
+        // tabsId.value = showTitleList.value[0].id;
+        // // // 要求详情
+        // console.log(i - 1, v, "3rrrr");
+
+        // let _tmp = JSON.stringify(requirementList.value[i - 1]);
+        // graduationList.value = JSON.parse(_tmp);
+        // console.log(graduationList.value, "yttrer");
+        // // // 编辑
+        // addGraduationList.value = requirementList.value[i - 1];
+        // title.value = `${"编辑"}${requirementList.value[i - 1].name}`;
+      }
+    });
+  }
+  // }
+};
+
+// 下一个
+const lowerHandler = () => {
+  //  if (index == "6") {
+  if (
+    requirementList.value[requirementList.value.length - 1].id ==
+    showTitleList.value[6].id
+  ) {
+    return false;
+  } else {
+    let vid = showTitleList.value[6].id;
+    requirementList.value.forEach((v, i) => {
+      if (vid == v.id) {
+        showTitleList.value.splice(0, 1);
+        showTitleList.value.push(requirementList.value[i + 1]);
+        // tabsId.value = showTitleList.value[6].id;
+
+        // let _tmp = JSON.stringify(requirementList.value[i + 1]);
+        // graduationList.value = JSON.parse(_tmp);
+
+        // // // 编辑
+        // addGraduationList.value = requirementList.value[i + 1];
+        // title.value = `${"编辑"}${requirementList.value[i + 1].name}`;
+      }
+    });
+    // }
+  }
+};
 const detailsRequirement = (index: string, item: string) => {
   // 高亮
   tabsId.value = item.id;
@@ -37,57 +95,57 @@ const detailsRequirement = (index: string, item: string) => {
   // 编辑or添加
   show.value = true;
 
-  // 上一个
-  if (index == "0") {
-    if (requirementList.value[0].id == showTitleList.value[index].id) {
-      return false;
-    } else {
-      let vid = showTitleList.value[0].id;
-      requirementList.value.forEach((v, i) => {
-        if (vid == v.id) {
-          //删除最后一个tabs
-          showTitleList.value.splice(6, 1);
-          showTitleList.value.unshift(requirementList.value[i - 1]);
+  // // 上一个
+  // if (index == "0") {
+  //   if (requirementList.value[0].id == showTitleList.value[index].id) {
+  //     return false;
+  //   } else {
+  //     let vid = showTitleList.value[0].id;
+  //     requirementList.value.forEach((v, i) => {
+  //       if (vid == v.id) {
+  //         //删除最后一个tabs
+  //         showTitleList.value.splice(6, 1);
+  //         showTitleList.value.unshift(requirementList.value[i - 1]);
 
-          tabsId.value = showTitleList.value[0].id;
-          // // 要求详情
-          console.log(i - 1, v, "3rrrr");
+  //         tabsId.value = showTitleList.value[0].id;
+  //         // // 要求详情
+  //         console.log(i - 1, v, "3rrrr");
 
-          let _tmp = JSON.stringify(requirementList.value[i - 1]);
-          graduationList.value = JSON.parse(_tmp);
-          console.log(graduationList.value, "yttrer");
-          // // 编辑
-          addGraduationList.value = requirementList.value[i - 1];
-          title.value = `${"编辑"}${requirementList.value[i - 1].name}`;
-        }
-      });
-    }
-  }
-  // 下一个
-  if (index == "6") {
-    if (
-      requirementList.value[requirementList.value.length - 1].id ==
-      showTitleList.value[6].id
-    ) {
-      return false;
-    } else {
-      let vid = showTitleList.value[6].id;
-      requirementList.value.forEach((v, i) => {
-        if (vid == v.id) {
-          showTitleList.value.splice(0, 1);
-          showTitleList.value.push(requirementList.value[i + 1]);
-          tabsId.value = showTitleList.value[6].id;
+  //         let _tmp = JSON.stringify(requirementList.value[i - 1]);
+  //         graduationList.value = JSON.parse(_tmp);
+  //         console.log(graduationList.value, "yttrer");
+  //         // // 编辑
+  //         addGraduationList.value = requirementList.value[i - 1];
+  //         title.value = `${"编辑"}${requirementList.value[i - 1].name}`;
+  //       }
+  //     });
+  //   }
+  // }
+  // // 下一个
+  // if (index == "6") {
+  //   if (
+  //     requirementList.value[requirementList.value.length - 1].id ==
+  //     showTitleList.value[6].id
+  //   ) {
+  //     return false;
+  //   } else {
+  //     let vid = showTitleList.value[6].id;
+  //     requirementList.value.forEach((v, i) => {
+  //       if (vid == v.id) {
+  //         showTitleList.value.splice(0, 1);
+  //         showTitleList.value.push(requirementList.value[i + 1]);
+  //         tabsId.value = showTitleList.value[6].id;
 
-          let _tmp = JSON.stringify(requirementList.value[i + 1]);
-          graduationList.value = JSON.parse(_tmp);
+  //         let _tmp = JSON.stringify(requirementList.value[i + 1]);
+  //         graduationList.value = JSON.parse(_tmp);
 
-          // // 编辑
-          addGraduationList.value = requirementList.value[i + 1];
-          title.value = `${"编辑"}${requirementList.value[i + 1].name}`;
-        }
-      });
-    }
-  }
+  //         // // 编辑
+  //         addGraduationList.value = requirementList.value[i + 1];
+  //         title.value = `${"编辑"}${requirementList.value[i + 1].name}`;
+  //       }
+  //     });
+  //   }
+  // }
 };
 
 // 新增要求
@@ -214,20 +272,42 @@ const resetRequirement = () => {
     </div>
 
     <div class="requirement-list">
-      <!-- 要求 -->
-      <ul>
-        <li
-          class="requirement-list-top"
-          v-for="(item, index) in showTitleList"
-          :key="index"
-          :class="tabsId == item.id ? 'issue-item-active' : ''"
-          @click="detailsRequirement(index, item)"
-        >
-          <button>
-            {{ item.name }}
-          </button>
-        </li>
-      </ul>
+      <div class="requirement-list-mian-top">
+        <div @click="upperHandler" v-show="cut" class="switch">
+          <svg-icon
+            icon="left"
+            class="left-icon"
+            style="
+              height: 20px;
+margin-left:33px;
+              width: 20px;
+            "
+          ></svg-icon>
+        </div>
+
+        <!-- 要求 -->
+        <ul>
+          <li
+            class="requirement-list-top"
+            v-for="(item, index) in showTitleList"
+            :key="index"
+            :class="tabsId == item.id ? 'issue-item-active' : ''"
+            @click="detailsRequirement(index, item)"
+          >
+            <button>
+              {{ item.name }}
+            </button>
+          </li>
+        </ul>
+        <div @click="lowerHandler" v-show="cut" class="switch">
+          <svg-icon icon="right" class="left-icon"  style="
+              height: 20px;
+margin-left:8px;
+              width: 17px;
+            "></svg-icon>
+        </div>
+      </div>
+
       <!-- 详情 -->
       <div class="requirement-list-content">
         <ul>
@@ -373,19 +453,40 @@ const resetRequirement = () => {
   }
   .requirement-list {
     margin-top: 30px;
-    padding: 20px;
-    padding-left: 50px;
+    // padding: 20px;
+    // padding-left: 50px;
     width: 100%;
     height: 285px;
     box-sizing: border-box;
     background: #f9f9f9;
+    // background: pink;
+    .requirement-list-mian-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      // background-color: skyblue;
+
+      .switch {
+        
+        width: 60px;
+        height: 40px;
+        line-height: 50px;
+        // text-align: ;
+        // background-color: pink;
+        // .svg-icon.left.icon {
+         
+        // }
+      }
+    }
+
     ul {
       // display: flex;
-      width: 100%;
+      // width: 100%;
 
       .requirement-list-top {
         float: left;
-        width: 114px;
+        width: 112px;
         height: 40px;
         // background-color: pink;
         line-height: 36px;
@@ -415,24 +516,28 @@ const resetRequirement = () => {
     }
 
     .requirement-list-content {
-      width: 800px;
+      width: 788px;
       height: 200px;
       overflow-y: auto;
+      margin-left: 63px;
+      // padding: 20px;
+      // padding-left: 90px;
+      // background-color: skyblue;
       ul {
         margin-top: 15px;
         .requirement-list-li {
           display: flex;
           height: 46px;
-          border-right: 1px solid #707070;
-          border-left: 1px solid #707070;
-          border-top: 1px solid #707070;
+          border-right: 1px solid #a4a4a4;
+          border-left: 1px solid #a4a4a4;
+          border-top: 1px solid #a4a4a4;
           .requirement-list-li-title {
             width: 100px;
             line-height: 46px;
             text-align: center;
             background: #f2f2f4;
 
-            border-right: 1px solid #707070;
+            border-right: 1px solid #a4a4a4;
           }
           .requirement-list-li-content {
             flex: 1;
@@ -444,7 +549,7 @@ const resetRequirement = () => {
           }
         }
         li:last-child {
-          border-bottom: 1px solid #707070;
+          border-bottom: 1px solid #a4a4a4;
         }
       }
     }

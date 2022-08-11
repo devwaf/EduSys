@@ -3,6 +3,7 @@ import { service } from "../../api/service"
 import { usePageOutline } from '../../store/teacher/outline/outline'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { threadId } from "worker_threads"
+import { createHistogram } from "perf_hooks"
 export const usePageRequirement = defineStore("requirement", {
 	state: () => {
 		return {
@@ -19,7 +20,8 @@ export const usePageRequirement = defineStore("requirement", {
 			tabsId: "",
 			headline: '',
 			number: '',
-			show: false
+			show: false,
+			cut: false,
 		}
 	},
 	actions: {
@@ -29,11 +31,17 @@ export const usePageRequirement = defineStore("requirement", {
 			const res = await service({ path: "/api/services/app/GraduationRequirement/GetAllGraduationRequirement" })
 			this.requirementList = res.result
 			this.showTitleList = []
+			if (this.requirementList.length <= 6) {
+				this.cut = false
+			}else{
+				this.cut = true
+			}
 			this.requirementList.forEach((v, i) => {
 				if (this.showTitleList.length < 7) {
 					this.showTitleList.push(v);
 				}
 			});
+
 			this.tabsId = this.requirementList[0].id
 			this.title = `${'毕业要求'}${this.requirementList.length + 1}`
 			this.graduationList = this.requirementList[0]
