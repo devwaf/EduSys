@@ -88,7 +88,8 @@ const detailsRequirement = (index: string, item: string) => {
   console.log(item, "指标");
   graduationList.value = JSON.parse(_tmp);
   // 编辑
-  addGraduationList.value = item;
+  let  list =JSON.stringify(item)
+  addGraduationList.value = JSON.parse(list);
   title.value = `${"编辑"}${item.name}`;
   // 标题
   console.log(addGraduationList.value, "6666666666");
@@ -185,10 +186,17 @@ const addRequirement = () => {
 
 // 返回添加
 const returnHandler = () => {
+  // console.log(addGraduationList.value.target,'00000');
+    // requirement.GetAllGraduationRequirement()
+    
+console.log(graduationList.value,'ooooo');
   show.value = false;
   addGraduationList.value.id = "";
   addGraduationList.value.require = "";
   addGraduationList.value.target = [];
+
+
+
   title.value = `${"毕业要求"}${requirementList.value.length + 1}`;
   // title.value = text.value;
 };
@@ -277,11 +285,7 @@ const resetRequirement = () => {
           <svg-icon
             icon="left"
             class="left-icon"
-            style="
-              height: 20px;
-margin-left:33px;
-              width: 20px;
-            "
+            style="height: 20px; margin-left: 33px; width: 20px"
           ></svg-icon>
         </div>
 
@@ -300,11 +304,11 @@ margin-left:33px;
           </li>
         </ul>
         <div @click="lowerHandler" v-show="cut" class="switch">
-          <svg-icon icon="right" class="left-icon"  style="
-              height: 20px;
-margin-left:8px;
-              width: 17px;
-            "></svg-icon>
+          <svg-icon
+            icon="right"
+            class="left-icon"
+            style="height: 20px; margin-left: 8px; width: 17px"
+          ></svg-icon>
         </div>
       </div>
 
@@ -468,14 +472,13 @@ margin-left:8px;
       // background-color: skyblue;
 
       .switch {
-        
         width: 60px;
         height: 40px;
         line-height: 50px;
         // text-align: ;
         // background-color: pink;
         // .svg-icon.left.icon {
-         
+
         // }
       }
     }
