@@ -122,7 +122,7 @@ const delOutline = (id: String) => {
   box-sizing: border-box;
   padding: 20px;
   // height: 100%;
-  height: 92vh;
+  height: 94vh;
   overflow: auto;
   display: flex;
   justify-content: center;

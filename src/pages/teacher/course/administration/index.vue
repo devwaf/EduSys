@@ -109,7 +109,7 @@ const del = (id: any) => {
   justify-content: center;
   overflow: auto;
   padding: 20px;
-  height: 92vh;
+  height: 94vh;
   padding-top: 80px;
   background-color: #fff;
   box-sizing: border-box;

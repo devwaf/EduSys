@@ -256,7 +256,7 @@ watch(
 }
 #course {
   width: 100%;
-  height: 92vh;
+  height: 94vh;
   overflow: auto;
   background-color: #fff;
   position: relative;

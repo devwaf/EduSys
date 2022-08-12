@@ -460,7 +460,7 @@ watch(
 <style lang="scss" scoped>
 #cRForm {
   padding-top: 30px;
-  height: 89vh;
+  height: 94vh;
   overflow: auto;
   background-color: #fff;
 }
