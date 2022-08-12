@@ -78,7 +78,7 @@ const loginHandler = () => {
             "isTeacher",
             form.value.identity == "教师" ? "1" : "0"
           );
-          let name = form.value.identity == "教师" ? "Home2" : "Home";
+          let name = form.value.identity == "教师" ? "Home2" : "Curriculumdesign";
           router.push({ name });
           return;
         })
