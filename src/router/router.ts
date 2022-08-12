@@ -91,14 +91,14 @@ router.beforeEach(async (to, from, next) => {
 		next({ name: "Login" })
 		return
 	}
-	if (menus.length == 0) {
-		menus = showMenuByIsTeacher()
-	}
-	if (!menus.includes(to.name)) {
-		console.log("不包含这一个路由")
-		next({ name: from.name })
-		return
-	}
+	// if (menus.length == 0) {
+	// 	menus = showMenuByIsTeacher()
+	// }
+	// if (!menus.includes(to.name)) {
+	// 	console.log("不包含这一个路由")
+	// 	next({ name: from.name })
+	// 	return
+	// }
 	next()
 })
 

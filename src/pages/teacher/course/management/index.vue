@@ -185,14 +185,21 @@ watch(
               v-for="(item, index) in curriculumSelectedList"
               :key="index"
             >
-              <div class="major-class-box-li">{{ item.schoolYear }}{{ item.major }}{{ item.name }}</div>
-              <svg
+              <div class="major-class-box-li">
+                {{ item.schoolYear }}{{ item.major }}{{ item.name }}
+              </div>
+              <svg-icon
+                icon="del"
+                class="del-icon"
+                @click="delClassHandler(item.id)"
+              />
+              <!-- <svg
                 class="icon del-icon"
                 aria-hidden="true"
-                @click="delClassHandler(item.id)"
+               
               >
-                <use xlink:href="#icon-shanchu" style="color: red" />
-              </svg>
+                <use xlink:href="#icon-a-shanchu1" style="color: red" />
+              </svg> -->
             </li>
 
             <li>
@@ -320,18 +327,19 @@ watch(
     text-align: center;
     // height: 30px;
     background-color: #f3f3f3;
-            .major-class-box-li{
- overflow: hidden; /*内容超出后隐藏*/
+    .major-class-box-li {
+      color: #646464;
+      overflow: hidden; /*内容超出后隐藏*/
 
-    text-overflow: ellipsis; /* 超出内容显示为省略号 */
+      text-overflow: ellipsis; /* 超出内容显示为省略号 */
 
-    white-space: nowrap; /* 文本不进行换行 */
+      white-space: nowrap; /* 文本不进行换行 */
     }
     .del-icon {
       margin-left: 10px;
 
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
     }
   }
 }

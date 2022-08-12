@@ -170,8 +170,8 @@ const TestQuestion = (val: any) => {
   console.log(val.courseObjectiveId);
   // if (val.courseObjectiveId) {
   //   console.log(12345);
-    _Alloutline.UpdateTestQuestion(val);
-    // edit.value = true;
+  _Alloutline.UpdateTestQuestion(val);
+  // edit.value = true;
   // }
 };
 // 删除大题
@@ -183,7 +183,6 @@ const delTestQuestion = (id: string) => {
 const addSubtopicHandler = (id: any, val: any) => {
   console.log(edit.value, "sh;l;;;");
   console.log(val);
-
 
   _Alloutline.getSubtopic(id);
 };
@@ -256,7 +255,6 @@ const getSummaries = (param: SummaryMethodProps) => {
       <template #dialog>
         <Requirement></Requirement>
       </template>
-      
     </Dialog>
 
     <div class="outlineName">
@@ -388,7 +386,6 @@ const getSummaries = (param: SummaryMethodProps) => {
                 :props="{
                   checkStrictly: true,
                   emitPath: false,
-                 
                 }"
                 clearable
                 @change="reqChange(scope.row)"
@@ -405,7 +402,6 @@ const getSummaries = (param: SummaryMethodProps) => {
                   </el-tooltip>
                 </template>
               </el-cascader>
-             
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="80px">
@@ -697,7 +693,7 @@ const getSummaries = (param: SummaryMethodProps) => {
 
 <style lang="scss" scoped>
 #outline {
-  padding: 20px 30px 100px 30px;
+  padding: 20px 30px 30px 30px;
   height: 94vh;
   overflow-y: auto;
   background-color: #fff;
@@ -711,7 +707,7 @@ const getSummaries = (param: SummaryMethodProps) => {
   :deep(.el-input-number) {
     width: 120px;
   }
-  
+
   // 大纲名称
   .outlineName {
     display: flex;
@@ -943,14 +939,15 @@ const getSummaries = (param: SummaryMethodProps) => {
         .addSubtopic {
           color: #2ebba3;
           font-size: 16px;
-          border: 1px solid #2ebba3;
-
+          // border: 1px solid #2ebba3;
+          border: 0;
           // background-color: #f5f5f5;
         }
         .disabledSubtopic {
           font-size: 16px;
-          color: #2ebba3;
-          background-color: #f5f5f5;
+          color: #a4a4a4;
+          border: 0;
+          // background-color: #f5f5f5;
         }
       }
     }
@@ -989,7 +986,6 @@ const getSummaries = (param: SummaryMethodProps) => {
 .el-cascader-node {
   max-width: 360px;
 }
-
 
 .el-cascader-node__label {
   max-width: 300px;
