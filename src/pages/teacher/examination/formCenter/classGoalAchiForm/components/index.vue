@@ -78,11 +78,10 @@ const exportChart = () => {
 		if (valid) {
 			teacherFormCenterGoalAchi.exportAchiveComputeWord(formData).then(res => {
 				if (res.result) {
-					res.result.forEach(item => {
-						window.open(item)
-					})
-					// window.open(res.result[0])
-					// window.open(res.result[1])
+					window.open(res.result[1])
+					setTimeout(() => {
+						window.open(res.result[0])
+					}, 500)
 				} else {
 					ElNotification({
 						title: "导出失败",
