@@ -989,18 +989,7 @@ const getSummaries = (param: SummaryMethodProps) => {
 
 .el-cascader-node__label {
   max-width: 300px;
-  //  position: absolute;
+
 }
-// .el-cascader-panel .el-radio__input {
-//   visibility: hidden;
-// }
-// .el-cascader-panel .el-cascader-node__postfix {
-//   top: 10px;
-// }
-// .item {
-//   background-color: pink;
-// }
-// .el-poper.is-dark {
-//   background-color: pink;
-// }
+
 </style>

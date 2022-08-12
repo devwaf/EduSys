@@ -19,8 +19,6 @@ const {
   show,
   cut,
 } = storeToRefs(requirement);
-// requirement.GetAllGraduationRequirement()
-// const show = ref(false);
 const ii = reactive({});
 
 // 上一个
@@ -79,20 +77,21 @@ const lowerHandler = () => {
     // }
   }
 };
+// 详情
 const detailsRequirement = (index: string, item: any) => {
   // 高亮
   tabsId.value = item.id;
-  console.log(index);
+  // console.log(index);
   // 要求详情
   let _tmp = JSON.stringify(item);
-  console.log(item, "指标");
+  // console.log(item, "指标");
   graduationList.value = JSON.parse(_tmp);
   // 编辑
-  let  list =JSON.stringify(item)
+  let list = JSON.stringify(item);
   addGraduationList.value = JSON.parse(list);
   title.value = `${"编辑"}${item.name}`;
   // 标题
-  console.log(addGraduationList.value, "6666666666");
+  // console.log(addGraduationList.value, "6666666666");
   // 编辑or添加
   show.value = true;
 
@@ -158,7 +157,7 @@ const detailsRequirement = (index: string, item: any) => {
 
 // 新增指标
 const addSubtopic = (id: any) => {
-  console.log(id, "888888");
+  // console.log(id, "888888");
   if (!show.value) {
     requirement.AddGraduationRequirement(addGraduationList.value);
   }
@@ -169,8 +168,7 @@ const addSubtopic = (id: any) => {
 // 添加or修改
 const addRequirement = () => {
   if (show.value) {
-    console.log(111111);
-
+    // console.log(111111);
     requirement.UpdateGraduationRequirement(
       addGraduationList.value,
       graduationList.value
@@ -186,28 +184,20 @@ const addRequirement = () => {
 
 // 返回添加
 const returnHandler = () => {
-  // console.log(addGraduationList.value.target,'00000');
-    // requirement.GetAllGraduationRequirement()
-    
-console.log(graduationList.value,'ooooo');
+  // console.log(graduationList.value, "ooooo");
   show.value = false;
   addGraduationList.value.id = "";
   addGraduationList.value.require = "";
   addGraduationList.value.target = [];
 
-
-
   title.value = `${"毕业要求"}${requirementList.value.length + 1}`;
-  // title.value = text.value;
 };
 // 删除
 const delRequirement = () => {
-  // console.log();
   requirement.DeleteGraduationRequirement(
     addGraduationList.value,
     showTitleList
   );
-  // show.value = false;
 };
 
 // 重置
@@ -346,7 +336,6 @@ const resetRequirement = () => {
   .add-requirement {
     padding: 20px;
     width: 100%;
-    // height: 374px;
     background: #f9f9f9;
     box-sizing: border-box;
     .add-requirement-title {
@@ -356,11 +345,9 @@ const resetRequirement = () => {
       .title-content {
         width: 80px;
         color: #646464;
-        // text-align: center;
       }
       .content-input {
         height: 36px;
-        // width: 100%;
         width: 745px;
       }
     }
@@ -374,33 +361,24 @@ const resetRequirement = () => {
       color: #646464;
       font-size: 18px;
       text-align: center;
-      // background-color: #000;
       .title-icon {
         width: 18px;
         height: 18px;
-        // margin-left: 20px;
       }
       .title-text {
         margin-left: 42%;
-        // text-align: left;
       }
     }
     .add-requirement-main {
-      // margin: 20px 0;
-
       width: 100%;
       max-height: 210px;
       overflow-y: auto;
-      // height: 200px;
-      // background-color: pink;
       .add-requirement-content {
         display: flex;
         align-items: center;
         margin-bottom: 20px;
         width: 100%;
         height: 36px;
-
-        // background-color: skyblue;
         .title-content {
           width: 80px;
           color: #646464;
@@ -408,7 +386,6 @@ const resetRequirement = () => {
         }
         .content-input {
           height: 36px;
-          // width: 100%;
           width: 745px;
         }
       }
@@ -440,7 +417,6 @@ const resetRequirement = () => {
     }
     .del-requirement {
       width: 68px;
-      // color: #2ebba3;
       color: #ee5f66;
       border: 1px solid #ee5f66;
     }
@@ -457,52 +433,38 @@ const resetRequirement = () => {
   }
   .requirement-list {
     margin-top: 30px;
-    // padding: 20px;
-    // padding-left: 50px;
+
+    padding-top: 10px;
     width: 100%;
     height: 285px;
     box-sizing: border-box;
     background: #f9f9f9;
-    // background: pink;
+
     .requirement-list-mian-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 50px;
-      // background-color: skyblue;
-
       .switch {
         width: 60px;
         height: 40px;
         line-height: 50px;
-        // text-align: ;
-        // background-color: pink;
-        // .svg-icon.left.icon {
-
-        // }
       }
     }
-
     ul {
-      // display: flex;
-      // width: 100%;
-
       .requirement-list-top {
         float: left;
-        width: 112px;
-        height: 40px;
-        // background-color: pink;
-        line-height: 36px;
         text-align: center;
         white-space: nowrap;
         overflow-x: hidden;
+        width: 112px;
+        height: 40px;
+        line-height: 36px;
         border-top: 1px solid #d8d8d8;
         border-bottom: 1px solid #d8d8d8;
         border-left: 1px solid #d8d8d8;
-
         button {
           color: #a4a4a4;
-
           background-color: transparent;
         }
       }
@@ -523,9 +485,6 @@ const resetRequirement = () => {
       height: 200px;
       overflow-y: auto;
       margin-left: 63px;
-      // padding: 20px;
-      // padding-left: 90px;
-      // background-color: skyblue;
       ul {
         margin-top: 15px;
         .requirement-list-li {

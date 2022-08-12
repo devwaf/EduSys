@@ -300,15 +300,16 @@ export const usePageOutline = defineStore("outline", {
         },
         // 添加题
         async getTopic() {
-            const res = await service({
-                path: "/api/services/app/TestQuestion/AddTestQuestion",
-                method: "post",
-                query: { outlineId: this.outlineId }
-            })
-
             let num = this.examination.length + 1
             this.toChinese(num)
             let title = `${'第'}${this.toChinese(num)}${'大题'}`
+            const res = await service({
+                path: "/api/services/app/TestQuestion/AddTestQuestion",
+                method: "post",
+                query: { outlineId: this.outlineId,testQuestionName:title }
+            })
+
+           
             this.examination.push({
                 id: res.result.id,
                 titleNum: title,
