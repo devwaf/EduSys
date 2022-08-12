@@ -348,7 +348,7 @@ export const usePageOutline = defineStore("outline", {
                     outlineId: this.outlineId,
                     type: val.type,
                     score: val.score,
-                    courseObjectiveId: val.courseObjectiveId
+                    courseObjectiveId: val.courseObjectiveId||null
                 }
             })
         },
