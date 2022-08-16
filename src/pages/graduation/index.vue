@@ -259,6 +259,9 @@ const fileSuccess = (res: any, index1: any, index2: any) => {
 	left: 50%;
 	transform: translate(-50%);
 	width: 900px;
+	.el-step__description {
+		font-size: 14px;
+	}
 	.el-step__head.is-finish {
 		color: #fff;
 		border-color: #2ebba3;

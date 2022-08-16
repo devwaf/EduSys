@@ -64,7 +64,7 @@ const preservation = () => {
 					message: "答辩记录表已保存",
 					type: "success"
 				})
-        stuCourseDesgin.getDesignDefense(formDataFa.value)
+				stuCourseDesgin.getDesignDefense(formDataFa.value)
 			})
 			// formRef.value.resetFields()
 		}
@@ -103,7 +103,7 @@ const preservation = () => {
 				<el-input v-model="formData.academicAdvisor" style="width: 160px"></el-input>
 			</el-form-item>
 			<el-form-item label="题目：" prop="subject">
-				<el-input v-model="formData.subject" style="width: 716px"></el-input>
+				<el-input v-model="formData.subject" style="width: 744px"></el-input>
 			</el-form-item>
 			<el-form-item>
 				<table class="form-table">
@@ -143,23 +143,23 @@ const preservation = () => {
 				</table>
 			</el-form-item>
 			<el-form-item label="工作简述：" prop="studentName">
-				<el-input type="textarea" v-model="formData.jobDescription"></el-input>
+				<el-input type="textarea" v-model="formData.jobDescription" style="width: 744px"></el-input>
 			</el-form-item>
 			<div class="title2">答辩问题记录（问题、解答等）</div>
 			<el-form-item label="问题1：" prop="questionOne">
-				<el-input v-model="formData.questionOne" style="width: 656px"></el-input>
+				<el-input v-model="formData.questionOne" style="width: 744px"></el-input>
 			</el-form-item>
 			<el-form-item label="答：" prop="answerOne">
 				<el-input type="textarea" v-model="formData.answerOne"></el-input>
 			</el-form-item>
 			<el-form-item label="问题2：" prop="questionTwo">
-				<el-input v-model="formData.questionTwo" style="width: 656px"></el-input>
+				<el-input v-model="formData.questionTwo" style="width: 744px"></el-input>
 			</el-form-item>
 			<el-form-item label="答：" prop="answerTwo">
 				<el-input type="textarea" v-model="formData.answerTwo"></el-input>
 			</el-form-item>
 			<el-form-item label="问题3：" prop="questionThree">
-				<el-input v-model="formData.questionThree" style="width: 656px"></el-input>
+				<el-input v-model="formData.questionThree" style="width: 744px"></el-input>
 			</el-form-item>
 			<el-form-item label="答：" prop="answerThree">
 				<el-input type="textarea" v-model="formData.answerThree"></el-input>
@@ -204,7 +204,7 @@ const preservation = () => {
 			line-height: 96px;
 		}
 		.form-table {
-			width: 656px;
+			width: 744px;
 			height: 100px;
 			margin-left: 100px;
 			color: #646464;
@@ -241,7 +241,7 @@ const preservation = () => {
 		}
 		.el-textarea {
 			// width: 100%;
-			width: 656px;
+			width: 744px;
 			.el-textarea__inner {
 				height: 100px;
 				border-radius: 0;

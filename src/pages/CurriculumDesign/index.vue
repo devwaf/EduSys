@@ -171,12 +171,13 @@ const dlAssignment = () => {
 <style lang="scss" scoped>
 #CurriculumDesign-main {
 	display: flex;
-	// padding: 20px;
+	padding: 15px;
 
 	width: 100%;
 	// overflow-x: auto;
 	height: calc(100vh - 80px);
 	background-color: #fff;
+	box-sizing: border-box;
 
 	.scrollbar-flex-content {
 		display: flex;
@@ -272,7 +273,7 @@ const dlAssignment = () => {
 		}
 	}
 	.scrollbar-demo-item-rigth {
-		margin-left: 150px;
+		margin-left: 100px;
 		margin-right: 50px;
 		box-sizing: border-box;
 

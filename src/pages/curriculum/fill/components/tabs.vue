@@ -66,7 +66,8 @@ const handleClick = (tab: TabsPaneContext) => {
 							<td>{{ item.score }}</td>
 						</tr>
 						<tr>
-							<td colspan="4" class="remark">评语:{{ item.remark }}</td>
+							<td v-if="item.remark" colspan="4" class="remark">评语:{{ item.remark }}</td>
+							<td v-else colspan="4" class="remark">暂无评语</td>
 						</tr>
 					</table>
 				</div>
