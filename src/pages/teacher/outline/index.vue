@@ -37,7 +37,6 @@ const AddOutline = () => {
 // 获取大纲
 const disabled = ref(false);
 const reduceHandler = (value: any) => {
-  // console.log(value, "ooooo");
   if (value.times == 0) {
     disabled.value = true;
     return;
@@ -49,7 +48,6 @@ const reduceHandler = (value: any) => {
 };
 const addHandler = (value: any) => {
   value.times = value.times + 1;
-  console.log(value, "ooooo");
   if (value.name !== "" && value.name !== null) {
     _Alloutline.UpdateScoreWeight(value);
   }
@@ -58,7 +56,6 @@ const getAddHandler = (value: any) => {
   if (value.name !== "" && value.name !== null) {
     _Alloutline.UpdateScoreWeight(value);
   }
-  //  _Alloutline.UpdateScoreWeight(value);
 };
 // 添加权重
 const addWeight = () => {
@@ -105,23 +102,9 @@ const addContrastHandler = () => {
   }
 };
 // 修改对照表
-// let requirementId=''
 const cascader = ref(null);
 const reqChange = (val: any) => {
-  //
-  // console.log();
-
-  // let num =JSON.stringify(cascader.value.getCheckedNodes()[0]);
-  // console.log(num.data, "0000000");
-  // let num = cascader.value.getCheckedNodes()[0];
-  // console.log(num.label!==undefined, "9999");
-
-  // if(num.label!==undefined){
-  // val.degreeSupport=num.label
-  // }
-  // console.log(cascader.value.getCheckedNodes()[0], "pppppp");
-
-  console.log(val.graduationRequirementId, "毕业要求的值");
+  // console.log(val.graduationRequirementId, "毕业要求的值");
   if (
     val.content == "" ||
     val.name == "" ||
@@ -167,12 +150,8 @@ const examinationHandler = (row: any) => {
 };
 const edit = ref(false);
 const TestQuestion = (val: any) => {
-  console.log(val.courseObjectiveId);
-  // if (val.courseObjectiveId) {
-  //   console.log(12345);
+  // console.log(val.courseObjectiveId);
   _Alloutline.UpdateTestQuestion(val);
-  // edit.value = true;
-  // }
 };
 // 删除大题
 const delTestQuestion = (id: string) => {
@@ -181,9 +160,8 @@ const delTestQuestion = (id: string) => {
 
 // 添加小题
 const addSubtopicHandler = (id: any, val: any) => {
-  console.log(edit.value, "sh;l;;;");
-  console.log(val);
-
+  // console.log(edit.value, "sh;l;;;");
+  // console.log(val);
   _Alloutline.getSubtopic(id);
 };
 // 修改小题
@@ -229,15 +207,15 @@ const getSummaries = (param: SummaryMethodProps) => {
     }
     if (item.label == "比例%") {
       let gredes = data.map((d) => d.swDetails);
-      console.log(gredes, "999999");
+      // console.log(gredes, "999999");
       let num = 0;
       let ll = gredes.map((i) => i);
       gredes.forEach((item) => {
-        console.log(item, 7777777777);
+        // console.log(item, 7777777777);
         item.forEach((prev) => {
-          console.log(prev.swDetailPower, "666666666666666");
+          // console.log(prev.swDetailPower, "666666666666666");
           num += prev.swDetailPower;
-          console.log(num);
+          // console.log(num);
           sums[index] = Math.round(num);
         });
       });
@@ -989,7 +967,5 @@ const getSummaries = (param: SummaryMethodProps) => {
 
 .el-cascader-node__label {
   max-width: 300px;
-
 }
-
 </style>

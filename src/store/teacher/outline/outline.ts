@@ -323,8 +323,8 @@ export const usePageOutline = defineStore("outline", {
 
 
         toChinese(num: any) {
-            var upperCaseNumber = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '百', '千', '万', '亿'];
-            var length = String(num).length;
+            let upperCaseNumber = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '百', '千', '万', '亿'];
+            let length = String(num).length;
             if (length == 1) {
                 return upperCaseNumber[num];
             } else if (length == 2) {

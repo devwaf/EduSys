@@ -19,20 +19,20 @@ const register = () => {
   router.push({ name: "Register" });
 };
 
-const  hide=ref(true)
-const type=ref('')
+const hide = ref(true);
+const type = ref("");
 // 密码框
-const   hideHandler=()=>{
-hide.value=!hide.value
-console.log(hide.value,999999);
-// if(hide.value){
-//   console.log();
-  
-//   type.value=='password'
-// }else{
-//    type.value=='text'
-// }
-}
+const hideHandler = () => {
+  hide.value = !hide.value;
+  console.log(hide.value, 999999);
+  // if(hide.value){
+  //   console.log();
+
+  //   type.value=='password'
+  // }else{
+  //    type.value=='text'
+  // }
+};
 const rules = reactive({
   phoneNum: [{ required: true, message: "请填写工号", trigger: "blur" }],
   identity: [
@@ -78,7 +78,8 @@ const loginHandler = () => {
             "isTeacher",
             form.value.identity == "教师" ? "1" : "0"
           );
-          let name = form.value.identity == "教师" ? "Home2" : "Curriculumdesign";
+          let name =
+            form.value.identity == "教师" ? "Home2" : "Curriculumdesign";
           router.push({ name });
           return;
         })
@@ -139,13 +140,23 @@ loginkeyupHandler();
             <el-input
               v-model="form.password"
               placeholder="请输入您的密码"
-            class="password"
-            :type="hide?'password':'text'"
+              class="password"
+              :type="hide ? 'password' : 'text'"
               @keyup.enter="loginkeyupHandler"
             />
-            <svg-icon @click="hideHandler" class="password-icon"  icon="exhibit" v-show="!hide"/>
-            
-            <svg-icon  @click="hideHandler" class="password-icon"  icon="hide" v-show="hide"/>
+            <svg-icon
+              @click="hideHandler"
+              class="password-icon"
+              icon="exhibit"
+              v-show="!hide"
+            />
+
+            <svg-icon
+              @click="hideHandler"
+              class="password-icon"
+              icon="hide"
+              v-show="hide"
+            />
           </el-form-item>
           <el-form-item>
             <el-button style="margin-top: 30px" @click="loginHandler"
@@ -202,10 +213,13 @@ loginkeyupHandler();
           opacity: 0.4;
           border: 1px solid #116052;
         }
+        input:-webkit-autofill {
+          /* 变成透明背景色的固定写法，只针对表单自动填充的背景色 */
+          transition: background-color 5000s ease-in-out 0s;
+        }
 
         .el-input--suffix {
           .el-input__wrapper {
-        
             .el-input__inner {
               background-color: transparent !important;
             }
@@ -256,16 +270,15 @@ loginkeyupHandler();
         .el-form-item__content {
           min-width: 320px;
         }
-.password{
-  position: relative;
-
-}
-  .password-icon{
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    width: 20px;
-  }
+        .password {
+          position: relative;
+        }
+        .password-icon {
+          position: absolute;
+          top: 5px;
+          right: 10px;
+          width: 20px;
+        }
         .el-button {
           width: 340px;
           height: 46px;
@@ -276,7 +289,7 @@ loginkeyupHandler();
           color: #116052;
         }
         .el-button:hover {
-        background: #44FFDF;
+          background: #44ffdf;
           opacity: 0.7;
         }
         .el-button:not(.is-text, .is-link, .el-button--text) {
