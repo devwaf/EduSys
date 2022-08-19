@@ -15,9 +15,9 @@ let form = ref({
   rememberClient: true,
 });
 const ruleFormRef = ref<FormInstance>();
-const register = () => {
-  router.push({ name: "Register" });
-};
+// const register = () => {
+//   router.push({ name: "Register" });
+// };
 
 const hide = ref(true);
 const type = ref("");
@@ -163,9 +163,8 @@ loginkeyupHandler();
               >登录</el-button
             >
           </el-form-item>
-          <!-- TODO：后期开放注册，对老师发放内部验证码 -->
           <!-- <el-form-item>
-						<el-button style="margin-top: 10px; background: #ffffff; opacity: 0.3" @click="register"
+						<el-button style="margin-top: 10px; opacity: 0.4" @click="register"
 							>注册</el-button
 						>
 					</el-form-item> -->
@@ -278,10 +277,12 @@ loginkeyupHandler();
           top: 5px;
           right: 10px;
           width: 20px;
+          cursor: pointer;
         }
         .el-button {
           width: 340px;
           height: 46px;
+          font-size: 16px;
           background: #ffffff;
           opacity: 0.7;
           color: #606266;

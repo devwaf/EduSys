@@ -4,30 +4,43 @@ import { reactive, ref } from "vue"
 import CustomSelect from "@/components/customSelect/customSelect.vue"
 import { useRouter } from "vue-router"
 import { useAccount } from "@/store/account.ts"
+import { ElNotification } from "element-plus"
 
 const account = useAccount()
 let router = useRouter()
 const ruleFormRef = ref()
-const ruleForm = ref({
+const formData = ref({
 	name: "",
 	phone: "",
 	password: "",
 	role: "教师"
 })
 // 表单校验
+const phoneValidate = (rule: any, value: any, callback: any) => {
+	let reg = /^[0-9]([0-9])*$/
+	let regFlag = reg.test(value)
+	if (value === "") {
+		return callback(new Error("请填写工号"))
+	} else if (!regFlag) {
+		callback(new Error("工号必须为数字整数"))
+	} else {
+		callback()
+	}
+}
 const rules = reactive<FormRules>({
-	resource: [{ required: true, message: "请选择身份", trigger: "blur" }],
+	// resource: [{ required: true, message: "请选择身份", trigger: "blur" }],
 	name: [
 		{
 			required: true,
 			message: "请填写姓名",
 			trigger: "change"
-		}
+		},
+		{ min: 2, max: 8, message: "姓名长度在二到八位之间", trigger: "blur" }
 	],
-	stuID: [
+	phone: [
 		{
 			required: true,
-			message: "请填写工号",
+			validator: phoneValidate,
 			trigger: "change"
 		}
 	],
@@ -36,18 +49,33 @@ const rules = reactive<FormRules>({
 			required: true,
 			message: "请输入您的密码",
 			trigger: "change"
-		}
+		},
+		{ min: 4, max: 12, message: "密码长度在四到十二位之间", trigger: "blur" }
 	]
 })
 // 显示
 let reveal = ref(false)
-
+const hide = ref(true)
+// 密码框
+const hideHandler = () => {
+	hide.value = !hide.value
+}
 const registerHandler = () => {
 	ruleFormRef.value.validate(valid => {
 		if (valid) {
-			account.personalRegister(ruleForm.value).then((res:Object)=>{
-				console.log(res.result);
-				
+			account.personalRegister(formData.value).then((res: any) => {
+				if (res.result) {
+					ElNotification({
+						title: "账号注册成功",
+						type: "success"
+					})
+					router.push({ name: "Login" })
+				} else {
+					ElNotification({
+						title: "账号注册失败",
+						type: "error"
+					})
+				}
 			})
 		}
 	})
@@ -76,21 +104,27 @@ const registerHandler = () => {
 				<el-form
 					label-position="left"
 					ref="ruleFormRef"
-					:model="ruleForm"
-					status-icon
+					:model="formData"
 					:rules="rules"
 					label-width="120px"
-					class="demo-ruleForm"
+					class="demo-formData"
 				>
 					<el-form-item label="姓名" prop="name">
-						<el-input v-model="ruleForm.name" placeholder="请输入您的姓名" />
+						<el-input v-model="formData.name" placeholder="请输入您的姓名" />
 					</el-form-item>
-					<el-form-item label="学号/工号" prop="stuID">
-						<el-input v-model="ruleForm.stuID" placeholder="请输入您的学号/工号" />
+					<el-form-item label="工号" prop="phone">
+						<el-input v-model="formData.phone" placeholder="请输入您的学号/工号" />
 					</el-form-item>
 
 					<el-form-item label="密码" prop="password">
-						<el-input v-model="ruleForm.password" placeholder="请输入您的密码" show-password />
+						<el-input
+							v-model="formData.password"
+							placeholder="请输入您的密码"
+							:show-password="false"
+							:type="hide ? 'password' : 'text'"
+						/>
+						<svg-icon @click="hideHandler" class="password-icon" icon="exhibit" v-show="!hide" />
+						<svg-icon @click="hideHandler" class="password-icon" icon="hide" v-show="hide" />
 					</el-form-item>
 					<el-form-item>
 						<el-button style="margin-top: 30px" @click="registerHandler"> 注册 </el-button>
@@ -194,8 +228,8 @@ const registerHandler = () => {
 					width: 320px;
 				}
 				.el-form-item__label {
-					width: 90px !important;
-
+					width: 120px !important;
+					font-size: 14px;
 					//   justify-content: space-between;
 				}
 				.el-form-item {
@@ -211,13 +245,20 @@ const registerHandler = () => {
 				}
 				.el-input__wrapper {
 					width: 300px;
-					height: 30px;
+					height: 38px;
 					background-color: rgba(255, 255, 255, 0.7);
 					border-radius: 5px;
 				}
 				.el-form-item__content {
 					min-width: 320px;
 				}
+			}
+			.password-icon {
+				position: absolute;
+				top: 5px;
+				right: 10px;
+				width: 20px;
+				cursor: pointer;
 			}
 			button {
 				width: 320px;
