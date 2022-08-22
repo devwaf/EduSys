@@ -3,8 +3,10 @@ import { ref, reactive, defineProps, watch } from "vue";
 
 import { usePageRequirement } from "../../../../../store/teacher/addRequirement.ts";
 import { storeToRefs } from "pinia";
+import { usePageOutline } from "../../../../../store/teacher/outline/outline";
 
 const requirement = usePageRequirement();
+const _outline = usePageOutline();
 const {
   graduationList,
   addGraduationList,
@@ -18,6 +20,7 @@ const {
   number,
   show,
   cut,
+  nm
 } = storeToRefs(requirement);
 const ii = reactive({});
 
@@ -34,16 +37,7 @@ const upperHandler = (index: string, item: string) => {
         showTitleList.value.splice(6, 1);
         showTitleList.value.unshift(requirementList.value[i - 1]);
 
-        // tabsId.value = showTitleList.value[0].id;
-        // // // 要求详情
-        // console.log(i - 1, v, "3rrrr");
-
-        // let _tmp = JSON.stringify(requirementList.value[i - 1]);
-        // graduationList.value = JSON.parse(_tmp);
-        // console.log(graduationList.value, "yttrer");
-        // // // 编辑
-        // addGraduationList.value = requirementList.value[i - 1];
-        // title.value = `${"编辑"}${requirementList.value[i - 1].name}`;
+      
       }
     });
   }
@@ -64,14 +58,7 @@ const lowerHandler = () => {
       if (vid == v.id) {
         showTitleList.value.splice(0, 1);
         showTitleList.value.push(requirementList.value[i + 1]);
-        // tabsId.value = showTitleList.value[6].id;
-
-        // let _tmp = JSON.stringify(requirementList.value[i + 1]);
-        // graduationList.value = JSON.parse(_tmp);
-
-        // // // 编辑
-        // addGraduationList.value = requirementList.value[i + 1];
-        // title.value = `${"编辑"}${requirementList.value[i + 1].name}`;
+       
       }
     });
     // }
@@ -95,57 +82,6 @@ const detailsRequirement = (index: string, item: any) => {
   // 编辑or添加
   show.value = true;
 
-  // // 上一个
-  // if (index == "0") {
-  //   if (requirementList.value[0].id == showTitleList.value[index].id) {
-  //     return false;
-  //   } else {
-  //     let vid = showTitleList.value[0].id;
-  //     requirementList.value.forEach((v, i) => {
-  //       if (vid == v.id) {
-  //         //删除最后一个tabs
-  //         showTitleList.value.splice(6, 1);
-  //         showTitleList.value.unshift(requirementList.value[i - 1]);
-
-  //         tabsId.value = showTitleList.value[0].id;
-  //         // // 要求详情
-  //         console.log(i - 1, v, "3rrrr");
-
-  //         let _tmp = JSON.stringify(requirementList.value[i - 1]);
-  //         graduationList.value = JSON.parse(_tmp);
-  //         console.log(graduationList.value, "yttrer");
-  //         // // 编辑
-  //         addGraduationList.value = requirementList.value[i - 1];
-  //         title.value = `${"编辑"}${requirementList.value[i - 1].name}`;
-  //       }
-  //     });
-  //   }
-  // }
-  // // 下一个
-  // if (index == "6") {
-  //   if (
-  //     requirementList.value[requirementList.value.length - 1].id ==
-  //     showTitleList.value[6].id
-  //   ) {
-  //     return false;
-  //   } else {
-  //     let vid = showTitleList.value[6].id;
-  //     requirementList.value.forEach((v, i) => {
-  //       if (vid == v.id) {
-  //         showTitleList.value.splice(0, 1);
-  //         showTitleList.value.push(requirementList.value[i + 1]);
-  //         tabsId.value = showTitleList.value[6].id;
-
-  //         let _tmp = JSON.stringify(requirementList.value[i + 1]);
-  //         graduationList.value = JSON.parse(_tmp);
-
-  //         // // 编辑
-  //         addGraduationList.value = requirementList.value[i + 1];
-  //         title.value = `${"编辑"}${requirementList.value[i + 1].name}`;
-  //       }
-  //     });
-  //   }
-  // }
 };
 
 // 新增要求
@@ -157,27 +93,42 @@ const detailsRequirement = (index: string, item: any) => {
 
 // 新增指标
 const addSubtopic = (id: any) => {
-  // console.log(id, "888888");
+  console.log(id, "888888");
   if (!show.value) {
+    // console.log(1111111111111111);
+
     requirement.AddGraduationRequirement(addGraduationList.value);
   }
   if (addGraduationList.value.id) {
     requirement.AddTarget(show.value);
+    //  requirement.GetAllGraduationRequirement()
   }
 };
 // 添加or修改
 const addRequirement = () => {
-  if (show.value) {
-    // console.log(111111);
+  if (!show.value) {
+    if (addGraduationList.value.target.length == 0) {
+      requirement.AddGraduationRequirement(addGraduationList.value);
+      //
+    } else {
+      requirement.GetAddRequirement();
+      requirement.GetAllGraduationRequirement();
+      // _outline.GetAllGraduationRequirement();
+    }
+  } else {
+    console.log(1213243);
+    
     requirement.UpdateGraduationRequirement(
       addGraduationList.value,
       graduationList.value
     );
+   
     show.value = false;
-  } else {
-    requirement.GetAddRequirement();
   }
-  requirement.GetAllGraduationRequirement();
+  // else {
+  //   requirement.GetAddRequirement();
+  // }
+  // requirement.UpdateGraduationRequirement();
 };
 
 // 编辑要求
@@ -190,7 +141,7 @@ const returnHandler = () => {
   addGraduationList.value.require = "";
   addGraduationList.value.target = [];
 
-  title.value = `${"毕业要求"}${requirementList.value.length + 1}`;
+  title.value = `${'新增'}${"毕业要求"}${nm.value}`;
 };
 // 删除
 const delRequirement = () => {

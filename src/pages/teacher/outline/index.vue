@@ -6,14 +6,16 @@ import Requirement from "@/pages/teacher/courseDesign/outlineConfig/components/r
 import { ref, reactive, toRefs, onMounted, watch } from "vue";
 import { usePageOutline } from "../../../store/teacher/outline/outline";
 import { usePageRequirement } from "../../../store/teacher/addRequirement.ts";
+
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 const _Alloutline = usePageOutline();
 const _requirement = usePageRequirement();
+const {targetList}=storeToRefs(_requirement);
 const {
   outlineName,
-  targetList,
+  // targetList,
   formationTable,
   outlineId,
   contrastList,
@@ -968,4 +970,10 @@ const getSummaries = (param: SummaryMethodProps) => {
 .el-cascader-node__label {
   max-width: 300px;
 }
+// .contrast-table{
+// .el-radio__inner{
+//   border: 1px  solid  pink;
+// }
+// }
+
 </style>

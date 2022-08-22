@@ -11,8 +11,10 @@ import { usePageStoreOutLineConfig } from "../../../../store/teacher/outLineConf
 import { usePageRequirement } from "../../../../store/teacher/addRequirement.ts";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
-import { AnySrvRecord } from "dns";
+// import { AnySrvRecord } from "dns";
 const _requirement = usePageRequirement();
+
+const { targetList } = storeToRefs(_requirement);
 let dialogVisible = ref(false);
 let column = ref("");
 const score = ref("分");
@@ -22,6 +24,7 @@ let percentage = ref("%");
 let reachTabel = reactive(reach);
 let reachTableOptions = reachTable;
 const yy = ref("950px");
+_requirement.GetAllGraduationRequirement();
 const addTarget = () => {
   column.value = "毕业要求表";
   _requirement.GetAllGraduationRequirement();
@@ -31,7 +34,7 @@ const outLineConfig = usePageStoreOutLineConfig();
 const {
   addOutLineConfig,
   subentryList,
-  targetList,
+  // targetList,
   contrastList,
   quotaList,
   disabled,
@@ -320,7 +323,30 @@ watch(
                 </el-button>
               </template>
               <template #default="scope">
-                <el-select
+                <el-cascader
+                  :options="targetList"
+                  :show-all-levels="false"
+                  v-model="scope.row.graduationRequirementId"
+                  :props="{
+                    checkStrictly: true,
+                    emitPath: false,
+                  }"
+                  clearable
+                  @change="assessmentHandler(scope.row)"
+                >
+                  <template #default="{ data }">
+                    <el-tooltip
+                      :disabled="data.label.length < 12"
+                      class="item"
+                      effect="dark"
+                      :content="data.label"
+                      placement="top"
+                    >
+                      <span @click="setInterval">{{ data.label }}</span>
+                    </el-tooltip>
+                  </template>
+                </el-cascader>
+                <!-- <el-select
                   v-model="scope.row.graduationRequirementId"
                   class="m-2"
                   placeholder="请选择"
@@ -332,7 +358,7 @@ watch(
                     :label="item.label"
                     :value="item.value"
                   />
-                </el-select>
+                </el-select> -->
               </template>
             </el-table-column>
 
@@ -395,7 +421,6 @@ watch(
                           <button
                             class="addReviewButton"
                             @click="addSubscript(item.id, scope.row.id)"
-                            
                           >
                             添加
                           </button>
@@ -651,7 +676,9 @@ li:last-child {
 :deep(.el-table .cell) {
   padding: 0 !important;
 }
-
+// :deep(.el-radio){
+//   width: 50px;
+// }
 :deep(.el-table .el-table__cell) {
   padding: 0;
 }
@@ -682,5 +709,25 @@ li:last-child {
 .addTarget {
   color: #2ebba3;
   border: 0;
+}
+</style>
+<style lang="scss">
+:deep(.el-cascader-panel .el-radio) {
+  width: 100%;
+  height: 100%;
+  // z-index: 100000;
+  position: absolute;
+  top: 10px;
+  right: -10px;
+ border: 5px  solid  #000;
+  
+}
+.el-cascader-panel .el-radio__input {
+ background-color: pink;
+border: 1px  solid  #606061;
+border-radius: 50%;
+}
+.el-cascader-panel .el-cascader-node__postfix {
+  top: 10px;
 }
 </style>

@@ -22,6 +22,8 @@ export const usePageRequirement = defineStore("requirement", {
 			number: '',
 			show: false,
 			cut: false,
+			targetList: [], //毕业要求
+			nm: ''
 		}
 	},
 	actions: {
@@ -30,10 +32,37 @@ export const usePageRequirement = defineStore("requirement", {
 			this.list = []
 			const res = await service({ path: "/api/services/app/GraduationRequirement/GetAllGraduationRequirement" })
 			this.requirementList = res.result
+			this.targetList = []
+			// this.targetList= res.result
+			res.result.forEach(item => {
+				this.targetList.push({
+					label: item.name,
+					value: item.id,
+					children: []
+				})
+
+
+			})
+			for (let index = 0; index < res.result.length; index++) {
+
+				for (let i = 0; i < res.result[index].target.length; i++) {
+
+
+
+					console.log();
+
+					this.targetList[index].children.push({
+						label: res.result[index].target[i].content,
+						value: res.result[index].target[i].id,
+					})
+				}
+
+
+			}
 			this.showTitleList = []
 			if (this.requirementList.length <= 6) {
 				this.cut = false
-			}else{
+			} else {
 				this.cut = true
 			}
 			this.requirementList.forEach((v, i) => {
@@ -43,7 +72,12 @@ export const usePageRequirement = defineStore("requirement", {
 			});
 
 			this.tabsId = this.requirementList[0].id
-			this.title = `${'毕业要求'}${this.requirementList.length + 1}`
+			// console.log(this.requirementList.slice(-1)[0].name.slice(4), '9999');
+			let n = parseInt(this.requirementList.slice(-1)[0].name.slice(4))
+
+			// console.log(n[0], 'oooooo');
+			this.nm = n + 1
+			this.title = `${'新增'}${'毕业要求'}${this.nm}`
 			this.graduationList = this.requirementList[0]
 			this.addGraduationList = {
 				id: "",
@@ -54,7 +88,7 @@ export const usePageRequirement = defineStore("requirement", {
 		},
 		// 添加毕业指标
 		AddTarget(val: any) {
-			// console.log(val, 'pppppp');
+			console.log(val, 'pppppp');
 
 			if (this.addGraduationList.require == '') {
 				ElMessage({
@@ -72,7 +106,7 @@ export const usePageRequirement = defineStore("requirement", {
 				// console.log(this.addGraduationList.target, '9999 9999999999');
 
 			} else {
-				this.headline = `${'指标'}${this.requirementList.length + 1}${'.'}${this.addGraduationList.target.length
+				this.headline = `${'指标'}${this.nm}${'.'}${this.addGraduationList.target.length
 					+ 1}`
 			}
 			// this.AddGraduationRequirement(this.addGraduationList)
@@ -87,28 +121,20 @@ export const usePageRequirement = defineStore("requirement", {
 		// 添加毕业要求
 		async AddGraduationRequirement(value: any) {
 			// let id = ''
-			if (value.id == '') {
+			if (value.id == '') {				
 				const res = await service({
 					path: "/api/services/app/GraduationRequirement/AddGraduationRequirement",
 					method: "post",
 					data: {
-						name: this.title,
+						name: this.title.slice(2),
 						require: value.require
 					}
 				})
-				value.id = res.result.id
-				// console.log(value, '00000');
-
+				value.id = res.result.id			
 				if (res.result.result) {
-					this.AddTarget(this.show)
-					// this.GetAllGraduationRequirement()
-					let _usePageOutline = usePageOutline()
-					_usePageOutline.GetAllGraduationRequirement()
-
-
-
-
-				}
+				
+					this.GetAllGraduationRequirement()
+			}
 			}
 
 
@@ -116,7 +142,7 @@ export const usePageRequirement = defineStore("requirement", {
 		},
 
 
-		//新增  
+		// 新增  
 		async GetAddRequirement() {
 			if (this.addGraduationList.id == '') {
 				const res = await service({
@@ -143,6 +169,7 @@ export const usePageRequirement = defineStore("requirement", {
 					method: "post",
 					data: item
 				})
+
 			})
 
 
@@ -160,21 +187,18 @@ export const usePageRequirement = defineStore("requirement", {
 						require: val.require
 					}
 				})
-				if (res.result.result) {
-					// this.GetAllGraduationRequirement()
-					let _usePageOutline = usePageOutline()
-					_usePageOutline.GetAllGraduationRequirement()
-				}
+				// if (res.result.result) {
+				// 	// this.GetAllGraduationRequirement()
+				// 	let _usePageOutline = usePageOutline()
+				// 	_usePageOutline.GetAllGraduationRequirement()
+				// }
 			}
 
 
-			console.log(val.target, 1111);
-			console.log(value.target, 2222);
 
+			console.log(123);
 
-
-
-			if (value.target.length !== 0) {
+			if (value.target !== []) {
 				let resList = val.target.filter(item => !value.target.some(ele => ele.content == item.content))
 				console.log(resList, '99999999');
 
@@ -192,7 +216,8 @@ export const usePageRequirement = defineStore("requirement", {
 							}
 
 						})
-					} if (element.graduationRequireId !== undefined && element.content !== "") {
+					} 
+					if (element.graduationRequireId !== undefined && element.content !== "") {
 						const data = await service({
 							path: "/api/services/app/Target/AddTarget",
 							method: "post",
@@ -202,8 +227,18 @@ export const usePageRequirement = defineStore("requirement", {
 
 				})
 
+			}else{
+				val.forEach(async(item) => {
+					const data = await service({
+						path: "/api/services/app/Target/AddTarget",
+						method: "post",
+						data: item
+					})
+					
+				});
+				
 			}
-
+			this.GetAllGraduationRequirement()
 		},
 
 		// 删除
