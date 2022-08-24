@@ -104,7 +104,7 @@ export const usePageOutline = defineStore("outline", {
                     query: { id: this.outlineId }
                 })
                 this.outlineName = res.result.name
-                this.GetAllGraduationRequirement()
+                // this.GetAllGraduationRequirement()
                 this.GetAllScoreWeight()
                 this.GetAllCourseObjective()
                 this.GetAllSwDetail()

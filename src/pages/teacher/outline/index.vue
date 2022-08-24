@@ -30,7 +30,7 @@ console.log(router.currentRoute.value.path, "000000000000000");
 // 获取全部毕业要求
 // _Alloutline.GetAllGraduationRequirement();
 _Alloutline.GetOutline();
-
+_requirement.GetAllGraduationRequirement()
 // .currentRoute.value.path
 // 添加大纲
 const AddOutline = () => {

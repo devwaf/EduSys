@@ -8,9 +8,7 @@ export const usePageRequirement = defineStore("requirement", {
 	state: () => {
 		return {
 			graduationList: [], //添加毕业要求
-			addGraduationList: {}
-
-			,
+			addGraduationList: {},
 			isInut: false,
 			title: "",
 			showTitleList: [],
