@@ -122,7 +122,6 @@ const fileSuccess = (res: any) => {
 			if (!res.result.result) {
 				ElNotification({
 					title: res.result.message,
-					message: "上传文件数据错误",
 					type: "warning"
 				})
 				return false
