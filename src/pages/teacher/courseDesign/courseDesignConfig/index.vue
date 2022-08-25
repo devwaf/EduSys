@@ -134,7 +134,7 @@ const delClassHandler = (val: any) => {
 watch(
   () => router.currentRoute.value,
   () => {
-    if (router.currentRoute.value.path !== "/coursedesign/outlineconfig") {
+    if (router.currentRoute.value.path !== "/coursedesign/coursedesignconfig") {
       ruleFormRef.value.resetFields();
     }
     _usePageCurriculumInstall.leavePage(router.currentRoute.value.path);
@@ -203,7 +203,9 @@ watch(
                 v-for="(item, index) in selectedList"
                 :key="index"
               >
-                <div class="major-class-box-li">{{ item.schoolYear }}{{ item.major }}{{ item.name }}</div>
+                <div class="major-class-box-li">
+                  {{ item.schoolYear }}{{ item.major }}{{ item.name }}
+                </div>
                 <svg
                   class="icon del-icon"
                   aria-hidden="true"
@@ -242,7 +244,7 @@ watch(
             v-model="curriculumInstallFormData.classDuration"
             :min="0"
           ></el-input-number>
-          &nbsp;<span>周</span>
+          &nbsp;<span>学时</span>
         </el-form-item>
         <el-form-item
           label="实验总学时："
@@ -253,7 +255,7 @@ watch(
             v-model="curriculumInstallFormData.textDuration"
             :min="0"
           ></el-input-number>
-          &nbsp; <span>周</span>
+          &nbsp; <span>学时</span>
         </el-form-item>
         <div>
           <el-button class="release" @click.prevent="release">发布</el-button>
@@ -308,8 +310,6 @@ watch(
     align-items: center;
     padding: 5px 10px;
     background-color: #f3f3f3;
-   
-
   }
   .icon {
     width: 24px;
@@ -359,12 +359,12 @@ watch(
     text-align: center;
     // height: 30px;
     background-color: #f3f3f3;
-        .major-class-box-li{
- overflow: hidden; /*内容超出后隐藏*/
+    .major-class-box-li {
+      overflow: hidden; /*内容超出后隐藏*/
 
-    text-overflow: ellipsis; /* 超出内容显示为省略号 */
+      text-overflow: ellipsis; /* 超出内容显示为省略号 */
 
-    white-space: nowrap; /* 文本不进行换行 */
+      white-space: nowrap; /* 文本不进行换行 */
     }
     .del-icon {
       margin-left: 10px;

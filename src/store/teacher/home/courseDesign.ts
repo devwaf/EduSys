@@ -131,7 +131,7 @@ export const usePageHomeCourseDesign = defineStore("HomeCourseDesign", {
 			this.information = []
 			this.information.push(res.result)
 			this.information[0].credit = this.information[0].credit + '学分'
-			this.information[0].classDuration = this.information[0].classDuration + '周'
+			this.information[0].classDuration = this.information[0].classDuration + '学时'
 			// this.information[0].frequency = this.information[0].frequency + '次'
 			this.information[0].textDuration = this.information[0].textDuration + '次'
 			this.information[0].homeWorkCount = this.information[0].homeWorkCount + '次'

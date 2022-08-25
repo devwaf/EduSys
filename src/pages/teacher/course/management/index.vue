@@ -26,10 +26,7 @@ const addClass = () => {
   card.getyyy(num);
   cardId.value.open();
 };
-const change = (val: any) => {
-  console.log(val, "123435355546");
-  coursemanagement.getOutlineName(val);
-};
+
 
 // 表单校验
 const rules = reactive({
@@ -154,7 +151,6 @@ watch(
         <el-select
           v-model="curriculumFormData.outlineId"
           placeholder="请选择课程大纲"
-          @change="change"
         >
           <el-option
             v-for="item in outlineSelect"
@@ -231,7 +227,7 @@ watch(
           v-model="curriculumFormData.classDuration"
           :min="0"
         ></el-input-number>
-        &nbsp;<span>周</span>
+        &nbsp;<span>学时</span>
       </el-form-item>
       <el-form-item
         label="实验总学时："
@@ -243,7 +239,7 @@ watch(
           :min="0"
         ></el-input-number>
 
-        &nbsp; <span>周</span>
+        &nbsp; <span>学时</span>
       </el-form-item>
       <div>
         <el-button class="release" @click.prevent="release">发布</el-button>

@@ -13,7 +13,7 @@ export const usePageCoursemanagement = defineStore("coursemanagement", {
 				type: "",
 				teacherId: localStorage.getItem('userId'),
 				outlineId: "",
-				
+
 				semester: "",
 				supervisor: '',
 				credit: null,
@@ -44,7 +44,7 @@ export const usePageCoursemanagement = defineStore("coursemanagement", {
 
 				this.curriculumFormData.classIds.forEach(i => {
 					card.classList.forEach(item => {
-						if (i == item.id) {											
+						if (i == item.id) {
 							item.checked = true
 							// console.log(item.checked,'yyyyyy');
 							card.curriculumSelectedList.push({
@@ -116,6 +116,18 @@ export const usePageCoursemanagement = defineStore("coursemanagement", {
 
 			} else {
 				console.log(this.id, '添加');
+				// if(this.curriculumFormData.id)
+				for (const key in this.curriculumFormData) {
+					// if (this.curriculumFormData[key] == 'id') {
+					// console.log(this.curriculumFormData[key], '111111');
+					// console.log(key);
+					if (key == 'id') {
+						delete this.curriculumFormData.id
+					}
+
+					// }
+				}
+				console.log(this.curriculumFormData, '999991111');
 
 				const res = await service({
 					path: "/api/services/app/Course/AddCourse",
@@ -134,21 +146,7 @@ export const usePageCoursemanagement = defineStore("coursemanagement", {
 		leavePage(router: any) {
 			console.log(router, 999999);
 			if (router !== "/course/coursemanagement") {
-				// this.curriculumFormData = {
-				// 	classIds: [],
-				// 	name: "",
-				// 	type: "",
-				// 	teacherId: localStorage.getItem('userId'),
-				// 	outlineId: "",
-				// 	outlineName: '',
-				// 	semester: "",
-				// 	supervisor: '',
-				// 	credit: null,
-				// 	classDuration: null,
-				// 	textDuration: null,
-				// 	department: "",
-				// 	kind: "课程"
-				// }
+
 				this.curriculumSelectedList = []
 				this.id = ''
 				const card = usePageCard()

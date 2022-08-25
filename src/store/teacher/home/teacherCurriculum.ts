@@ -114,7 +114,7 @@ export const usePageCurriculum = defineStore("HomeCurriculum", {
 
 			this.tableData.push(res.result)
 			this.tableData[0].credit = this.tableData[0].credit + '学分'
-			this.tableData[0].classDuration = this.tableData[0].classDuration + '周'
+			this.tableData[0].classDuration = this.tableData[0].classDuration + '学时'
 			this.tableData[0].homeWorkCount = this.tableData[0].homeWorkCount + '次'
 			this.tableData[0].questionCount = this.tableData[0].questionCount + '次'
 			

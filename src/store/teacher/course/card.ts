@@ -4,7 +4,7 @@ import { service } from "@/api/service"
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import { usePageCoursemanagement } from '../../../store/teacher/course/coursemanagement'
-import {usePageCurriculumInstall} from '../../../store/teacher/courseDesign/coursedesignconfig'
+import { usePageCurriculumInstall } from '../../../store/teacher/courseDesign/coursedesignconfig'
 
 export const usePageCard = defineStore("card", {
 	state: () => {
@@ -43,65 +43,59 @@ export const usePageCard = defineStore("card", {
 				})
 
 			})
-			if(this.name=='课程'){
+			if (this.name == '课程') {
 				let _usePageCoursemanagement = usePageCoursemanagement()
 				if (_usePageCoursemanagement.curriculumFormData) {
 					_usePageCoursemanagement.curriculumFormData.classIds.forEach(i => {
 						this.classList.forEach(item => {
 							if (i == item.id) {
-	
-	
+
+
 								item.checked = true
 								console.log(item.checked, 'yyyyyy');
-	
+
 							}
 						})
 					})
 				}
 			}
-			if(this.name=='课设'){
+			if (this.name == '课设') {
 				let _usePageCurriculumInstall = usePageCurriculumInstall()
 				if (_usePageCurriculumInstall.curriculumInstallFormData) {
 					_usePageCurriculumInstall.curriculumInstallFormData.classIds.forEach(i => {
 						this.classList.forEach(item => {
-							if (i == item.id) {	
+							if (i == item.id) {
 								item.checked = true
 								console.log(item.checked, 'yyyyyy');
-	
+
 							}
 						})
 					})
 				}
 			}
-			
+
 
 		},
 		// 添加班级
 		async AddClasses() {
-			if (this.classList.length == 5) {
-				ElMessage({
-					message: "班级最多为5个",
-					type: "warning"
-				})
 
-			} else {
-				const res = await service({
-					path: "/api/services/app/Classes/AddClasses",
-					method: "post",
-					data: {
-						schoolYear: "",
-						major: "",
-						name: ""
-					}
-				})
-				this.classList.push({
-					id: res.result.id,
-					checked: false,
+			const res = await service({
+				path: "/api/services/app/Classes/AddClasses",
+				method: "post",
+				data: {
 					schoolYear: "",
 					major: "",
 					name: ""
-				})
-			}
+				}
+			})
+			this.classList.push({
+				id: res.result.id,
+				checked: false,
+				schoolYear: "",
+				major: "",
+				name: ""
+			})
+
 
 		},
 

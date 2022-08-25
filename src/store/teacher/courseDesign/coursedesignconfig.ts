@@ -14,7 +14,7 @@ export const usePageCurriculumInstall = defineStore("curriculumInstall", {
                 teacherId: localStorage.getItem('userId'),
                 outlineId: "",
                 supervisor: '',
-               
+
                 semester: "",
                 credit: null,
                 classDuration: null,
@@ -124,6 +124,17 @@ export const usePageCurriculumInstall = defineStore("curriculumInstall", {
                     // this.curriculumInstallFormData = []
                 }
             } else {
+
+                for (const key in this.curriculumInstallFormData) {
+                    // if (this.curriculumFormData[key] == 'id') {
+                    // console.log(this.this.curriculumInstallFormData[key], '111111');
+                    // console.log(key);
+                    if (key == 'id') {
+                        delete this.curriculumInstallFormData.id
+                    }
+
+                    // }
+                }
                 // this.curriculumInstallFormData.teacherId = localStorage.getItem('userId')
                 const res = await service({
                     path: "/api/services/app/Course/AddCourse",
