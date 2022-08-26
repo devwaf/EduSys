@@ -82,6 +82,14 @@ const newsButton = () => {
 		})
 	}
 }
+// 下载学生信息模板
+const downloadFile = () => {
+	addStu.getImportStudentTemplate().then(res => {
+		if (res.success) {
+			window.open(res.result)
+		}
+	})
+}
 </script>
 
 <template>
@@ -106,23 +114,35 @@ const newsButton = () => {
 				</el-popover>
 			</div>
 			<div class="importStu" v-if="isTea">
-				<el-upload
-					ref="uploadBox"
-					action="http://101.133.234.110:10203/api/File/FileUpload"
-					:show-file-list="false"
-					:headers="headerToken"
-					:data="{ Module: '学生信息表' }"
-					:file-list="fileList"
-					:before-upload="fileBeforeUpload"
-					:on-success="fileSuccess"
-				>
-					<div class="img">
-						<svg class="icon home-icon" aria-hidden="true">
-							<use xlink:href="#icon-daoruxueshengzhanghao" />
-						</svg>
+				<el-dropdown trigger="click">
+					<div class="teaImportStu">
+						<div class="img">
+							<svg class="icon home-icon" aria-hidden="true">
+								<use xlink:href="#icon-daoruxueshengzhanghao" />
+							</svg>
+						</div>
+						<p class="text">下载模板/导入学生账号</p>
 					</div>
-					<span>导入学生账号</span>
-				</el-upload>
+					<template #dropdown>
+						<el-dropdown-menu>
+							<el-dropdown-item @click="downloadFile()">下载模板</el-dropdown-item>
+							<el-dropdown-item>
+								<el-upload
+									ref="uploadBox"
+									action="http://101.133.234.110:10203/api/File/FileUpload"
+									:show-file-list="false"
+									:headers="headerToken"
+									:data="{ Module: '学生信息表' }"
+									:file-list="fileList"
+									:before-upload="fileBeforeUpload"
+									:on-success="fileSuccess"
+								>
+									<span>导入学生账号</span>
+								</el-upload>
+							</el-dropdown-item>
+						</el-dropdown-menu>
+					</template>
+				</el-dropdown>
 			</div>
 			<div class="userImg">
 				<div class="img">
@@ -172,6 +192,7 @@ const newsButton = () => {
 	}
 	.importStu,
 	.quit {
+		margin: 0 5px;
 		cursor: pointer;
 		:deep(.el-upload) {
 			color: #fff;
@@ -187,14 +208,11 @@ const newsButton = () => {
 			width: 28px;
 			height: 28px;
 		}
-		//     .news {
-		// 		.img{
-		// width: 32px;
-		//       height: 32px;
-		//       background: #ffffff;
-		// 		}
-
-		//     }
+	}
+	.teaImportStu {
+		display: flex;
+		color: white;
+		align-items: center;
 	}
 	.news-button {
 		display: flex;
@@ -207,27 +225,10 @@ const newsButton = () => {
 			color: #fff;
 		}
 	}
-	// .news{
-
-	// }
-
-	// 	  :deep(.el-dropdown-item){
-	// 		  min-
-	//
-	// 	  }
-	// 	  :deep(.el-tabs__header){
-	// width: 400px;
-	// 	  }
-	// 	//   width: 400px;
-	// 	//   height: 500px;
-	// 	//
-
 	.left > span {
 		font-size: 20px;
 	}
 	.right {
-		// width: 450px;
-		// background-color: pink;
 		.el-icon {
 			height: 2em;
 			width: 2em;
@@ -364,5 +365,8 @@ const newsButton = () => {
 <style lang="scss">
 .el-popover.my-popover {
 	padding: 0 !important;
+}
+:deep(.el-dropdown-menu__item) {
+	color: #a4a4a4 !important;
 }
 </style>

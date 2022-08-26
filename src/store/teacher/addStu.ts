@@ -13,7 +13,15 @@ export const useAddStu = defineStore("addStu", {
 				query: { filePath: path },
 				method: "post"
 			})
-      return res
+			return res
+		},
+		// get /api/services/app/Course/GetImportStudentTemplate 下载导入学生信息
+		async getImportStudentTemplate() {
+			const res = await service({
+				path: "/api/services/app/Course/GetImportStudentTemplate",
+				method: "get"
+			})
+			return res
 		}
 	}
 })
