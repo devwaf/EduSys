@@ -190,7 +190,7 @@ const goPrint = () => {
 				action="http://101.133.234.110:10203/api/File/FileUpload"
 				:show-file-list="false"
 				:headers="headerToken"
-				:data="{ Module: '总评成绩表' }"
+				:data="{ Module: 'recovery' }"
 				:file-list="fileList"
 				:before-upload="fileBeforeUpload"
 				:on-success="fileSuccess"
