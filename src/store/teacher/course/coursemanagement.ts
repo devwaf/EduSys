@@ -68,6 +68,10 @@ export const usePageCoursemanagement = defineStore("coursemanagement", {
 				}
 			})
 			this.outlineSelect = res.result
+			this.outlineSelect.unshift({
+				label:'创建大纲',
+				value:'123'
+			})
 		},
 		//学期
 		async GetAllTerm() {

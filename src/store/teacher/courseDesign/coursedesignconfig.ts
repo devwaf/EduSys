@@ -76,6 +76,10 @@ export const usePageCurriculumInstall = defineStore("curriculumInstall", {
             })
 
             this.outlineSelect = res.result
+            this.outlineSelect.unshift({
+				label:'创建大纲',
+				value:'123'
+			})
         },
         async GetTerm() {
             const res = await service({

@@ -24,9 +24,11 @@ th,
 td {
   margin: 0;
   padding: 0;
+  outline:none;
 }
 input {
   border: 0;
+  outline:none;
 }
 input:focus {
   outline: none;
@@ -43,6 +45,7 @@ fieldset,
 img,
 button {
   border: 0;
+  outline:none;
 }
 address,
 caption,

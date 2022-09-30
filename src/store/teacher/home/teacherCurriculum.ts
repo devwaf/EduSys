@@ -124,6 +124,7 @@ export const usePageCurriculum = defineStore("HomeCurriculum", {
 				item.outlineId = this.outlineName
 			})
 		},
+		
 		// 成绩权重
 		// 原本是GetAllScoreWeight,改为GetUsualScoreWeight，api名字不要改，不然很多地方都要改
 		async GetAllScoreWeight() {
@@ -154,7 +155,6 @@ export const usePageCurriculum = defineStore("HomeCurriculum", {
 			})
 			this.evaluateTable = []
 			this.evaluateTable = res.result
-			// console.log(this.evaluateTable, "99999999999999")
 		},
 
 		// 成绩权重配置
@@ -174,12 +174,13 @@ export const usePageCurriculum = defineStore("HomeCurriculum", {
 			})
 			this.examinationTable = []
 			this.examinationTable = res.result.testQuestions
-			// console.log(this.examinationTable, "11222445")
 			this.examinationForm.quantity = this.examinationTable.length
 			this.examinationTable.forEach(element => {
 				this.courseList.forEach(item=> {
 					if(element.courseObjectiveId==item.value){
 						element.courseObjectiveId=item.label
+						console.log(element.courseObjectiveId,'ppppppp');
+						
 					}
 				});
 				

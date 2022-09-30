@@ -118,6 +118,23 @@ const assessmentHandler = (item: any, i: string, value: any, index: any) => {
   outLineConfig.UpdateDesignObjective(item);
   console.log(item, "wwwwwww");
 };
+
+const selectDeptRef = ref();
+
+//选择毕业要求
+const onSearchClick = (item: any, i: string, value: any, index: any) => {
+  selectDeptRef.value.popperVisible = false;
+  if (item.name == "") return;
+  if (item.graduationRequirementId == "") return;
+  if (item.degreeSupport == "") return;
+  // if (item.gredeProportion == "") return;
+  // console.log(value,'9999999');
+  // console.log(index,'下标');
+
+  outLineConfig.UpdateDesignObjective(item);
+  console.log(item, "wwwwwww");
+};
+
 const addMentHandler = (item: any, i: string, value: any, index: any) => {
   outLineConfig.getMentHandler(item, i, value, index);
 };
@@ -275,9 +292,10 @@ watch(
               </el-table-column>
             </template>
           </CustomTable>
-          <el-button class="addReview" @click="addReview">
-            添加评审项目</el-button
-          >
+          <button class="addReview" @click.prevent="addReview">
+            <svg-icon icon="plus" class="addContrast-svg"></svg-icon>
+            添加评审项目
+          </button>
         </div>
       </div>
     </div>
@@ -327,12 +345,13 @@ watch(
                   :options="targetList"
                   :show-all-levels="false"
                   v-model="scope.row.graduationRequirementId"
+                  ref="selectDeptRef"
                   :props="{
                     checkStrictly: true,
                     emitPath: false,
                   }"
                   clearable
-                  @change="assessmentHandler(scope.row)"
+                  @change="onSearchClick(scope.row)"
                 >
                   <template #default="{ data }">
                     <el-tooltip
@@ -346,19 +365,6 @@ watch(
                     </el-tooltip>
                   </template>
                 </el-cascader>
-                <!-- <el-select
-                  v-model="scope.row.graduationRequirementId"
-                  class="m-2"
-                  placeholder="请选择"
-                  @change="assessmentHandler(scope.row)"
-                >
-                  <el-option
-                    v-for="item in targetList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select> -->
               </template>
             </el-table-column>
 
@@ -453,6 +459,7 @@ watch(
           </template>
         </CustomTable>
         <button class="addAssessment" @click="addAssessment">
+          <svg-icon icon="plus" class="addContrast-svg"></svg-icon>
           添加课程目标
         </button>
       </div>
@@ -528,13 +535,16 @@ watch(
     margin-top: 30px;
   }
   .addAssessment {
-    width: 100%;
-    text-align: center;
-    background-color: transparent;
-    line-height: 50px;
-    color: #2ebba3;
-    border: 1px solid #ebeef5;
-    border-top: 0;
+    margin-top: 30px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    background-color: #479fec;
   }
   .achievement-subItem {
     display: flex;
@@ -599,14 +609,19 @@ li:last-child {
   :deep(.el-table) {
   }
   .addReview {
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    color: #2ebba3;
-    background-color: transparent;
-    border: 1px solid #ebeef5;
-    border-top: 0;
+    margin-top: 30px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    background-color: #479fec;
+    span {
+      color: #fff;
+    }
   }
 }
 .assess-box {
@@ -692,8 +707,9 @@ li:last-child {
   color: #2ebba3;
 }
 .complete {
-  text-align: right;
-
+  text-align:center;
+  width: 90px;
+  height: 40px;
   padding: 5px 12px;
   color: #fff;
   background: #2ebba3;
@@ -710,6 +726,10 @@ li:last-child {
   color: #2ebba3;
   border: 0;
 }
+.addContrast-svg {
+  width: 20px;
+  height: 20px;
+}
 </style>
 <style lang="scss">
 :deep(.el-cascader-panel .el-radio) {
@@ -719,13 +739,12 @@ li:last-child {
   position: absolute;
   top: 10px;
   right: -10px;
- border: 5px  solid  #000;
-  
+  border: 5px solid #000;
 }
 .el-cascader-panel .el-radio__input {
- background-color: pink;
-border: 1px  solid  #606061;
-border-radius: 50%;
+  background-color: pink;
+  border: 1px solid #606061;
+  border-radius: 50%;
 }
 .el-cascader-panel .el-cascader-node__postfix {
   top: 10px;

@@ -1,10 +1,40 @@
 @use "element-plus/dist/index.css";
 :root {
   --el-color-primary: #2ebba3;
-//   --el-color-primary-light-3: #2ebba3;
- 
+  //   --el-color-primary-light-3: #2ebba3;
+
   // --el-color-primary-light-7: #c6e2ff;
   // --el-color-primary-light-8: #d9ecff;
   // --el-color-primary-light-9: #ecf5ff;
   // --el-color-primary-dark-2: #337ecc;
+}
+.el-button--primary{
+background-color: #2ebba3;
+}
+.el-button--primary {
+  --el-button-bg-color: #2ebba3;
+  --el-button-hover-bg-color:#2ebba3;
+}
+.el-button--primary:hover {
+  --el-button-hover-bg-color: #2ebba3;
+}
+#contact #tabs #bord td select {
+  background: url("/static/img/down-arrow.png") no-repeat right #fff;
+  border:none;
+  padding: 0 5px;
+  overflow:hidden;
+  width: 120%; 
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ -ms-appearance: none;
+ -o-appearance: none;
+  appearance: none;
+}
+
+select::-ms-expand {
+     display: none;
+
+}
+.el-table th.el-table__cell{
+  background-color: #f2f2f2;
 }

@@ -90,28 +90,16 @@ const rules = reactive({
     },
   ],
 });
-// const change = (val: any) => {
-//   console.log(val, "123435355546");
-//   // _usePageCurriculumInstall.getOutlineName(val);
-// };
-
-// 开课学期
-// const semesterList=reactive([
-//   {
-//   label:'2019年-2020年',
-//   value:'2019年-2020年'
-// },{
-//   label:'2020年-2021年',
-//   value:'2020年-2021年'
-// },
-// {
-//   label:'2021年-2022年',
-//   value:'2021年-2022年'
-// }
-// ])
+const choice = (value: string) => {
+  if (value == "123") {
+    console.log(33333);
+  router.push('/coursedesign/outlineconfig')
+    return;
+  }
+};
 // 发布
 const release = () => {
-  // console.log(11111111111111111);
+
   console.log(curriculumInstallFormData.value, "099999");
 
   _usePageCurriculumInstall.getClass();
@@ -121,7 +109,6 @@ const release = () => {
       _usePageCurriculumInstall.AddCourse();
     } else {
       console.log("error submit!");
-      // console.log();
     }
   });
 };
@@ -173,12 +160,14 @@ watch(
           <el-select
             v-model="curriculumInstallFormData.outlineId"
             placeholder="请选择课设大纲"
+              @change="choice"
           >
             <el-option
               v-for="item in outlineSelect"
               :key="item.value"
               :label="item.label"
               :value="item.value"
+                :class="item.label == '创建大纲' ? 'choice' : ''"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -288,6 +277,10 @@ watch(
   top: 200px;
   right: 150px;
   z-index: 10000;
+}
+.choice {
+  color: #2ebba3;
+  background: #2ebba325;
 }
 :deep(.el-form) {
   position: relative;

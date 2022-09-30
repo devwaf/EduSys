@@ -12,7 +12,7 @@ import { useRouter, useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
 const _Alloutline = usePageOutline();
 const _requirement = usePageRequirement();
-const {targetList}=storeToRefs(_requirement);
+const { targetList } = storeToRefs(_requirement);
 const {
   outlineName,
   // targetList,
@@ -30,7 +30,7 @@ console.log(router.currentRoute.value.path, "000000000000000");
 // 获取全部毕业要求
 // _Alloutline.GetAllGraduationRequirement();
 _Alloutline.GetOutline();
-_requirement.GetAllGraduationRequirement()
+_requirement.GetAllGraduationRequirement();
 // .currentRoute.value.path
 // 添加大纲
 const AddOutline = () => {
@@ -107,6 +107,23 @@ const addContrastHandler = () => {
 const cascader = ref(null);
 const reqChange = (val: any) => {
   // console.log(val.graduationRequirementId, "毕业要求的值");
+  if (
+    val.content == "" ||
+    val.name == "" ||
+    val.graduationRequirementId == ""
+  ) {
+    return;
+  } else {
+    _Alloutline.UpdateCourseObjective(val);
+  }
+};
+const selectDeptRef = ref();
+//选择毕业要求
+const onSearchClick = (val: any) => {
+  // console.log(selectDeptRef.value.popperVisible,'ouuuuuu');
+  // 选中后关闭
+  selectDeptRef.value.popperVisible = false;
+
   if (
     val.content == "" ||
     val.name == "" ||
@@ -363,12 +380,13 @@ const getSummaries = (param: SummaryMethodProps) => {
                 :options="targetList"
                 :show-all-levels="false"
                 v-model="scope.row.graduationRequirementId"
+                ref="selectDeptRef"
                 :props="{
                   checkStrictly: true,
                   emitPath: false,
                 }"
                 clearable
-                @change="reqChange(scope.row)"
+                @change="onSearchClick(scope.row)"
               >
                 <template #default="{ data }">
                   <el-tooltip
@@ -396,7 +414,10 @@ const getSummaries = (param: SummaryMethodProps) => {
             </template>
           </el-table-column>
         </CustomTable>
-        <button class="addContrast" @click="addContrastHandler">添加</button>
+        <button class="addContrast" @click.prevent="addContrastHandler">
+          <svg-icon icon="plus" class="addContrast-svg"></svg-icon>
+          添加
+        </button>
       </div>
     </div>
 
@@ -654,19 +675,22 @@ const getSummaries = (param: SummaryMethodProps) => {
                     >
                       <use xlink:href="#icon-shanchu" />
                     </svg>
-                    <!-- -->
-                    <!-- {{scope.row.question.length}} -->
+                    
+                   
                   </li>
                 </ul>
               </template>
             </el-table-column>
           </template>
         </CustomTable>
-        <button class="addContrast" @click="addTopicHandler">添加</button>
+        <button class="addContrast" @click.prevent="addTopicHandler">
+          <svg-icon icon="plus" class="addContrast-svg"></svg-icon>
+          添加
+        </button>
       </div>
     </div>
     <div class="next">
-      <el-button @click="completeHandler">完成</el-button>
+      <button @click.prevent="completeHandler" class="complete">完成</button>
     </div>
   </div>
 </template>
@@ -951,14 +975,29 @@ const getSummaries = (param: SummaryMethodProps) => {
     background-color: transparent;
   }
   .addContrast {
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    margin-top: 30px;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    background-color: #479fec;
+
+    .addContrast-svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .complete {
     text-align: center;
-    color: #2ebba3;
-    background-color: transparent;
-    border: 1px solid #ebeef5;
-    border-top: 0;
+    width: 90px;
+    height: 40px;
+    padding: 5px 12px;
+    color: #fff;
+    background: #2ebba3;
   }
 }
 </style>
@@ -970,10 +1009,4 @@ const getSummaries = (param: SummaryMethodProps) => {
 .el-cascader-node__label {
   max-width: 300px;
 }
-// .contrast-table{
-// .el-radio__inner{
-//   border: 1px  solid  pink;
-// }
-// }
-
 </style>

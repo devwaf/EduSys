@@ -345,7 +345,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                 </el-table-column>
                 <el-table-column label="每小题分值" align="center">
                   <template #default="scope">
-                    <ul
+                    <ule
                       class="tab-container-main"
                       v-for="item in scope.row.question"
                       :key="item"
@@ -353,7 +353,7 @@ const getSummaries = (param: SummaryMethodProps) => {
                       <li class="examination-box">
                         {{ item.score }}
                       </li>
-                    </ul>
+                    </ule>
                   </template>
                 </el-table-column>
                 <el-table-column label="课程目标" align="center">
@@ -362,13 +362,14 @@ const getSummaries = (param: SummaryMethodProps) => {
                       class="tab-container-main"
                       v-for="item in scope.row.question"
                       :key="item"
+                     
                     >
                       <li class="examination-box">
                         {{ item.courseObjectiveName }}
                       </li>
                     </ul>
                     <span v-show="scope.row.courseObjectiveId"
-                      >{{ scope.row.courseObjectiveId }}
+                      >{{ scope.row.courseObjName }}
                     </span>
                   </template>
                 </el-table-column>
@@ -414,7 +415,7 @@ const getSummaries = (param: SummaryMethodProps) => {
       .button-box {
         width: 72px;
         height: 40px;
-       
+
         background: #2ebba3;
       }
       > span {

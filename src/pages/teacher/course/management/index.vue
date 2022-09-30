@@ -27,7 +27,13 @@ const addClass = () => {
   cardId.value.open();
 };
 
-
+const choice = (value: string) => {
+  if (value == "123") {
+    console.log(33333);
+   router.push('/outline/addoutline')
+    return;
+  }
+};
 // 表单校验
 const rules = reactive({
   classIds: [{ required: true, message: "请选择班级", trigger: "blur" }],
@@ -151,12 +157,14 @@ watch(
         <el-select
           v-model="curriculumFormData.outlineId"
           placeholder="请选择课程大纲"
+          @change="choice"
         >
           <el-option
             v-for="item in outlineSelect"
             :key="item.value"
             :label="item.label"
             :value="item.value"
+            :class="item.label == '创建大纲' ? 'choice' : ''"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -189,13 +197,6 @@ watch(
                 class="del-icon"
                 @click="delClassHandler(item.id)"
               />
-              <!-- <svg
-                class="icon del-icon"
-                aria-hidden="true"
-               
-              >
-                <use xlink:href="#icon-a-shanchu1" style="color: red" />
-              </svg> -->
             </li>
 
             <li>
@@ -263,6 +264,10 @@ watch(
   overflow: auto;
   background-color: #fff;
   position: relative;
+}
+.choice {
+  color: #2ebba3;
+  background: #2ebba325;
 }
 .card {
   position: absolute;
