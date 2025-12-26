@@ -1,16 +1,150 @@
-# Vue 3 + TypeScript + Vite
+# EduSys - 教育管理系统
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> EduSys 是一个基于 Vue 3 + TypeScript + Vite 的现代化教育管理系统，专为学校教学管理设计。系统支持课程配置、大纲管理、作业发布等功能，界面简洁专业，操作便捷。
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## ✨ 特性
 
-## Type Support For `.vue` Imports in TS
+- **⚡️ 极速开发体验** - 基于 Vite 5，启动速度极快
+- **🎨 TypeScript 支持** - 完整的类型定义，开发更安心
+- **📦 现代化技术栈** - Vue 3 + Composition API
+- **🎯 企业级 UI** - Element Plus 组件库
+- **🗃️ 状态管理** - Pinia 状态管理
+- **🛣️ 路由管理** - Vue Router 4
+- **🌐 网络请求** - Axios 封装
+- **📱 响应式布局** - 适配多端设备
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+## 📦 技术栈
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| Vue | ^3.2.25 | 核心框架 |
+| TypeScript | ^4.5.4 | 类型安全 |
+| Vite | ^2.9.9 | 构建工具 |
+| Element Plus | ^2.2.2 | UI 组件库 |
+| Pinia | ^2.0.14 | 状态管理 |
+| Vue Router | ^4.0.15 | 路由管理 |
+| Axios | ^0.27.2 | HTTP 客户端 |
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+## 🚀 快速开始
+
+```bash
+# 使用 npm
+npm install
+
+# 或使用 yarn
+yarn install
+```
+
+### 开发模式
+
+```bash
+# 启动开发服务器
+npm run dev
+```
+
+### 构建生产版本
+
+```bash
+# 构建生产版本
+npm run build
+```
+
+## 📁 项目结构
+
+```
+EduSys/
+├── public
+```/             # 静态资源
+├── src/
+│   ├── assets/         # 资源文件
+│   ├── components/     # 公共组件
+│   ├── composables/    # 组合式函数
+│   ├── router/         # 路由配置
+│   ├── stores/         # Pinia 状态管理
+│   ├── views/          # 页面视图
+│   ├── App.vue         # 根组件
+│   └── main.ts         # 入口文件
+├── index.html          # HTML 模板
+├── package.json        # 项目配置
+├── tsconfig.json       # TypeScript 配置
+├── vite.config.ts      # Vite 配置
+└── README.md           # 项目说明
+```
+
+## 🖥️ 系统功能
+
+### 主要功能模块
+- **课程配置**：支持课程名称、类型、负责人等信息的配置
+- **课程大纲**：支持课程大纲的创建和管理
+- **课程管理**：支持课程的增删改查
+- **作业管理**：支持作业的发布和批改
+- **学生管理**：支持学生账号导入
+
+### 功能界面截图
+
+**登陆、首页页面**
+
+| 登录 | 首页 |
+|---------|---------|
+| ![登录](docs/screenshots/login.png) | ![首页](docs/screenshots/home.png) |
+
+**课程配置页面**
+
+| 新建课程 | 课程管理 |
+|---------|---------|
+| ![新建课程](docs/screenshots/new_class.png) | ![课程管理](docs/screenshots/class_manage.png) |
+
+**课程大纲页面**
+
+| 新建大纲 | 大纲管理 |
+|---------|---------|
+| ![登录页面](docs/screenshots/new_outline.png) | ![管理后台](docs/screenshots/outline_manage.png) |
+
+**课设页面**
+
+| 课设配置 | 大纲配置 |
+|---------|---------|
+| ![登录页面](docs/screenshots/ks_settings.png) | ![管理后台](docs/screenshots/ks_outline_settings.png) |
+
+**笔试/机试页面**
+
+| 发布作业 | 表单中心 |
+|---------|---------|
+| ![发布作业](docs/screenshots/bs_push.png) | ![表单中心](docs/screenshots/bs_center.png) |
+
+**毕业设计页面**
+
+| 界面 |
+|---------|
+| ![界面](docs/screenshots/bysj.png) |
+
+## 📚 文档
+
+- [Vue 3 文档](https://vuejs.org/)
+- [Vite 文档](https://vitejs.dev/)
+- [TypeScript 文档](https://www.typescriptlang.org/)
+- [Element Plus 文档](https://element-plus.org/)
+- [Pinia 文档](https://pinia.vuejs.org/)
+- [Vue Router 文档](https://router.vuejs.org/)
+
+## 🤝 贡献指南
+
+1. Fork 本仓库
+2. 创建你的分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交你的改动 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 创建一个 Pull Request
+
+## 📄 许可证
+
+本项目基于 MIT 许可证开源。
+
+## 📧 联系方式
+
+- **作者**: devwaf
+- **仓库**: [EduSys](https://github.com/devwaf/EduSys)
+
+---
+
+如果本项目对你有帮助，欢迎 ⭐ Star 支持！

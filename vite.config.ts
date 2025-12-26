@@ -54,7 +54,7 @@ export default ({ mode }) => {
 			hmr: true, //禁用或配置 HMR 连接（用于 HMR websocket 必须使用不同的 http 服务器地址的情况）。
 			proxy: {
 				"^/apiservice": {
-					target: "http://101.133.234.110:10203",
+					target: "http://127.0.0.1:10203",
 					changeOrigin: true,
 
 					// rewrite: path => path.replace(/^\/api/, '')

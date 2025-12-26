@@ -187,7 +187,7 @@ const goPrint = () => {
 			<el-upload
 				style="width: 135px"
 				ref="uploadBox"
-				action="http://101.133.234.110:10203/api/File/FileUpload"
+				action="http://127.0.0.1:10203/api/File/FileUpload"
 				:show-file-list="false"
 				:headers="headerToken"
 				:data="{ Module: 'recovery' }"

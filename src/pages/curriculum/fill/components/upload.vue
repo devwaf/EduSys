@@ -142,7 +142,7 @@ const confirm = () => {
 			<div class="upload">
 				<el-upload
 					ref="uploadBox"
-					action="http://101.133.234.110:10203/api/File/FileUpload"
+					action="http://127.0.0.1:10203/api/File/FileUpload"
 					:limit="1"
 					:headers="headerToken"
 					:data="{ Module: '学生作业' }"

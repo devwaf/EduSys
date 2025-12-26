@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios"
 import router from "../router/router"
 import { ElMessage } from "element-plus"
 // let baseURL ='http://192.168.1.117:21004/api'
-let baseURL = "http://101.133.234.110:10203"
+let baseURL = "http://127.0.0.1:10203"
 let token = localStorage.getItem("token")
 // 
 let loginOnce = 0

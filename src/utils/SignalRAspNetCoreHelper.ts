@@ -1,4 +1,4 @@
-const abphost = 'http://101.133.234.110:10203'
+const abphost = 'http://127.0.0.1:10203'
 // import store from '../../store/store';
 class SignalRAspNetCoreHelper {
     initSignalR() {

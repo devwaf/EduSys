@@ -198,7 +198,7 @@ const fileSuccess = (res: any, index1: any, index2: any) => {
 								<div v-if="stuGra[index1][index2].state === null">
 									<el-upload
 										ref="uploadBox"
-										action="http://101.133.234.110:10203/api/File/FileUpload"
+										action="http://127.0.0.1:10203/api/File/FileUpload"
 										:show-file-list="false"
 										:headers="headerToken"
 										:data="{ Module: '学生毕业设计' }"
@@ -219,7 +219,7 @@ const fileSuccess = (res: any, index1: any, index2: any) => {
 								<div v-else-if="stuGra[index1][index2].state === false">
 									<el-upload
 										ref="uploadBox"
-										action="http://101.133.234.110:10203/api/File/FileUpload"
+										action="http://127.0.0.1:10203/api/File/FileUpload"
 										:show-file-list="false"
 										:headers="headerToken"
 										:data="{ Module: '学生毕业设计' }"
